@@ -35,9 +35,11 @@ connection.once('open', () => {
 // tell server to use these API router files (able to use API endpoints)
 const teamsRouter = require('./routes/teams');
 const usersRouter = require('./routes/users');
+const notesRouter = require('./routes/notes')
 // when user goes to /teams, server will load everything in teamsRouter
 app.use('/teams', teamsRouter);
 app.use('/users', usersRouter);
+app.use('/notes', notesRouter);
 
 // starts the server (listens on certain port)
 app.listen(port, () => {

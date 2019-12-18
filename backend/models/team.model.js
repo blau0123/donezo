@@ -33,8 +33,18 @@ const teamSchema = new Schema({
         },
     }],
     teamNotes: [{
-        type: String,
-        required: true,
+        noteTitle: {
+            type: String,
+            required: true,
+        },
+        noteBody: {
+            type: String,
+            required: true,
+        },
+        author: {
+            type: String,
+            required: true,
+        }
     }],
 }, {
         // automatically adds fields for when created and modified

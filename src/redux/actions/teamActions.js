@@ -68,6 +68,7 @@ export const getTeamWithId = (id) => dispatch => {
                 payload: res.data,
             })
         })
+        .catch(err => console.log(err));
 }
 
 // get all teams
@@ -80,4 +81,12 @@ export const getAllTeams = () => dispatch => {
                 payload: listOfAllTeams,
             })
         })
+        .catch(err => console.log(err))
+}
+
+// add a note to the notes list for a given team
+export const addNoteToTeam = (teamData, noteData) => dispatch => {
+    axios.post('http://localhost:5000/teams/addnote', {teamData, noteData})
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
 }

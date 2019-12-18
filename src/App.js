@@ -4,7 +4,9 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from './components/Home';
-import NotesList from './components/NotesList';
+import NotesList from './components/notes/NotesList';
+import Note from './components/notes/Note';
+import AddNote from './components/notes/AddNote';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import CreateTeam from './components/CreateTeam';
@@ -48,6 +50,8 @@ function App() {
         <PrivateRoute exact path="/notes/:id" component = {NotesList} />
         <PrivateRoute path="/team/:id" component = {Team} />
         <PrivateRoute path="/teamsearch" component = {TeamSearch} />
+        <PrivateRoute path="/addnote" component = {AddNote} />
+        <PrivateRoute path="/note/:id" component = {Note} />
         <Route exact path="/login" component = {Login} />
         <Route exact path="/register" component = {Register} />
         <PrivateRoute exact path="/createTeam" component = {CreateTeam} />

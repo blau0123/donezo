@@ -9,10 +9,16 @@ import {getTeamWithId, getAllTeams} from '../../redux/actions/teamActions';
 Depends on the id of the team passed in, shows the team with that id
 */
 class Team extends React.Component{
+    constructor(props){
+        super(props);
+    }
+
     componentDidMount(){
         // get the id of the team and call the action to get the specific team
         const {id} = this.props.match.params;
+        // get the team that the user is viewing
         this.props.getTeamWithId(id);
+        // get all teams to display in the dropdown
         this.props.getAllTeams();
     }
 
@@ -54,6 +60,15 @@ class Team extends React.Component{
         const {currTeam} = this.props.team;
         // get the curr user of the app
         const {user} = this.props.auth;
+        
+        // get all of the notes for this curr team and make a component
+        const notesList = currTeam.teamNotes && currTeam.teamNotes.length > 0 ?
+            currTeam.teamNotes.map(note => 
+                <div style={{borderStyle: 'solid'}}>
+                    <h6>{note.noteTitle}</h6>
+                    <p>{note.noteBody}</p>
+                </div>
+            ) : null;
 
         // have all dropdown items be teams user is in
         const {teamsList} = this.props.team;
@@ -72,7 +87,7 @@ class Team extends React.Component{
                     : null)
                 
             }) : null;
-            
+        
         return(
             <div className="container">
                 <Link to='/'>Home</Link>
@@ -98,9 +113,12 @@ class Team extends React.Component{
                                     <p>{member.firstName + ' ' + member.lastName}</p>)
                             : null
                         }
+                        {notesList}
+                        <button><Link to={{pathname: '/addnote', state:{teamData: currTeam}}}>Add Note</Link></button>
                     </div>
             </div>
         )
+        
     }
 }
 

@@ -113,4 +113,20 @@ router.route('/join').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
+router.route('/addnote').post((req, res) => {
+    console.log(req.body);
+    const teamData = req.body.teamData;
+    const noteData = req.body.noteData;
+
+    // find the team that the user is on and add the note to that team
+    Team.findById(teamData._id)
+        .then(team => {
+            team.teamNotes.push(noteData);
+            team.save()
+                .then(() => res.json('The note has been added'))
+                .catch(err => res.status(400).json('Error: ' + err))
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+})
+
 module.exports = router;
