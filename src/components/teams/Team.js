@@ -40,6 +40,13 @@ class Team extends React.Component{
         }    
     }
 
+    componentDidUpdate(prevProps){
+        console.log(prevProps);
+        if (this.props.team.lastAddedNote != prevProps.team.lastAddedNote){
+            window.location.reload();
+        }
+    }
+
     // checks if the user is in the teamMember list of this team
     isUserInTeam(team){
         // check if user is in the team
@@ -56,6 +63,7 @@ class Team extends React.Component{
     }
 
     render(){
+        console.log(this.props);
         // get the curr team from props that was obtained from store state after getTeamWithId called
         const {currTeam} = this.props.team;
         // get the curr user of the app
@@ -67,6 +75,7 @@ class Team extends React.Component{
                 <div style={{borderStyle: 'solid'}}>
                     <h6>{note.noteTitle}</h6>
                     <p>{note.noteBody}</p>
+                    <p>{note.author}</p>
                 </div>
             ) : null;
 
@@ -104,8 +113,8 @@ class Team extends React.Component{
                 </Dropdown>
 
                 <div className="teamNames" key={currTeam._id}>
-                        <h1>{currTeam.teamName}</h1>
-                        <h3>{currTeam.teamDescription}</h3>
+                        <h2>{currTeam.teamName}</h2>
+                        <h4>{currTeam.teamDescription}</h4>
                         {
                             // if there are members for a given team, get the names of the members and display each name
                             currTeam.teamMembers && currTeam.teamMembers.length > 0 ? 
@@ -113,7 +122,10 @@ class Team extends React.Component{
                                     <p>{member.firstName + ' ' + member.lastName}</p>)
                             : null
                         }
-                        {notesList}
+                        <div className="team-notes-list">
+                            <h4>Notes</h4>
+                            {notesList}
+                        </div>
                         <button><Link to={{pathname: '/addnote', state:{teamData: currTeam}}}>Add Note</Link></button>
                     </div>
             </div>

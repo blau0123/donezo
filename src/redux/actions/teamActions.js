@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS} from './types';
+import {JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, ADD_NOTE_TO_TEAM} from './types';
 
 // action for a given user joining a given team
 export const joinTeam = (userData, teamData) => dispatch => {
@@ -87,6 +87,12 @@ export const getAllTeams = () => dispatch => {
 // add a note to the notes list for a given team
 export const addNoteToTeam = (teamData, noteData) => dispatch => {
     axios.post('http://localhost:5000/teams/addnote', {teamData, noteData})
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res);
+            dispatch({
+                type: ADD_NOTE_TO_TEAM,
+                payload: res.data,
+            })
+        })
         .catch(err => console.log(err))
 }

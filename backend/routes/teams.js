@@ -123,7 +123,8 @@ router.route('/addnote').post((req, res) => {
         .then(team => {
             team.teamNotes.push(noteData);
             team.save()
-                .then(() => res.json('The note has been added'))
+                // send the note data to update the lastAddedNote in store
+                .then(() => res.json(noteData))
                 .catch(err => res.status(400).json('Error: ' + err))
         })
         .catch(err => res.status(400).json('Error: ' + err));

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {addNoteToTeam} from '../../redux/actions/teamActions';
-import {addNote} from '../../redux/actions/noteActions';
 
 class AddNote extends React.Component{
     constructor(){
@@ -31,12 +30,12 @@ class AddNote extends React.Component{
         const noteToAdd = {
             noteTitle: this.state.noteTitle,
             noteBody: this.state.noteBody,
-            author: user.id,
+            author: user.firstName + ' ' + user.lastName,
         }
 
         // add note to notes db
         this.props.addNoteToTeam(teamData, noteToAdd);
-        this.props.history.push(`/team/${teamData._id}`)
+        this.props.history.push(`/team/${teamData._id}`);
     }
 
     render(){
@@ -61,4 +60,4 @@ const mapStateToProps = state => ({
     note: state.note,
 })
 
-export default connect(mapStateToProps, {addNote, addNoteToTeam})(AddNote);
+export default connect(mapStateToProps, {addNoteToTeam})(AddNote);
