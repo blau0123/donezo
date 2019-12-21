@@ -7,7 +7,9 @@ const router = require('express').Router();
 let Team = require('../models/team.model');
 
 /*
-handles incoming http get requests on /teams/ URL path
+@route GET /teams/
+@desc Gets all teams
+@access Public
 */
 router.route('/').get((req, res) => {
     // find() is a mongoose method that gets list of all users in mongodb database
@@ -16,9 +18,10 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-/* 
-handles incoming http post requests on /teams/add URL path
-if handling dates: const date = Date.parse(req.body.date);
+/*
+@route POST /teams/add
+@desc Adds a new team
+@access Public
 */
 router.route('/add').post((req, res) => {
     // get inputted username from request's body
@@ -41,7 +44,9 @@ router.route('/add').post((req, res) => {
 });
 
 /*
-handles get request to get a single team with id
+@route GET /teams/:id
+@desc Gets a specific team with an id
+@access Public
 */
 router.route('/:id').get((req, res) => {
     Team.findById(req.params.id)
@@ -50,7 +55,9 @@ router.route('/:id').get((req, res) => {
 })
 
 /*
-handles delete request to delete a single team with id
+@route DELETE /teams/:id
+@desc Deletes a given team
+@access Public
 */
 router.route('/:id').delete((req, res) => {
     Team.findByIdAndDelete(req.params.id)
@@ -59,7 +66,9 @@ router.route('/:id').delete((req, res) => {
 })
 
 /*
-handles making post http request to update team with id on /teams/update
+@route /teams/update/:id
+@desc Updates a given team's information
+@access Public
 */
 router.route('/update/:id').post((req, res) => {
     // finds current team with current values
@@ -79,7 +88,9 @@ router.route('/update/:id').post((req, res) => {
 })
 
 /*
-handles post requests to update the members of a given team when user joins
+@route POST /teams/join
+@desc Allows the given user to join a given team
+@access Public
 */
 router.route('/join').post((req, res) => {
     const userId = req.body.userData.id;
@@ -113,6 +124,11 @@ router.route('/join').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
+/*
+@route POST /teams/addnote
+@desc Adds a new note
+@access Public
+*/
 router.route('/addnote').post((req, res) => {
     console.log(req.body);
     const teamData = req.body.teamData;
@@ -127,7 +143,28 @@ router.route('/addnote').post((req, res) => {
                 .then(() => res.json(noteData))
                 .catch(err => res.status(400).json('Error: ' + err))
         })
-        .catch(err => res.status(400).json('Error: ' + err));
+        .catch(err => res.status(404).json('Error: ' + err));
+})
+
+/*
+@route POST /teams/addtodo
+@desc Adds a new todo
+@access Public
+*/
+router.route('/addtodo').post((req, res) => {
+    const todoData = req.body.todoData;
+    const teamData = req.body.teamData;
+
+    // find the team that this todo belongs to
+    Team.findById(teamData._id)
+        .then(team => {
+            team.teamTodos.push(todoData);
+            // add todo to team and save to db
+            team.save()
+                .then(() => res.json(todoData))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(404).json('Error: ' + err));
 })
 
 module.exports = router;

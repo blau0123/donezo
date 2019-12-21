@@ -46,6 +46,16 @@ const teamSchema = new Schema({
             required: true,
         }
     }],
+    teamTodos: [{
+        todoText: {
+            type: String,
+            required: true,
+        },
+        author: {
+            type: String,
+            required: true,
+        }
+    }],
 }, {
         // automatically adds fields for when created and modified
         timestamps: true,

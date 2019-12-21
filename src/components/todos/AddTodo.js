@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {addTodoToTeam} from '../../redux/actions/teamActions';
 
 class AddTodo extends React.Component{
     constructor(){
@@ -17,6 +19,17 @@ class AddTodo extends React.Component{
 
     onSubmitTodo(evt){
         evt.preventDefault();
+
+        const {teamData} = this.props.location.state;
+        const {user} = this.props.auth;
+        const todoData = {
+            todoText: this.state.todoText,
+            author: user.firstName + ' ' + user.lastName,
+        }
+
+        // add todo to team and redirect back to the team home
+        this.props.addTodoToTeam(teamData, todoData);
+        this.props.history.push(`/team/${teamData._id}`);
     }
 
     render(){
@@ -32,4 +45,8 @@ class AddTodo extends React.Component{
     }
 }
 
-export default AddTodo;
+const mapStateToProps = state => ({
+    auth: state.auth,
+})
+
+export default connect(mapStateToProps, {addTodoToTeam})(AddTodo);

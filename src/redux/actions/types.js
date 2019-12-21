@@ -12,3 +12,5 @@ export const GET_TEAM_WITH_ID = "GET_TEAM_WITH_ID";
 export const GET_ALL_TEAMS = "GET_ALL_TEAMS";
 
 export const ADD_NOTE_TO_TEAM = "ADD_NOTE_TO_TEAM";
+
+export const ADD_TODO_TO_TEAM = "ADD_TODO_TO_TEAM";

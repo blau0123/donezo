@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Form from 'react-bootstrap/Form';
 import {Link} from 'react-router-dom';
 
 import {getTeamWithId, getAllTeams} from '../../redux/actions/teamActions';
@@ -11,6 +12,8 @@ Depends on the id of the team passed in, shows the team with that id
 class Team extends React.Component{
     constructor(props){
         super(props);
+
+        this.onToggle = this.onToggle.bind(this);
     }
 
     componentDidMount(){
@@ -41,8 +44,13 @@ class Team extends React.Component{
     }
 
     componentDidUpdate(prevProps){
-        console.log(prevProps);
+        // if added a note, then should refresh to show new note
         if (this.props.team.lastAddedNote != prevProps.team.lastAddedNote){
+            window.location.reload();
+        }
+
+        // if added a todo, should refresh to show new todo
+        if (this.props.team.lastAddedTodo != prevProps.team.lastAddedTodo){
             window.location.reload();
         }
     }
@@ -62,8 +70,11 @@ class Team extends React.Component{
         return isInTeam;
     }
 
+    onToggle(evt){
+        console.log(evt.target.id, evt.target.value);
+    }
+
     render(){
-        console.log(this.props);
         // get the curr team from props that was obtained from store state after getTeamWithId called
         const {currTeam} = this.props.team;
         // get the curr user of the app
@@ -75,7 +86,22 @@ class Team extends React.Component{
                 <div style={{borderStyle: 'solid'}}>
                     <h6>{note.noteTitle}</h6>
                     <p>{note.noteBody}</p>
-                    <p>{note.author}</p>
+                    <p>By, {note.author}</p>
+                </div>
+            ) : null;
+
+        // get all of the todos for this curr team and make component
+        const todosList = currTeam.teamTodos && currTeam.teamTodos.length > 0 ?
+            currTeam.teamTodos.map(todo => 
+                <div>
+                   <Form>
+                       <Form.Check 
+                            custom
+                            type='checkbox'
+                            id={todo._id}
+                            label={todo.todoText}
+                            onChange={this.onToggle}/>
+                   </Form>
                 </div>
             ) : null;
 
@@ -130,8 +156,11 @@ class Team extends React.Component{
                         
                         <div className="team-todos-list">
                             <h4>Todos</h4>
+                            <div className="list" style={{borderStyle:'solid'}}>
+                                {todosList}
+                            </div>
                         </div>
-                        <button><Link to='/addtodo'>Add Todo</Link></button>
+                        <button><Link to={{pathname: '/addtodo', state:{teamData: currTeam}}}>Add Todo</Link></button>
                     </div>
             </div>
         )

@@ -1,4 +1,5 @@
-import { JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, ADD_NOTE_TO_TEAM } from "../actions/types";
+import { JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, ADD_NOTE_TO_TEAM, 
+            ADD_TODO_TO_TEAM} from "../actions/types";
 
 /*
 Changes the state variables that deal with teams depending on which 
@@ -15,6 +16,7 @@ const initState = {
     matchedTeams: [],
     currTeam: {},
     lastAddedNote: {},
+    lastAddedTodo: {},
 }
 export default function(state = initState, action){
     // find which action occurred to decide how to change the state
@@ -41,11 +43,18 @@ export default function(state = initState, action){
                 teamsList: action.payload,
             }
         case ADD_NOTE_TO_TEAM:
-            // set the state of last added note to what was last added
+            // set the state of last added note to what was last added (for page refresh)
             return {
                 ...state,
                 lastAddedNote: action.payload,
             }
+        case ADD_TODO_TO_TEAM:
+            // set the state of last added todo (for page refresh)
+            return {
+                ...state,
+                lastAddedTodo: action.payload,
+            }
+
         default:
             return state;
     }
