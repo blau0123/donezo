@@ -97,6 +97,7 @@ class Home extends React.Component{
                 <ul className='list-of-user-teams'>
                     {usersTeams}
                 </ul>
+                <Link to='/createTeam'>Create a new team here</Link>
             </div>
         )
     }

@@ -12,6 +12,7 @@ import Register from './components/auth/Register';
 import CreateTeam from './components/CreateTeam';
 import TeamSearch from './components/teams/TeamSearch';
 import Team from './components/teams/Team';
+import AddTodo from './components/todos/AddTodo';
 import PrivateRoute from './components/private-route/PrivateRoute';
 
 // use the follow in order to track if user is logged in still after reloads
@@ -54,6 +55,7 @@ function App() {
         <PrivateRoute path="/note/:id" component = {Note} />
         <Route exact path="/login" component = {Login} />
         <Route exact path="/register" component = {Register} />
+        <Route path="/addtodo" component = {AddTodo} />
         <PrivateRoute exact path="/createTeam" component = {CreateTeam} />
       </Router>
     </Provider>

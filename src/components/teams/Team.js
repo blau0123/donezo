@@ -127,6 +127,11 @@ class Team extends React.Component{
                             {notesList}
                         </div>
                         <button><Link to={{pathname: '/addnote', state:{teamData: currTeam}}}>Add Note</Link></button>
+                        
+                        <div className="team-todos-list">
+                            <h4>Todos</h4>
+                        </div>
+                        <button><Link to='/addtodo'>Add Todo</Link></button>
                     </div>
             </div>
         )
