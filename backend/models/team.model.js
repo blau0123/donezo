@@ -51,6 +51,10 @@ const teamSchema = new Schema({
             type: String,
             required: true,
         },
+        isCompleted: {
+            type: Boolean,
+            required: true,
+        },
         author: {
             type: String,
             required: true,

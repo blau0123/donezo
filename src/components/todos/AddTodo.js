@@ -24,6 +24,7 @@ class AddTodo extends React.Component{
         const {user} = this.props.auth;
         const todoData = {
             todoText: this.state.todoText,
+            isCompleted: false,
             author: user.firstName + ' ' + user.lastName,
         }
 

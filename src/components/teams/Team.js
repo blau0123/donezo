@@ -4,7 +4,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import {Link} from 'react-router-dom';
 
-import {getTeamWithId, getAllTeams} from '../../redux/actions/teamActions';
+import {getTeamWithId, getAllTeams, completeTeamTodo} from '../../redux/actions/teamActions';
 
 /*
 Depends on the id of the team passed in, shows the team with that id
@@ -72,6 +72,13 @@ class Team extends React.Component{
 
     onToggle(evt){
         console.log(evt.target.id, evt.target.value);
+        const todoData = {
+            id: evt.target.id,
+        }
+        const teamData = this.props.team.currTeam;
+
+        // toggle the todo with this action dispatch
+        this.props.completeTeamTodo(teamData, todoData);
     }
 
     render(){
@@ -88,9 +95,10 @@ class Team extends React.Component{
                     <p>{note.noteBody}</p>
                     <p>By, {note.author}</p>
                 </div>
-            ) : null;
+            ) : <p>No notes yet!</p>;
 
         // get all of the todos for this curr team and make component
+        console.log(currTeam.teamTodos)
         const todosList = currTeam.teamTodos && currTeam.teamTodos.length > 0 ?
             currTeam.teamTodos.map(todo => 
                 <div>
@@ -100,10 +108,11 @@ class Team extends React.Component{
                             type='checkbox'
                             id={todo._id}
                             label={todo.todoText}
+                            checked={todo.isCompleted}
                             onChange={this.onToggle}/>
                    </Form>
                 </div>
-            ) : null;
+            ) : <p>No todos yet!</p>;
 
         // have all dropdown items be teams user is in
         const {teamsList} = this.props.team;
@@ -141,13 +150,21 @@ class Team extends React.Component{
                 <div className="teamNames" key={currTeam._id}>
                         <h2>{currTeam.teamName}</h2>
                         <h4>{currTeam.teamDescription}</h4>
-                        {
-                            // if there are members for a given team, get the names of the members and display each name
-                            currTeam.teamMembers && currTeam.teamMembers.length > 0 ? 
-                                currTeam.teamMembers.map(member => 
-                                    <p>{member.firstName + ' ' + member.lastName}</p>)
-                            : null
-                        }
+                        <div className="container" style={{display:'flex'}}>
+                            <p style={{fontWeight:'bold', flex:'0 20%'}}>Members:</p>
+                            <div style={{flex:'1'}}>
+                                {
+                                    // if there are members for a given team, get the names of the members and display each name
+                                    currTeam.teamMembers && currTeam.teamMembers.length > 0 ? 
+                                        currTeam.teamMembers.map(member => 
+                                            <p style={{display:'inline-block', marginRight:'10px'}}>
+                                                {member.firstName + ' ' + member.lastName}
+                                            </p>)
+                                    : null
+                                }
+                            </div>
+                        </div>
+        
                         <div className="team-notes-list">
                             <h4>Notes</h4>
                             {notesList}
@@ -173,4 +190,4 @@ const mapStateToProps = state => ({
     team: state.team,
 });
 
-export default connect(mapStateToProps, {getTeamWithId, getAllTeams})(Team);
+export default connect(mapStateToProps, {getTeamWithId, getAllTeams, completeTeamTodo})(Team);

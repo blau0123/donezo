@@ -1,5 +1,5 @@
 import { JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, ADD_NOTE_TO_TEAM, 
-            ADD_TODO_TO_TEAM} from "../actions/types";
+            ADD_TODO_TO_TEAM, COMPLETE_TODO} from "../actions/types";
 
 /*
 Changes the state variables that deal with teams depending on which 
@@ -50,6 +50,12 @@ export default function(state = initState, action){
             }
         case ADD_TODO_TO_TEAM:
             // set the state of last added todo (for page refresh)
+            return {
+                ...state,
+                lastAddedTodo: action.payload,
+            }
+        case COMPLETE_TODO:
+            // update state with the newly completed todo
             return {
                 ...state,
                 lastAddedTodo: action.payload,
