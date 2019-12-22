@@ -115,30 +115,29 @@ class Team extends React.Component{
             ) : <p>No todos yet!</p>;
 
         // get all events for this curr team and make component
+        let numPastEvents = 0;
         const eventsList = currTeam.teamEvents && currTeam.teamEvents.length > 0 ?
                 currTeam.teamEvents.map(event => {
                     const start = new Date(event.eventStartTime);
                     const end = new Date(event.eventEndTime);
+                    // don't show events that have already passed
+                    const currTime = new Date();
 
-                    const startHours = start.getHours() % 12;
-                    let isStartAMPM = "AM"
-                    if (start.getHours() >= 12){ isStartAMPM = "PM" }
-                    const startMinutes = start.getMinutes();
-
-                    const endHours = end.getHours() % 12;
-                    let isEndAMPM = "AM"
-                    if (end.getHours() >= 12){ isEndAMPM = "PM" }
-                    const endMinutes = end.getMinutes();
-
-                    return(
-                        <div style={{borderStyle: 'solid'}}>
-                            <h6>{event.eventTitle}</h6>
-                            <p>{event.eventDescription}</p>
-                            <p>{event.eventLocation}</p>
-                            <p>Start: {start.toDateString()} {startHours}:{startMinutes} {isStartAMPM}</p>
-                            <p>End: {end.toDateString()} {endHours}:{endMinutes} {isEndAMPM}</p>
-                        </div>
-                    )
+                    if (currTime < start){
+                        return(
+                            <div style={{borderStyle: 'solid'}}>
+                                <h6>{event.eventTitle}</h6>
+                                <p>{event.eventDescription}</p>
+                                <p>Location: {event.eventLocation}</p>
+                                <p>Start: {start.toLocaleString()}</p>
+                                <p>End: {end.toLocaleString()}</p>
+                            </div>
+                        )
+                    }
+                    else{ 
+                        numPastEvents++;
+                        return null;
+                     }
                 }) : <p>No events yet!</p>
 
         // have all dropdown items be teams user is in
@@ -209,6 +208,7 @@ class Team extends React.Component{
                         <div className="team-events-list">
                             <h4>Events</h4>
                             {eventsList}
+                            <p>You have {numPastEvents} past event(s).</p>
                         </div>
                         <button><Link to={{pathname: '/addevent', state:{teamData: currTeam}}}>Add Event</Link></button>
                     </div>
