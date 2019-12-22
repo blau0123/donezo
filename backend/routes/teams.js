@@ -197,4 +197,25 @@ router.route('/completetodo').post((req, res) => {
         .catch(err => res.status(404).json('Error: ' + err));
 })
 
+/*
+@route POST /teams/addevent
+@desc Adds a new event with a title, description, location, and start and end time
+@access Public
+*/
+router.route('/addevent').post((req, res) => {
+    const eventData = req.body.eventData;
+    const teamData = req.body.teamData;
+
+    // find the team that this todo belongs to
+    Team.findById(teamData._id)
+        .then(team => {
+            team.teamEvents.push(eventData);
+            // add todo to team and save to db
+            team.save()
+                .then(() => res.json(eventData))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(404).json('Error: ' + err));
+})
+
 module.exports = router;

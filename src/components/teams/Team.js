@@ -114,6 +114,33 @@ class Team extends React.Component{
                 </div>
             ) : <p>No todos yet!</p>;
 
+        // get all events for this curr team and make component
+        const eventsList = currTeam.teamEvents && currTeam.teamEvents.length > 0 ?
+                currTeam.teamEvents.map(event => {
+                    const start = new Date(event.eventStartTime);
+                    const end = new Date(event.eventEndTime);
+
+                    const startHours = start.getHours() % 12;
+                    let isStartAMPM = "AM"
+                    if (start.getHours() >= 12){ isStartAMPM = "PM" }
+                    const startMinutes = start.getMinutes();
+
+                    const endHours = end.getHours() % 12;
+                    let isEndAMPM = "AM"
+                    if (end.getHours() >= 12){ isEndAMPM = "PM" }
+                    const endMinutes = end.getMinutes();
+
+                    return(
+                        <div style={{borderStyle: 'solid'}}>
+                            <h6>{event.eventTitle}</h6>
+                            <p>{event.eventDescription}</p>
+                            <p>{event.eventLocation}</p>
+                            <p>Start: {start.toDateString()} {startHours}:{startMinutes} {isStartAMPM}</p>
+                            <p>End: {end.toDateString()} {endHours}:{endMinutes} {isEndAMPM}</p>
+                        </div>
+                    )
+                }) : <p>No events yet!</p>
+
         // have all dropdown items be teams user is in
         const {teamsList} = this.props.team;
         const teamDropdownItems = teamsList && teamsList.length > 0 ?
@@ -178,6 +205,12 @@ class Team extends React.Component{
                             </div>
                         </div>
                         <button><Link to={{pathname: '/addtodo', state:{teamData: currTeam}}}>Add Todo</Link></button>
+                        
+                        <div className="team-events-list">
+                            <h4>Events</h4>
+                            {eventsList}
+                        </div>
+                        <button><Link to={{pathname: '/addevent', state:{teamData: currTeam}}}>Add Event</Link></button>
                     </div>
             </div>
         )

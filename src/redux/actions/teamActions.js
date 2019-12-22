@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import {JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, ADD_NOTE_TO_TEAM,
-            ADD_TODO_TO_TEAM, COMPLETE_TODO} from './types';
+            ADD_TODO_TO_TEAM, COMPLETE_TODO, ADD_EVENT_TO_TEAM} from './types';
 
 // action for a given user joining a given team
 export const joinTeam = (userData, teamData) => dispatch => {
@@ -118,6 +118,19 @@ export const completeTeamTodo = (teamData, todoData) => dispatch => {
             console.log(res);
             dispatch({
                 type: COMPLETE_TODO,
+                payload: res.data,
+            })
+        })
+        .catch(err => console.log(err));
+}
+
+// add an event to a given team
+export const addEventToTeam = (teamData, eventData) => dispatch => {
+    axios.post('http://localhost:5000/teams/addevent', {teamData, eventData})
+        .then(res => {
+            console.log(res);
+            dispatch({
+                type: ADD_EVENT_TO_TEAM,
                 payload: res.data,
             })
         })
