@@ -33,18 +33,8 @@ const teamSchema = new Schema({
         },
     }],
     teamNotes: [{
-        noteTitle: {
-            type: String,
-            required: true,
-        },
-        noteBody: {
-            type: String,
-            required: true,
-        },
-        author: {
-            type: String,
-            required: true,
-        }
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Note'
     }],
     teamTodos: [{
         todoText: {

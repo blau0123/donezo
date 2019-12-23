@@ -14,6 +14,7 @@ let Team = require('../models/team.model');
 router.route('/').get((req, res) => {
     // find() is a mongoose method that gets list of all users in mongodb database
     Team.find()
+        .populate('teamNotes')
         .then(teams => res.json(teams))
         .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -49,9 +50,15 @@ router.route('/add').post((req, res) => {
 @access Public
 */
 router.route('/:id').get((req, res) => {
+    // find the given team, populate teamNotes with notes docs 
     Team.findById(req.params.id)
-        .then(team => res.json(team))
-        .catch(err => res.status(400).json('Error: ' + err));
+        .populate('teamNotes')
+        .exec((err, team) => {
+            if (err) res.status(400).json(err);
+
+            console.log(team);
+            return res.json(team);
+        })
 })
 
 /*
@@ -129,7 +136,7 @@ router.route('/join').post((req, res) => {
 @desc Adds a new note
 @access Public
 */
-router.route('/addnote').post((req, res) => {
+router.route('/addnote1').post((req, res) => {
     console.log(req.body);
     const teamData = req.body.teamData;
     const noteData = req.body.noteData;
@@ -141,6 +148,23 @@ router.route('/addnote').post((req, res) => {
             team.save()
                 // send the note data to update the lastAddedNote in store
                 .then(() => res.json(noteData))
+                .catch(err => res.status(400).json('Error: ' + err))
+        })
+        .catch(err => res.status(404).json('Error: ' + err));
+})
+
+router.route('/addnote').post((req, res) => {
+    const teamData = req.body.teamData;
+    const noteId = req.body.noteId;
+
+    // find the team that the user is on and add the note id to that team
+    Team.findById(teamData._id)
+        .then(team => {
+            team.teamNotes.push(noteId);
+            console.log(team);
+            team.save()
+                // send the note data to update the lastAddedNote in store
+                .then(() => res.json('Added note'))
                 .catch(err => res.status(400).json('Error: ' + err))
         })
         .catch(err => res.status(404).json('Error: ' + err));

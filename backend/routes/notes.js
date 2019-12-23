@@ -19,16 +19,13 @@ router.route('/').get((req, res) => {
 handles adding a given note
 */
 router.route('/add').post((req, res) => {
-    // get all of the data passed in from the axios post request
-    const noteTitle = req.body.noteTitle;
-    const noteBody = req.body.noteBody;
-    // author holds the id of the user that submitted this note
-    const author = req.body.author;
+    const teamData = req.body.teamData;
+    const noteData = req.body.noteData;
 
     const newNote = new Note({
-        noteTitle,
-        noteBody,
-        author,
+        noteTitle: noteData.noteTitle,
+        noteBody: noteData.noteBody,
+        author: noteData.author,
     })
 
     // add the new note to the db

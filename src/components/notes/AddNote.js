@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {addNoteToTeam} from '../../redux/actions/teamActions';
+//import {addNoteToTeam} from '../../redux/actions/teamActions';
+import {addNoteToTeam} from '../../redux/actions/noteActions';
 
 class AddNote extends React.Component{
     constructor(){
