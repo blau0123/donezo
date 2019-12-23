@@ -52,7 +52,7 @@ class EditNote extends React.Component{
 
     render(){
         return(
-            <div>
+            <div style={{height:'100vh'}}>
                 <form>
                     <TextField name='title' style={{width:'100%'}} id='standard-uncontrolled' value={this.state.title} 
                         onChange={this.onChange}/>

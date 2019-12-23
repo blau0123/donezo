@@ -43,7 +43,7 @@ class NotesList extends React.Component{
                 <h1>Notes for {currTeam.teamName}</h1>
                 <button onClick={() => this.props.history.goBack()}>Back to team</button>
                 <Grid container spacing={2}>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} style={{height:'100vh', overflow:'auto'}}>
                         {notesCompon}
                     </Grid>
                     <Grid item xs={8}>

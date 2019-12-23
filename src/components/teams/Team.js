@@ -14,6 +14,7 @@ class Team extends React.Component{
         super(props);
 
         this.onToggle = this.onToggle.bind(this);
+        this.sortFutureEvents = this.sortFutureEvents.bind(this);
     }
 
     componentDidMount(){
@@ -86,6 +87,15 @@ class Team extends React.Component{
         this.props.completeTeamTodo(teamData, todoData);
     }
 
+    sortFutureEvents(eventsList){
+        eventsList.sort((a, b) => {
+            a = new Date(a.eventStartTime);
+            b = new Date(b.eventStartTime);
+            return a < b ? -1 : a > b ? 1 : 0
+        })
+        return eventsList;
+    }
+
     render(){
         // get the curr team from props that was obtained from store state after getTeamWithId called
         const {currTeam} = this.props.team;
@@ -121,8 +131,10 @@ class Team extends React.Component{
 
         // get all events for this curr team and make component
         let numPastEvents = 0;
-        const eventsList = currTeam.teamEvents && currTeam.teamEvents.length > 0 ?
-                currTeam.teamEvents.map(event => {
+        const sortedEvents = currTeam.teamEvents ? this.sortFutureEvents(currTeam.teamEvents)
+                : currTeam.teamEvents;
+        const eventsList = sortedEvents && sortedEvents.length > 0 ?
+                sortedEvents.map(event => {
                     const start = new Date(event.eventStartTime);
                     const end = new Date(event.eventEndTime);
                     // don't show events that have already passed
@@ -213,7 +225,9 @@ class Team extends React.Component{
                         <button><Link to={{pathname: '/addtodo', state:{teamData: currTeam}}}>Add Todo</Link></button>
                         
                         <div className="team-events-list">
-                            <h4>Events</h4>
+                            <h4>
+                                <Link to={`/eventslist/${currTeam._id}`}>Events</Link>
+                            </h4>
                             {eventsList}
                             <p>You have {numPastEvents} past event(s).</p>
                         </div>
