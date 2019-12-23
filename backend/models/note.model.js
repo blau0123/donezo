@@ -13,6 +13,7 @@ const noteSchema = new Schema({
         required: true,
         trim: true,
     },
+    pinned: Boolean,
     author: String
 }, {
         // automatically adds fields for when created and modified

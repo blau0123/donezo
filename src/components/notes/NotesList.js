@@ -28,15 +28,33 @@ class NotesList extends React.Component{
 
         // make a component to show all notes
         const notesList = currTeam.teamNotes;
-        const notesCompon = notesList && notesList.length > 0 ?
+        const pinnedNotesCompon = notesList && notesList.length > 0 ?
             notesList.map(note => 
-                <Card key={note._id} onClick={() => this.setState({currNote: note})}>
-                    <h4>{note.noteTitle}</h4>
-                    <p>{note.noteBody}</p>
-                    <p>{note.author}</p>
-                </Card>
+                note.pinned ?
+                    <Card key={note._id} onClick={() => this.setState({currNote: note})}>
+                        <p>Pinned</p>
+                        <h4>{note.noteTitle}</h4>
+                        <p>{note.noteBody}</p>
+                        <p>{note.author}</p>
+                    </Card>
+                : null
             )
         : null;
+
+        // show all unpinned notes after the pinned notes in the list
+        const unpinnedNotesCompon = notesList && notesList.length > 0 ?
+            notesList.map(note => 
+                !note.pinned ?
+                    <Card key={note._id} onClick={() => this.setState({currNote: note})}>
+                        <p>Unpinned</p>
+                        <h4>{note.noteTitle}</h4>
+                        <p>{note.noteBody}</p>
+                        <p>{note.author}</p>
+                    </Card>
+                : null
+            )
+        : null;
+ 
 
         return(
             <div>
@@ -44,7 +62,8 @@ class NotesList extends React.Component{
                 <button onClick={() => this.props.history.goBack()}>Back to team</button>
                 <Grid container spacing={2}>
                     <Grid item xs={4} style={{height:'100vh', overflow:'auto'}}>
-                        {notesCompon}
+                        {pinnedNotesCompon}
+                        {unpinnedNotesCompon}
                     </Grid>
                     <Grid item xs={8}>
                         <EditNote currNote={this.state.currNote} />

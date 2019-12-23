@@ -10,6 +10,7 @@ class AddNote extends React.Component{
             noteTitle: '',
             noteBody: '',
             teamData: {},
+            pinned: false,
         }
 
         this.onChange = this.onChange.bind(this);
@@ -32,6 +33,7 @@ class AddNote extends React.Component{
             noteTitle: this.state.noteTitle,
             noteBody: this.state.noteBody,
             author: user.firstName + ' ' + user.lastName,
+            pinned: this.state.pinned,
         }
 
         // add note to notes db
@@ -42,12 +44,17 @@ class AddNote extends React.Component{
     render(){
         return(
             <div className='container'>
+                {
+                    this.state.pinned ?
+                        <button onClick={() => this.setState({pinned: false})}>Pinned!</button> :
+                        <button onClick={() => this.setState({pinned: true})}>Unpinned</button>
+                }
                 <form onSubmit={this.onSubmit}>
                     <label>Title</label>
                     <input name='noteTitle' type='text' onChange={this.onChange} value={this.state.noteTitle} />
                     <label>Note</label>
                     <input name='noteBody' type='textarea' onChange={this.onChange} value={this.state.noteBody} />
-
+    
                     <input type='submit' value='Submit' />
                 </form>
             </div>

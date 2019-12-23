@@ -13,6 +13,7 @@ class EditNote extends React.Component{
         this.state = {
             title: '',
             body: '',
+            pinned: false,
         }
 
         this.onChange = this.onChange.bind(this);
@@ -29,6 +30,7 @@ class EditNote extends React.Component{
             this.setState({
                 title: nextProps.currNote.noteTitle,
                 body: nextProps.currNote.noteBody,
+                pinned: nextProps.currNote.pinned,
             })
         }
     }
@@ -39,6 +41,7 @@ class EditNote extends React.Component{
             noteTitle: this.state.title,
             noteBody: this.state.body,
             noteId: this.props.currNote._id,
+            pinned: this.state.pinned,
         }
         console.log(noteData);
         // update the note in the db
@@ -53,6 +56,11 @@ class EditNote extends React.Component{
     render(){
         return(
             <div style={{height:'100vh'}}>
+                {
+                    this.state.pinned ?
+                        <button onClick={() => this.setState({pinned: false})}>Pinned!</button> :
+                        <button onClick={() => this.setState({pinned: true})}>Unpinned</button>
+                }
                 <form>
                     <TextField name='title' style={{width:'100%'}} id='standard-uncontrolled' value={this.state.title} 
                         onChange={this.onChange}/>

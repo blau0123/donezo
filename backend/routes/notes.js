@@ -29,6 +29,7 @@ router.route('/add').post((req, res) => {
         noteTitle: noteData.noteTitle,
         noteBody: noteData.noteBody,
         author: noteData.author,
+        pinned: noteData.pinned,
     })
 
     // add the new note to the db
@@ -57,12 +58,14 @@ router.route('/update').post((req, res) => {
     const noteTitle = req.body.noteData.noteTitle;
     const noteBody = req.body.noteData.noteBody;
     const noteId = req.body.noteData.noteId;
+    const pinned = req.body.noteData.pinned;
 
     Note.findById(noteId)
         .then(note => {
             // update note with given data
             note.noteTitle = noteTitle;
             note.noteBody = noteBody;
+            note.pinned = pinned;
             
             // save new updates to the note
             note.save()

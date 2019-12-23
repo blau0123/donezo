@@ -103,14 +103,17 @@ class Team extends React.Component{
         // get the curr user of the app
         const {user} = this.props.auth;
         
-        // get all of the notes for this curr team and make a component
+        // get all of the pinned notes for this curr team and make a component
         const notesList = currTeam.teamNotes && currTeam.teamNotes.length > 0 ?
             currTeam.teamNotes.map(note => 
-                <div style={{borderStyle: 'solid'}}>
-                    <h6>{note.noteTitle}</h6>
-                    <p>{note.noteBody}</p>
-                    <p>By, {note.author}</p>
-                </div>
+                note.pinned ? 
+                    <div style={{borderStyle: 'solid'}}>
+                        <p>Pinned!</p>
+                        <h6>{note.noteTitle}</h6>
+                        <p>{note.noteBody}</p>
+                        <p>By, {note.author}</p>
+                    </div>
+                : null
             ) : <p>No notes yet!</p>;
 
         // get all of the todos for this curr team and make component
