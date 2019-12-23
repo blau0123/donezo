@@ -84,6 +84,7 @@ class Team extends React.Component{
     render(){
         // get the curr team from props that was obtained from store state after getTeamWithId called
         const {currTeam} = this.props.team;
+        console.log(currTeam);
         // get the curr user of the app
         const {user} = this.props.auth;
         
@@ -98,7 +99,6 @@ class Team extends React.Component{
             ) : <p>No notes yet!</p>;
 
         // get all of the todos for this curr team and make component
-        console.log(currTeam.teamTodos)
         const todosList = currTeam.teamTodos && currTeam.teamTodos.length > 0 ?
             currTeam.teamTodos.map(todo => 
                 <div>
@@ -192,7 +192,9 @@ class Team extends React.Component{
                         </div>
         
                         <div className="team-notes-list">
-                            <h4>Notes</h4>
+                            <h4>
+                                <Link to={`/noteslist/${currTeam._id}`}>Notes</Link>
+                            </h4>
                             {notesList}
                         </div>
                         <button><Link to={{pathname: '/addnote', state:{teamData: currTeam}}}>Add Note</Link></button>

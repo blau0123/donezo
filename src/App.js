@@ -49,7 +49,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <PrivateRoute exact path="/" component = {Home} />
-        <PrivateRoute exact path="/notes/:id" component = {NotesList} />
+        <PrivateRoute exact path="/noteslist/:id" component = {NotesList} />
         <PrivateRoute path="/team/:id" component = {Team} />
         <PrivateRoute path="/teamsearch" component = {TeamSearch} />
         <PrivateRoute path="/addnote" component = {AddNote} />
