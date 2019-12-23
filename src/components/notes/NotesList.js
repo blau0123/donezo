@@ -41,12 +41,13 @@ class NotesList extends React.Component{
         return(
             <div>
                 <h1>Notes for {currTeam.teamName}</h1>
+                <button onClick={() => this.props.history.goBack()}>Back to team</button>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
                         {notesCompon}
                     </Grid>
                     <Grid item xs={8}>
-                        <EditNote currNote={this.state.currNote} teamId={currTeam._id}/>
+                        <EditNote currNote={this.state.currNote} />
                     </Grid>
                 </Grid>
             </div>

@@ -15,7 +15,6 @@ const initState = {
     teamsList: [],
     matchedTeams: [],
     currTeam: {},
-    lastAddedNote: {},
     lastAddedTodo: {},
     lastAddedEvent: {},
 }
@@ -42,12 +41,6 @@ export default function(state = initState, action){
             return {
                 ...state,
                 teamsList: action.payload,
-            }
-        case ADD_NOTE_TO_TEAM:
-            // set the state of last added note to what was last added (for page refresh)
-            return {
-                ...state,
-                lastAddedNote: action.payload,
             }
         case ADD_TODO_TO_TEAM:
             // set the state of last added todo (for page refresh)

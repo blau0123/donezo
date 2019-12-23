@@ -4,6 +4,9 @@ import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import {updateNote} from '../../redux/actions/noteActions';
+import { connect } from 'react-redux';
+
 class EditNote extends React.Component{
     constructor(props){
         super(props);
@@ -16,6 +19,10 @@ class EditNote extends React.Component{
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    /*
+    When travel to component, will receive props from NotesList (the current note object),
+    so this lifecycle allows us to update the state with these incoming props
+    */
     componentWillReceiveProps(nextProps){
         // when receive props, set the state to the current note
         if (nextProps.currNote !== this.props.currNote){
@@ -28,12 +35,14 @@ class EditNote extends React.Component{
 
     onSubmit(evt){
         evt.preventDefault();
-        const {teamId} = this.props;
         const noteData = {
             noteTitle: this.state.title,
             noteBody: this.state.body,
+            noteId: this.props.currNote._id,
         }
-        console.log(this.state);
+        console.log(noteData);
+        // update the note in the db
+        this.props.updateNote(noteData);
     }
 
     onChange(evt){
@@ -42,9 +51,6 @@ class EditNote extends React.Component{
     }
 
     render(){
-        // get what note to render
-        const {currNote} = this.props;
-        
         return(
             <div>
                 <form>
@@ -60,4 +66,4 @@ class EditNote extends React.Component{
     }
 }
 
-export default EditNote;
+export default connect(null, {updateNote})(EditNote);

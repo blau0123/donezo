@@ -45,7 +45,7 @@ class Team extends React.Component{
 
     componentDidUpdate(prevProps){
         // if added a note, then should refresh to show new note
-        if (this.props.team.lastAddedNote != prevProps.team.lastAddedNote){
+        if (this.props.note.lastAddedNote != prevProps.note.lastAddedNote){
             window.location.reload();
         }
 
@@ -223,6 +223,7 @@ class Team extends React.Component{
 const mapStateToProps = state => ({
     auth: state.auth,
     team: state.team,
+    note: state.note,
 });
 
 export default connect(mapStateToProps, {getTeamWithId, getAllTeams, completeTeamTodo})(Team);
