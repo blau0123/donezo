@@ -4,6 +4,8 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import {Link} from 'react-router-dom';
 
+import Card from '@material-ui/core/Card'
+
 import {getTeamWithId, getAllTeams, completeTeamTodo} from '../../redux/actions/teamActions';
 
 /*
@@ -107,19 +109,19 @@ class Team extends React.Component{
         const notesList = currTeam.teamNotes && currTeam.teamNotes.length > 0 ?
             currTeam.teamNotes.map(note => 
                 note.pinned ? 
-                    <div style={{borderStyle: 'solid'}}>
+                    <Card>
                         <p>Pinned!</p>
                         <h6>{note.noteTitle}</h6>
                         <p>{note.noteBody}</p>
                         <p>By, {note.author}</p>
-                    </div>
+                    </Card>
                 : null
             ) : <p>No notes yet!</p>;
 
         // get all of the todos for this curr team and make component
         const todosList = currTeam.teamTodos && currTeam.teamTodos.length > 0 ?
             currTeam.teamTodos.map(todo => 
-                <div>
+                <Card>
                    <Form>
                        <Form.Check 
                             custom
@@ -129,7 +131,7 @@ class Team extends React.Component{
                             checked={todo.isCompleted}
                             onChange={this.onToggle}/>
                    </Form>
-                </div>
+                </Card>
             ) : <p>No todos yet!</p>;
 
         // get all events for this curr team and make component
@@ -145,13 +147,13 @@ class Team extends React.Component{
 
                     if (currTime < start){
                         return(
-                            <div style={{borderStyle: 'solid'}}>
+                            <Card>
                                 <h6>{event.eventTitle}</h6>
                                 <p>{event.eventDescription}</p>
                                 <p>Location: {event.eventLocation}</p>
                                 <p>Start: {start.toLocaleString()}</p>
                                 <p>End: {end.toLocaleString()}</p>
-                            </div>
+                            </Card>
                         )
                     }
                     else{ 
@@ -221,7 +223,7 @@ class Team extends React.Component{
                         
                         <div className="team-todos-list">
                             <h4>Todos</h4>
-                            <div className="list" style={{borderStyle:'solid'}}>
+                            <div>
                                 {todosList}
                             </div>
                         </div>
