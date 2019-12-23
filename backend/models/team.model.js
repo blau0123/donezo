@@ -51,21 +51,8 @@ const teamSchema = new Schema({
         }
     }],
     teamEvents: [{
-        eventTitle: {
-            type: String,
-            required: true,
-        },
-        eventDescription: String,
-        eventLocation: String,
-        eventStartTime: {
-            type: Date,
-            required: true,
-        },
-        author: String,
-        eventEndTime: {
-            type: Date,
-            required: true,
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event'
     }],
 }, {
         // automatically adds fields for when created and modified

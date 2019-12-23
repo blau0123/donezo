@@ -3,7 +3,7 @@ import React from 'react';
 import {MuiPickersUtilsProvider, DateTimePicker} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
-import {addEventToTeam} from '../../redux/actions/teamActions';
+import {addEventToTeam} from '../../redux/actions/eventActions';
 import { connect } from 'react-redux';
 
 class addEvent extends React.Component{
@@ -104,6 +104,7 @@ class addEvent extends React.Component{
 
 const mapStateToProps = state =>({
     auth: state.auth,
+    event: state.event,
 })
 
 export default connect(mapStateToProps, {addEventToTeam})(addEvent);

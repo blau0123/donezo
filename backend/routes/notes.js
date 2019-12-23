@@ -23,7 +23,6 @@ router.route('/').get((req, res) => {
 @access Public
 */
 router.route('/add').post((req, res) => {
-    const teamData = req.body.teamData;
     const noteData = req.body.noteData;
 
     const newNote = new Note({

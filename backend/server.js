@@ -36,10 +36,12 @@ connection.once('open', () => {
 const teamsRouter = require('./routes/teams');
 const usersRouter = require('./routes/users');
 const notesRouter = require('./routes/notes');
+const eventsRouter = require('./routes/events');
 // when user goes to /teams, server will load everything in teamsRouter
 app.use('/teams', teamsRouter);
 app.use('/users', usersRouter);
 app.use('/notes', notesRouter);
+app.use('/events', eventsRouter);
 
 // starts the server (listens on certain port)
 app.listen(port, () => {

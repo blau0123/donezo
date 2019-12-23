@@ -8,6 +8,7 @@ import authReducer from './authReducers';
 import errorReducer from './errorReducers';
 import teamReducer from './teamReducer';
 import noteReducer from './noteReducer';
+import eventReducer from './eventReducer';
 
 // authReducer will be referred to as auth by the root reducer & same for error
 export default combineReducers({
@@ -15,4 +16,5 @@ export default combineReducers({
     error: errorReducer,
     team: teamReducer,
     note: noteReducer,
+    event: eventReducer,
 });

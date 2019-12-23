@@ -53,6 +53,11 @@ class Team extends React.Component{
         if (this.props.team.lastAddedTodo != prevProps.team.lastAddedTodo){
             window.location.reload();
         }
+
+        // if added an event, should refresh to show new event
+        if (this.props.event.lastAddedEvent != prevProps.event.lastAddedEvent){
+            window.location.reload();
+        }
     }
 
     // checks if the user is in the teamMember list of this team
@@ -224,6 +229,7 @@ const mapStateToProps = state => ({
     auth: state.auth,
     team: state.team,
     note: state.note,
+    event: state.event,
 });
 
 export default connect(mapStateToProps, {getTeamWithId, getAllTeams, completeTeamTodo})(Team);

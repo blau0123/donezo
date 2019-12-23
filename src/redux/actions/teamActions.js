@@ -85,7 +85,7 @@ export const getAllTeams = () => dispatch => {
         .catch(err => console.log(err))
 }
 
-// add a note to the notes list for a given team
+/* add a note to the notes list for a given team
 export const addNoteToTeam = (teamData, noteData) => dispatch => {
     axios.post('http://localhost:5000/teams/addnote', {teamData, noteData})
         .then(res => {
@@ -97,6 +97,7 @@ export const addNoteToTeam = (teamData, noteData) => dispatch => {
         })
         .catch(err => console.log(err))
 }
+*/
 
 // add new todo to a given team
 export const addTodoToTeam = (teamData, todoData) => dispatch => {
@@ -124,7 +125,7 @@ export const completeTeamTodo = (teamData, todoData) => dispatch => {
         .catch(err => console.log(err));
 }
 
-// add an event to a given team
+/* add an event to a given team
 export const addEventToTeam = (teamData, eventData) => dispatch => {
     axios.post('http://localhost:5000/teams/addevent', {teamData, eventData})
         .then(res => {
@@ -136,3 +137,4 @@ export const addEventToTeam = (teamData, eventData) => dispatch => {
         })
         .catch(err => console.log(err));
 }
+*/

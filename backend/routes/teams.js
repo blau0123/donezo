@@ -15,8 +15,10 @@ router.route('/').get((req, res) => {
     // find() is a mongoose method that gets list of all users in mongodb database
     Team.find()
         .populate('teamNotes')
-        .then(teams => res.json(teams))
-        .catch(err => res.status(400).json('Error: ' + err));
+        .exec((err,teams) => {
+            if (err) return res.status(400).json(err);
+            return res.json(teams)
+        })
 });
 
 /*
@@ -53,8 +55,9 @@ router.route('/:id').get((req, res) => {
     // find the given team, populate teamNotes with notes docs 
     Team.findById(req.params.id)
         .populate('teamNotes')
+        .populate('teamEvents')
         .exec((err, team) => {
-            if (err) res.status(400).json(err);
+            if (err) return res.status(400).json(err);
 
             console.log(team);
             return res.json(team);
@@ -144,7 +147,6 @@ router.route('/addnote').post((req, res) => {
     Team.findById(teamData._id)
         .then(team => {
             team.teamNotes.push(noteId);
-            console.log(team);
             team.save()
                 // send the note data to update the lastAddedNote in store
                 .then(() => res.json('Added note'))
@@ -210,16 +212,16 @@ router.route('/completetodo').post((req, res) => {
 @access Public
 */
 router.route('/addevent').post((req, res) => {
-    const eventData = req.body.eventData;
+    const eventId = req.body.eventId;
     const teamData = req.body.teamData;
-
+    
     // find the team that this todo belongs to
     Team.findById(teamData._id)
         .then(team => {
-            team.teamEvents.push(eventData);
-            // add todo to team and save to db
+            team.teamEvents.push(eventId);
+            // add event to team and save to db
             team.save()
-                .then(() => res.json(eventData))
+                .then(() => res.json('Event added'))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(404).json('Error: ' + err));
