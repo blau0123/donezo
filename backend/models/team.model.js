@@ -45,6 +45,7 @@ const teamSchema = new Schema({
             type: Boolean,
             required: true,
         },
+        assignee: String,
         author: {
             type: String,
             required: true,

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {addTodoToTeam} from '../../redux/actions/teamActions';
+import {updateTeamTodo} from '../../redux/actions/teamActions';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-class AddTodo extends React.Component{
+class EditTodo extends React.Component{
     constructor(){
         super();
         this.state = {
@@ -19,20 +19,30 @@ class AddTodo extends React.Component{
         this.setState({todoText: evt.target.value});
     }
 
+    componentDidMount(){
+        // set state for the passed in props
+        const {currTodo} = this.props.location.state;
+        this.setState({
+            todoText: currTodo.todoText,
+            assignee: currTodo.assignee,
+        })
+    }
+
     onSubmitTodo(evt){
         evt.preventDefault();
 
         const {teamData} = this.props.location.state;
         const {user} = this.props.auth;
+        const {currTodo} = this.props.location.state;
         const todoData = {
             todoText: this.state.todoText,
-            isCompleted: false,
             assignee: this.state.assignee,
+            id: currTodo._id,
             author: user.firstName + ' ' + user.lastName,
         }
 
         // add todo to team and redirect back to the team home
-        this.props.addTodoToTeam(teamData, todoData);
+        this.props.updateTeamTodo(teamData, todoData);
         this.props.history.push(`/team/${teamData._id}`);
     }
 
@@ -40,7 +50,7 @@ class AddTodo extends React.Component{
         // get current team
         const {teamData} = this.props.location.state;
         const membersList = teamData.teamMembers;
-        
+
         // dropdown of all members in curr team to choose an assignee
         const memberDropdownItems = membersList && membersList.length > 0 ?
             membersList.map(member => 
@@ -80,4 +90,4 @@ const mapStateToProps = state => ({
     team: state.team,
 })
 
-export default connect(mapStateToProps, {addTodoToTeam})(AddTodo);
+export default connect(mapStateToProps, {updateTeamTodo})(EditTodo);

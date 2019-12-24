@@ -18,6 +18,7 @@ export const DELETE_NOTE = "DELETE_NOTE";
 export const ADD_TODO_TO_TEAM = "ADD_TODO_TO_TEAM";
 export const COMPLETE_TODO = "COMPLETE_TODO";
 export const DELETE_TODO = "DELETE_TODO";
+export const EDIT_TODO = "EDIT_TODO";
 
 export const ADD_EVENT_TO_TEAM = "ADD_EVENT_TO_TEAM";
 export const DELETE_EVENT = "DELETE_EVENT";

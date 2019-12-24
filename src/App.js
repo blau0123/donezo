@@ -16,6 +16,7 @@ import AddTodo from './components/todos/AddTodo';
 import AddEvent from './components/events/AddEvent';
 import PrivateRoute from './components/private-route/PrivateRoute';
 import EventList from './components/events/EventList';
+import EditTodo from './components/todos/EditTodo';
 
 // use the follow in order to track if user is logged in still after reloads
 import jwt_decode from 'jwt-decode';
@@ -58,6 +59,7 @@ function App() {
         <PrivateRoute path="/eventslist/:id" component = {EventList} />
         <Route exact path="/login" component = {Login} />
         <Route exact path="/register" component = {Register} />
+        <PrivateRoute path="/edittodo" component = {EditTodo} />
         <PrivateRoute path="/addtodo" component = {AddTodo} />
         <PrivateRoute path="/addevent" component = {AddEvent} />
         <PrivateRoute exact path="/createTeam" component = {CreateTeam} />

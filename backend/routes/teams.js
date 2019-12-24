@@ -234,6 +234,38 @@ router.route('/deletetodo').post((req, res) => {
 })
 
 /*
+@route POST /teams/updatetodo
+@desc Updates a given todo
+@access Public
+*/
+router.route('/updatetodo').post((req, res) => {
+    const todoData = req.body.todoData;
+    const teamData = req.body.teamData;
+
+    // find the team that this todo belongs to
+    Team.findById(teamData._id)
+        .then(team => {
+            // go through array of todos to find the correct id
+            for (let i = 0; i < team.teamTodos.length; i++){
+                const currTodo = team.teamTodos[i];
+                console.log(currTodo._id.toHexString(),todoData.id,todoData._id);
+                // if found correct todo, update the todo
+                if (currTodo._id.toHexString() === todoData.id){
+                    currTodo.todoText = todoData.todoText;
+                    currTodo.assignee = todoData.assignee;
+                    break;
+                }
+            }
+            
+            // save the updated todo
+            team.save()
+                .then(() => res.json(todoData))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(404).json('Error: ' + err));
+})
+
+/*
 @route POST /teams/addevent
 @desc Adds a new event with a title, description, location, and start and end time
 @access Public

@@ -122,16 +122,23 @@ class Team extends React.Component{
         const todosList = currTeam.teamTodos && currTeam.teamTodos.length > 0 ?
             currTeam.teamTodos.map(todo => 
                 <Card>
-                   <Form>
-                       <Form.Check 
-                            custom
-                            type='checkbox'
-                            id={todo._id}
-                            label={todo.todoText}
-                            checked={todo.isCompleted}
-                            onChange={this.onToggle}/>
-                   </Form>
-                   <button onClick={() => this.props.deleteTeamTodo(currTeam, todo)}>Delete</button>
+                    <Link to={{pathname: '/edittodo', state:{teamData: currTeam, currTodo: todo}}}>
+                        <p style={{fontWeight:'bold'}}>Assigned: 
+                            {
+                                todo.assignee && todo.assignee.length > 0 ? todo.assignee : 'None'
+                            }
+                        </p>
+                        <Form>
+                            <Form.Check 
+                                custom
+                                type='checkbox'
+                                id={todo._id}
+                                label={todo.todoText}
+                                checked={todo.isCompleted}
+                                onChange={this.onToggle}/>
+                        </Form>
+                        <button onClick={() => this.props.deleteTeamTodo(currTeam, todo)}>Delete</button>
+                    </Link>
                 </Card>
             ) : <p>No todos yet!</p>;
 
