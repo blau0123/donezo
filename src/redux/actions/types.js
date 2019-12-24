@@ -13,6 +13,7 @@ export const GET_ALL_TEAMS = "GET_ALL_TEAMS";
 
 export const ADD_NOTE_TO_TEAM = "ADD_NOTE_TO_TEAM";
 export const UPDATE_NOTE = "UPDATE_NOTE";
+export const DELETE_NOTE = "DELETE_NOTE";
 
 export const ADD_TODO_TO_TEAM = "ADD_TODO_TO_TEAM";
 export const COMPLETE_TODO = "COMPLETE_TODO";

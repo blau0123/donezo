@@ -1,4 +1,4 @@
-import {ADD_NOTE_TO_TEAM} from '../actions/types';
+import {ADD_NOTE_TO_TEAM, DELETE_NOTE} from '../actions/types';
 
 const initState = {
     lastAddedNote: [],
@@ -11,6 +11,10 @@ export default function(state = initState, action){
             return {
                 lastAddedNote: action.payload,
             };
+        case DELETE_NOTE:
+            return {
+                lastAddedNote: action.payload,
+            }
         default:
             return state;
     }

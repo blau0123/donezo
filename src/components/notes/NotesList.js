@@ -15,6 +15,13 @@ class NotesList extends React.Component{
         }
     }
 
+    componentDidUpdate(prevProps){
+        // if added a note, then should refresh to show new note
+        if (this.props.note.lastAddedNote != prevProps.note.lastAddedNote){
+            window.location.reload();
+        }
+    }
+
     componentDidMount(){
         // get the current team and store in state
         const {id} = this.props.match.params;
@@ -31,11 +38,20 @@ class NotesList extends React.Component{
         const pinnedNotesCompon = notesList && notesList.length > 0 ?
             notesList.map(note => 
                 note.pinned ?
-                    <Card key={note._id} onClick={() => this.setState({currNote: note})}>
-                        <p>Pinned</p>
-                        <h4>{note.noteTitle}</h4>
-                        <p>{note.noteBody}</p>
-                        <p>{note.author}</p>
+                    // if this is the note that the user is viewing in edit, outline it
+                    this.state.currNote === note ?
+                        <Card key={note._id} onClick={() => this.setState({currNote: note})}
+                            style={{borderStyle:'solid'}}>
+                            <p>Pinned</p>
+                            <h4>{note.noteTitle}</h4>
+                            <p>{note.noteBody}</p>
+                            <p>{note.author}</p>
+                        </Card> :
+                        <Card key={note._id} onClick={() => this.setState({currNote: note})}>
+                            <p>Pinned</p>
+                            <h4>{note.noteTitle}</h4>
+                            <p>{note.noteBody}</p>
+                            <p>{note.author}</p>
                     </Card>
                 : null
             )
@@ -45,12 +61,21 @@ class NotesList extends React.Component{
         const unpinnedNotesCompon = notesList && notesList.length > 0 ?
             notesList.map(note => 
                 !note.pinned ?
-                    <Card key={note._id} onClick={() => this.setState({currNote: note})}>
-                        <p>Unpinned</p>
-                        <h4>{note.noteTitle}</h4>
-                        <p>{note.noteBody}</p>
-                        <p>{note.author}</p>
-                    </Card>
+                    // if this is the note that the user is viewing in edit, outline it
+                    this.state.currNote === note ? 
+                        <Card key={note._id} onClick={() => this.setState({currNote: note})}
+                            style={{borderStyle:'solid'}}>
+                            <p>Unpinned</p>
+                            <h4>{note.noteTitle}</h4>
+                            <p>{note.noteBody}</p>
+                            <p>{note.author}</p>
+                        </Card> :
+                        <Card key={note._id} onClick={() => this.setState({currNote: note})}>
+                            <p>Unpinned</p>
+                            <h4>{note.noteTitle}</h4>
+                            <p>{note.noteBody}</p>
+                            <p>{note.author}</p>
+                        </Card>
                 : null
             )
         : null;
@@ -76,6 +101,7 @@ class NotesList extends React.Component{
 
 const mapStateToProps = state => ({
     team: state.team,
+    note: state.note,
 })
 
 export default connect(mapStateToProps, {getTeamWithId})(NotesList);

@@ -50,7 +50,7 @@ router.route('/:id').get((req, res) => {
 })
 
 /*
-@route GET /notes/update
+@route POST /notes/update
 @desc Updates a given note
 @access Public
 */
@@ -72,6 +72,21 @@ router.route('/update').post((req, res) => {
                 .then(note => res.json(note))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
+})
+
+/*
+@route POST /notes/delete
+@desc Deletes a given note
+@access Public
+*/
+router.route('/delete').post((req, res) => {
+    const noteId = req.body.noteData._id;
+
+    // delete note by id from db
+    Note.deleteOne({_id: noteId}, (err) => {
+        if (err) return res.status(400).json('Error: ' + err);
+        console.log('Delete successful');
+    })
 })
 
 module.exports = router;

@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import {updateNote} from '../../redux/actions/noteActions';
+import {updateNote, deleteNote} from '../../redux/actions/noteActions';
 import { connect } from 'react-redux';
 
 class EditNote extends React.Component{
@@ -18,6 +18,7 @@ class EditNote extends React.Component{
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onDeleteNote = this.onDeleteNote.bind(this);
     }
 
     /*
@@ -44,8 +45,15 @@ class EditNote extends React.Component{
             pinned: this.state.pinned,
         }
         console.log(noteData);
+        
         // update the note in the db
         this.props.updateNote(noteData);
+    }
+
+    onDeleteNote(evt){
+        evt.preventDefault();
+        console.log(this.props.currNote);
+        this.props.deleteNote(this.props.currNote);
     }
 
     onChange(evt){
@@ -68,10 +76,12 @@ class EditNote extends React.Component{
                         value={this.state.body} rows={25} variant='outlined' onChange={this.onChange}/>
                     <Button variant='contained' color='primary' onClick={this.onSubmit}
                         disableElevation>Submit</Button>
+                    <Button variant='contained' color='primary' onClick={this.onDeleteNote}
+                        disableElevation>Delete</Button>
                 </form>
             </div>
         )
     }
 }
 
-export default connect(null, {updateNote})(EditNote);
+export default connect(null, {updateNote, deleteNote})(EditNote);
