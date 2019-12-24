@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 
 import {getTeamWithId} from '../../redux/actions/teamActions';
+import {deleteEvent} from '../../redux/actions/eventActions';
 import {connect} from 'react-redux';
 
 class EventList extends React.Component{
@@ -17,6 +18,13 @@ class EventList extends React.Component{
         const {id} = this.props.match.params;
         // get the team that the user is viewing
         this.props.getTeamWithId(id);
+    }
+
+    componentDidUpdate(prevProps){
+        // if any updates to last changed event, refresh to show updates
+        if (this.props.event.lastAddedEvent != prevProps.event.lastAddedEvent){
+            window.location.reload();
+        }
     }
 
     /*
@@ -47,16 +55,20 @@ class EventList extends React.Component{
         // sort events by date
         const sortedEvents = eventsList ? this.sortEvents(eventsList) : eventsList;
         const sortedFutureEvents = eventsList ? this.sortFutureEvents(eventsList) : eventsList;
+        let numPast = 0;
+        let numFuture = 0;
         // make component for past events
-        const pastEventsCompon = sortedEvents && sortedEvents.length > 0 ?
+        let pastEventsCompon = sortedEvents && sortedEvents.length > 0 ?
             sortedEvents.map(event => {
                 const start = new Date(event.eventStartTime);
                 const end = new Date(event.eventEndTime);
                 const currTime = new Date();
 
                 if (currTime > start){
+                    numPast++;
                     return(
                         <Card key={event._id}>
+                            <button onClick={() => this.props.deleteEvent(event)}>Delete</button>
                             <h4>{event.eventTitle}</h4>
                             <p>{event.eventDescription}</p>
                             <p>{event.eventLocation}</p>
@@ -68,8 +80,12 @@ class EventList extends React.Component{
             })
         : null;
 
+        if (numPast === 0){
+            pastEventsCompon = <p>No past events to show!</p>
+        }
+
         // make component for future events
-        const futureEventsCompon = sortedFutureEvents && sortedFutureEvents.length > 0 ?
+        let futureEventsCompon = sortedFutureEvents && sortedFutureEvents.length > 0 ?
             sortedFutureEvents.map(event => {
                 const start = new Date(event.eventStartTime);
                 const end = new Date(event.eventEndTime);
@@ -77,8 +93,10 @@ class EventList extends React.Component{
                 const currTime = new Date();
 
                 if (currTime <= start){
+                    numFuture++;
                     return(
                         <Card key={event._id}>
+                            <button onClick={() => this.props.deleteEvent(event)}>Delete</button>
                             <h4>{event.eventTitle}</h4>
                             <p>{event.eventDescription}</p>
                             <p>{event.eventLocation}</p>
@@ -88,7 +106,11 @@ class EventList extends React.Component{
                     )
                 }
             })
-        : null;
+        : <p>No upcoming events!</p>;
+
+        if (numFuture === 0){
+            futureEventsCompon = <p>No upcoming events!</p>
+        }
 
         return(
             <div>
@@ -104,6 +126,7 @@ class EventList extends React.Component{
 
 const mapStateToProps = state => ({
     team: state.team,
+    event: state.event,
 })
 
-export default connect(mapStateToProps, {getTeamWithId})(EventList);
+export default connect(mapStateToProps, {getTeamWithId, deleteEvent})(EventList);

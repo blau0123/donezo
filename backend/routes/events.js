@@ -5,7 +5,7 @@ const router = require('express').Router();
 let Event = require('../models/event.model');
 
 /*
-@route GET /events/add
+@route POST /events/add
 @desc Adds an event
 @access Public
 */
@@ -24,6 +24,20 @@ router.route('/add').post((req, res) => {
     newEvent.save()
         .then(() => res.json(newEvent))
         .catch(err => res.status(400).json('Error: ' + err))
+})
+
+/*
+@route POST /events/delete
+@desc Deletes an event
+@access Public
+*/
+router.route('/delete').post((req, res) => {
+    const eventId = req.body.eventData._id;
+    // delete event by id from db
+    Event.deleteOne({_id: eventId}, (err) => {
+        if (err) return res.status(400).json('Error: ' + err);
+        console.log('Delete successful');
+    })
 })
 
 module.exports = router;

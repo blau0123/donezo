@@ -38,6 +38,12 @@ class EditNote extends React.Component{
 
     onSubmit(evt){
         evt.preventDefault();
+        // if have not chosen a note to edit, don't do anything
+        if (Object.entries(this.props.currNote).length === 0){
+            alert('Choose a note to edit first!');
+            return;
+        }
+
         const noteData = {
             noteTitle: this.state.title,
             noteBody: this.state.body,
@@ -45,7 +51,7 @@ class EditNote extends React.Component{
             pinned: this.state.pinned,
         }
         console.log(noteData);
-        
+
         // update the note in the db
         this.props.updateNote(noteData);
     }

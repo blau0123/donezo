@@ -1,7 +1,7 @@
 import {ADD_NOTE_TO_TEAM, DELETE_NOTE} from '../actions/types';
 
 const initState = {
-    lastAddedNote: [],
+    lastAddedNote: {},
 }
 
 export default function(state = initState, action){

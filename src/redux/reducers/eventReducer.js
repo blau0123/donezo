@@ -1,7 +1,7 @@
-import {ADD_EVENT_TO_TEAM} from '../actions/types';
+import {ADD_EVENT_TO_TEAM, DELETE_EVENT} from '../actions/types';
 
 const initState = {
-    lastAddedEvent: [],
+    lastAddedEvent: {},
 }
 
 export default function(state = initState, action){
@@ -11,6 +11,10 @@ export default function(state = initState, action){
             return {
                 lastAddedEvent: action.payload,
             };
+        case DELETE_EVENT:
+            return {
+                lastAddedEvent: action.payload,
+            }
         default:
             return state;
     }
