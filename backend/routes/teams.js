@@ -190,10 +190,8 @@ router.route('/completetodo').post((req, res) => {
             // go through array of todos to find the correct id
             for (let i = 0; i < team.teamTodos.length; i++){
                 // if found correct todo, change its completed
-                //console.log(team.teamTodos[i]._id.toHexString(), todoData.id)
                 if (team.teamTodos[i]._id.toHexString() === todoData.id){
                     team.teamTodos[i].isCompleted = !team.teamTodos[i].isCompleted;
-                    console.log(team.teamTodos[i]._id, todoData.id)
                     break;
                 }
             }
@@ -201,6 +199,35 @@ router.route('/completetodo').post((req, res) => {
             // save the updated todo
             team.save()
                 .then(() => res.json(todoData))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(404).json('Error: ' + err));
+})
+
+/*
+@route POST /teams/deletetodo
+@desc Deletes a team's todo
+@access Public
+*/
+router.route('/deletetodo').post((req, res) => {
+    const todoData = req.body.todoData;
+    const teamData = req.body.teamData;
+
+    // find the team that this todo belongs to
+    Team.findById(teamData._id)
+        .then(team => {
+            // go through array of todos to find the correct id
+            for (let i = 0; i < team.teamTodos.length; i++){
+                if (team.teamTodos[i]._id.toHexString() === todoData._id){
+                    // remove the element at index 1
+                    team.teamTodos.splice(i, 1);
+                    break;
+                }
+            }
+            console.log(team.teamTodos);
+            // save the updated todo
+            team.save()
+                .then(() => res.json('Deleted todo'))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(404).json('Error: ' + err));

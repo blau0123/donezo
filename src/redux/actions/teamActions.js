@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import {JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, ADD_NOTE_TO_TEAM,
-            ADD_TODO_TO_TEAM, COMPLETE_TODO, ADD_EVENT_TO_TEAM} from './types';
+            ADD_TODO_TO_TEAM, COMPLETE_TODO, ADD_EVENT_TO_TEAM, DELETE_TODO} from './types';
 
 // action for a given user joining a given team
 export const joinTeam = (userData, teamData) => dispatch => {
@@ -123,6 +123,19 @@ export const completeTeamTodo = (teamData, todoData) => dispatch => {
             })
         })
         .catch(err => console.log(err));
+}
+
+// delete a todo
+export const deleteTeamTodo = (teamData, todoData) => dispatch => {
+    axios.post('http://localhost:5000/teams/deletetodo', {teamData, todoData})
+        .then(res => {
+            console.log(res);
+            
+            dispatch({
+                type: DELETE_TODO,
+                payload: {},
+            })
+        })
 }
 
 /* add an event to a given team

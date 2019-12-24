@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 
 import Card from '@material-ui/core/Card'
 
-import {getTeamWithId, getAllTeams, completeTeamTodo} from '../../redux/actions/teamActions';
+import {getTeamWithId, getAllTeams, completeTeamTodo, deleteTeamTodo} from '../../redux/actions/teamActions';
 
 /*
 Depends on the id of the team passed in, shows the team with that id
@@ -131,6 +131,7 @@ class Team extends React.Component{
                             checked={todo.isCompleted}
                             onChange={this.onToggle}/>
                    </Form>
+                   <button onClick={() => this.props.deleteTeamTodo(currTeam, todo)}>Delete</button>
                 </Card>
             ) : <p>No todos yet!</p>;
 
@@ -251,4 +252,5 @@ const mapStateToProps = state => ({
     event: state.event,
 });
 
-export default connect(mapStateToProps, {getTeamWithId, getAllTeams, completeTeamTodo})(Team);
+export default connect(mapStateToProps, {getTeamWithId, getAllTeams, completeTeamTodo,
+        deleteTeamTodo})(Team);
