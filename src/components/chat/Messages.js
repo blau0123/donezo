@@ -5,11 +5,13 @@ import Message from './Message';
 const Messages = ({msgs, userName}) => {
     return(
         <ScrollToBottom >
-            {msgs.map((msg, i) =>
-                <div key={i}>
-                    <Message msg={msg} userName={userName} />
-                </div>
-            )}
+            { 
+                msgs ? msgs.map((msg, i) =>
+                    <div key={i}>
+                        <Message msg={msg} userName={userName} />
+                    </div> 
+                ) : null
+            }
         </ScrollToBottom>
     )
 }
