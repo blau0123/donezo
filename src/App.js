@@ -17,6 +17,9 @@ import AddEvent from './components/events/AddEvent';
 import PrivateRoute from './components/private-route/PrivateRoute';
 import EventList from './components/events/EventList';
 import EditTodo from './components/todos/EditTodo';
+import Messages from './components/chat/Messages';
+import Chat from './components/chat/Chat';
+import Message from './components/chat/Message';
 
 // use the follow in order to track if user is logged in still after reloads
 import jwt_decode from 'jwt-decode';
@@ -62,6 +65,9 @@ function App() {
         <PrivateRoute path="/edittodo" component = {EditTodo} />
         <PrivateRoute path="/addtodo" component = {AddTodo} />
         <PrivateRoute path="/addevent" component = {AddEvent} />
+        <PrivateRoute path='/chat' component={Chat} />
+        <PrivateRoute path='/messages' component={Messages} />
+        <PrivateRoute path='/message' component={Message} />
         <PrivateRoute exact path="/createTeam" component = {CreateTeam} />
       </Router>
     </Provider>
