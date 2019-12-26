@@ -55,6 +55,10 @@ const teamSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'
     }],
+    teamChat:[{
+        user: String,
+        text: String,
+    }]
 }, {
         // automatically adds fields for when created and modified
         timestamps: true,

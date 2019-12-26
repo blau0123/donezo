@@ -1,5 +1,5 @@
 import { JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, ADD_NOTE_TO_TEAM, 
-            ADD_TODO_TO_TEAM, COMPLETE_TODO, ADD_EVENT_TO_TEAM, DELETE_TODO, EDIT_TODO} from "../actions/types";
+            ADD_TODO_TO_TEAM, COMPLETE_TODO, ADD_EVENT_TO_TEAM, DELETE_TODO, EDIT_TODO, GET_CHAT_HISTORY} from "../actions/types";
 
 /*
 Changes the state variables that deal with teams depending on which 
@@ -16,6 +16,7 @@ const initState = {
     matchedTeams: [],
     currTeam: {},
     lastAddedTodo: {},
+    messagesList: [],
 }
 export default function(state = initState, action){
     // find which action occurred to decide how to change the state
@@ -62,6 +63,11 @@ export default function(state = initState, action){
             return {
                 ...state,
                 lastAddedTodo: action.payload,
+            }
+        case GET_CHAT_HISTORY:
+            return {
+                ...state,
+                messagesList: action.payload,
             }
         default:
             return state;

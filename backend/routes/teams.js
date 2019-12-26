@@ -286,4 +286,37 @@ router.route('/addevent').post((req, res) => {
         .catch(err => res.status(404).json('Error: ' + err));
 })
 
+/*
+@route POST /teams/chat/add
+@desc Adds a new chat message
+@access Public
+*/
+router.route('/chat/add').post((req, res) => {
+    const chatData = req.body.chatData;
+    const teamData = req.body.teamData;
+
+    // find the team that this message is being sent to
+    Team.findById(teamData._id)
+        .then(team => {
+            team.teamChat.push(chatData);
+            // add message to team and save to db
+            team.save()
+                .then(() => res.json(chatData))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(404).json('Error: ' + err));
+})
+
+/*
+@route GET /teams/chat/
+@desc Get all messages for a team's chat
+@access Public
+*/
+router.route('/chat/:id').get((req, res) => {
+    // find the team that this message is being sent to
+    Team.findById(req.params.id)
+        .then(team => res.json(team.teamChat))
+        .catch(err => res.status(404).json('Error: ' + err));
+})
+
 module.exports = router;

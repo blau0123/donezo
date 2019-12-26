@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 import {JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, ADD_NOTE_TO_TEAM,
-            ADD_TODO_TO_TEAM, COMPLETE_TODO, DELETE_TODO, EDIT_TODO} from './types';
+            ADD_TODO_TO_TEAM, COMPLETE_TODO, DELETE_TODO, EDIT_TODO,
+            ADD_CHAT_MSG,
+            GET_CHAT_HISTORY} from './types';
 
 // action for a given user joining a given team
 export const joinTeam = (userData, teamData) => dispatch => {
@@ -150,4 +152,27 @@ export const updateTeamTodo = (teamData, todoData) => dispatch => {
             })
         })
         .catch(err => console.log(err))
+}
+
+// add a chat message
+export const addChatMsg = (teamData, chatData) => dispatch => {
+    axios.post('http://localhost:5000/teams/chat/add', {teamData, chatData})
+        .then(res => {
+            dispatch({
+                type: ADD_CHAT_MSG,
+                payload: res.data,
+            })
+        })
+        .catch(err => console.log(err));
+}
+
+// get chat history
+export const getChatHistory = (teamData) => dispatch => {
+    axios.get(`http://localhost:5000/teams/chat/${teamData._id}`)
+        .then(res => {
+            dispatch({
+                type: GET_CHAT_HISTORY,
+                payload: res.data,
+            })
+        })
 }

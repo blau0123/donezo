@@ -10,6 +10,7 @@ const socketio = require('socket.io');
 const passport = require('passport');
 
 const {addUser, removeUser, getUser, getUsersInTeam} = require('./routes/chatUsers');
+let Team = require('./models/team.model');
 
 const app = express();
 const server = http.createServer(app);
@@ -55,6 +56,14 @@ io.on('connection', socket => {
 
     // when a user joins a chat
     socket.on('join', ({user, currTeam}, callback) => {
+        
+        const teams = connection.db.collection('teams');
+        teams.find().toArray((err, res) => {    
+            const desired = res.filter(team => team._id.toHexString() === currTeam._id)[0];
+            console.log('sending old msgs...');
+            socket.emit('old msgs', desired.teamChat);
+        })
+        
         // add the user to the chat
         const {err, newUser} = addUser(
             {
@@ -67,20 +76,32 @@ io.on('connection', socket => {
 
         // if there was an error getting the user, call the callback
         if (err) return callback(err);
-        // emit welcome message to the user that just joined the chat 
+        /* emit welcome message to the user that just joined the chat 
         socket.emit('message', {user:'admin', text:`${newUser.name} welcome to ${newUser.team.teamName}`});
         // tell everyone in chat besides the new user that the new user has joined
         socket.broadcast.to(newUser.team.teamName).emit('message', {user:'admin', text:`${newUser.name} has joined`})
-
+        */
         // let the user join the team chat room
         socket.join(newUser.team.teamName);
+        
         callback();
     })
 
     socket.on('sendMessage', (msg, callback) => {
         // get the user that is sending the message
         const user = getUser(socket.id);
-        io.to(user.team.teamName).emit('message', {user:user.name, text:msg});
+        const chatData = {user:user.name, text:msg};
+        console.log(user.team);
+        // adds the new message to the given team
+        Team.findById(user.team._id)
+            .then(team => {
+                team.teamChat.push(chatData);
+                // add message to team and save to db
+                team.save()
+                    // emit new message after saving the new chat msg
+                    .then(() => io.to(user.team.teamName).emit('message', chatData))
+                    .catch(err => console.log(err));
+            })
         callback();
     })
 

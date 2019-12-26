@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import io from 'socket.io-client';
 import Messages from './Messages';
+import { connect } from 'react-redux';
+import {addChatMsg, getChatHistory} from '../../redux/actions/teamActions';
 
 let socket;
 
@@ -22,9 +24,15 @@ const Chat = (props) => {
 
         setUserName(user.firstName + ' ' + user.lastName);
         setTeam(currTeam);
+
         // emit a join event to let the user join the team chat
         socket.emit('join', {user, currTeam}, () => console.log('yeet'));
-        
+
+        // get the chat history for this chat (obtained in backend and event is sent to frontend)
+        socket.on('old msgs', msgs => {
+            setMessages(msgs);
+        })
+
         // return is the same as componentdidunmount (to disconnect socket)
         return () => {
             socket.emit('disconnect');
@@ -53,11 +61,16 @@ const Chat = (props) => {
 
     return (
         <div>
-            <Messages msgs={messages} userName={userName}/>
+            <button onClick={() => props.history.goBack()}>Back to team</button>
+            <Messages msgs={messages} userName={userName} style={{height:'90vh', overflow:'auto'}}/>
             <input value={message} onChange={evt => setMessage(evt.target.value)} />
             <button onClick={sendMessage}>Send</button>
         </div>
     )
 }
 
-export default Chat;
+const mapStateToProps = state => ({
+    team: state.team,
+});
+
+export default connect(mapStateToProps, {addChatMsg, getChatHistory})(Chat);
