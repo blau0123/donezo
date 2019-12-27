@@ -1,5 +1,4 @@
 .msgContainer{
-    max-width: 60%;
     display: flex;
     margin: 20px;
 }
@@ -26,4 +25,20 @@
 
 .notMe{
     flex-direction: column;
+}
+
+.currUser{
+    background-color: #50c1f5;
+    color: white;
+}
+
+.notCurrUser{
+    background-color: #F1F0F0;
+    border: none;
+}
+
+.add-msg-to-notes{
+    outline: none;
+    background-color: transparent;
+    border: none;
 }

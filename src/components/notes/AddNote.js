@@ -17,6 +17,17 @@ class AddNote extends React.Component{
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentDidMount(){
+        console.log(this.props);
+        // if came from a message, then set the body to the message
+        if (this.props.location.state){
+            this.setState({
+                noteTitle: this.props.location.state.title,
+                noteBody: this.props.location.state.body,
+            })
+        }
+    }
+
     onChange(evt){
         const name = evt.target.name;
         this.setState({[name]: evt.target.value})
@@ -38,12 +49,13 @@ class AddNote extends React.Component{
 
         // add note to notes db
         this.props.addNoteToTeam(teamData, noteToAdd);
-        this.props.history.push(`/team/${teamData._id}`);
+        this.props.history.goBack();
     }
 
     render(){
         return(
             <div className='container'>
+                <button onClick={() => this.props.history.goBack()}>Go Back</button>
                 {
                     this.state.pinned ?
                         <button onClick={() => this.setState({pinned: false})}>Pinned!</button> :
