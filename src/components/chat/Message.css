@@ -1,0 +1,29 @@
+.msgContainer{
+    max-width: 60%;
+    display: flex;
+    margin: 20px;
+}
+
+.msgBox{
+    border-style: solid;
+    border-radius: 5px;
+    padding: 5px;
+    display: inline-block;
+    max-width: 40%;
+}
+
+.msgText{
+    word-wrap: break-word;
+}
+
+.justifyEnd{
+    justify-content: flex-end;
+}
+
+.justifyStart{
+    justify-content: flex-start;
+}
+
+.notMe{
+    flex-direction: column;
+}

@@ -61,8 +61,9 @@ const Chat = (props) => {
 
     return (
         <div>
+            <h1>{team.teamName} Chat</h1>
             <button onClick={() => props.history.goBack()}>Back to team</button>
-            <Messages msgs={messages} userName={userName} style={{height:'90vh', overflow:'auto'}}/>
+            <Messages msgs={messages} userName={userName} />
             <input value={message} onChange={evt => setMessage(evt.target.value)} />
             <button onClick={sendMessage}>Send</button>
         </div>
