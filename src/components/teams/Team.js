@@ -206,7 +206,7 @@ class Team extends React.Component{
                 <div className="teamNames" key={currTeam._id}>
                         <h2>{currTeam.teamName}</h2>
                         <h4>{currTeam.teamDescription}</h4>
-                        <Link to={{pathname:'/chat', state:{user, currTeam}}}>Chat</Link>
+                        <Link to={{pathname:'/chat', state:{currTeam}}}>Chat</Link>
                         <div className="container" style={{display:'flex'}}>
                             <p style={{fontWeight:'bold', flex:'0 20%'}}>Members:</p>
                             <div style={{flex:'1'}}>

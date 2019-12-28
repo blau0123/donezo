@@ -48,6 +48,8 @@ app.use('/users', usersRouter);
 app.use('/notes', notesRouter);
 app.use('/events', eventsRouter);
 
+let numMsgsRead = 5;
+
 // web sockets for chatting
 const io = socketio(server);
 io.on('connection', socket => {
@@ -56,12 +58,13 @@ io.on('connection', socket => {
 
     // when a user joins a chat
     socket.on('join', ({user, currTeam}, callback) => {
-        
         const teams = connection.db.collection('teams');
+
         teams.find().toArray((err, res) => {    
             const desired = res.filter(team => team._id.toHexString() === currTeam._id)[0];
             console.log('sending old msgs...');
-            socket.emit('old msgs', desired.teamChat);
+            // sends the most recent 5 messages
+            socket.emit('old msgs', desired.teamChat.slice(1).slice(-5));
         })
         
         // add the user to the chat
@@ -105,8 +108,38 @@ io.on('connection', socket => {
         callback();
     })
 
+    /*
+    When the user scrolls to the top and needs to load more messages,
+    load 5 more messages based on numMsgsRead var
+    */
+    socket.on('loadMoreMsgs', (currTeam, callback) => {
+        const teams = connection.db.collection('teams');
+        teams.find().toArray((err, res) => {    
+            const desired = res.filter(team => team._id.toHexString() === currTeam._id)[0];
+            let nextFive = null;
+            // if no more messages left, don't do anything
+            if (numMsgsRead >= desired.teamChat.length){
+                
+            }
+            // sends the the next 5 messages (or as many messages left)
+            else if (numMsgsRead + 5 >= desired.teamChat.length){
+                nextFive = desired.teamChat.slice(numMsgsRead, desired.teamChat.length);
+                numMsgsRead += 5;
+            }
+            else{
+                nextFive = desired.teamChat.slice(numMsgsRead, numMsgsRead + 5);
+                numMsgsRead += 5;
+            }
+            console.log('sending next five msgs...')
+            callback(nextFive);
+        })
+    })
+
     socket.on('disconnect', () => {
-        console.log('user has left')
+        console.log('user has left');
+        const user = removeUser(socket.id);
+        console.log(numMsgsRead);
+        numMsgsRead = 5;
     });
 })
 
