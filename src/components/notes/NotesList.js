@@ -5,7 +5,12 @@ import {connect} from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import OfflinePinOutlinedIcon from '@material-ui/icons/OfflinePinOutlined';
+import OfflinePinIcon from '@material-ui/icons/OfflinePin';
 import EditNote from './EditNote';
+
+import './NotesList.css';
 
 class NotesList extends React.Component{
     constructor(){
@@ -40,16 +45,41 @@ class NotesList extends React.Component{
                 note.pinned ?
                     // if this is the note that the user is viewing in edit, outline it
                     this.state.currNote === note ?
-                        <Card key={note._id} onClick={() => this.setState({currNote: note})}
-                            style={{borderStyle:'solid'}}>
-                            <p>Pinned</p>
-                            <h4>{note.noteTitle}</h4>
+                        <Card key={note._id} onClick={() => {
+                            // if already selected, unselect
+                            if (this.state.currNote === note){
+                                this.setState({currNote: null})
+                            }
+                            else this.setState({currNote: note})
+                        }}
+                            className='note-card selected'>
+                            <Grid container spacing={2}>
+                                <Grid item xs={10}>
+                                    <h4>{note.noteTitle}</h4>
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <OfflinePinIcon className='pinned-btn'/>
+                                </Grid>
+                            </Grid>
                             <p>{note.noteBody}</p>
                             <p>{note.author}</p>
                         </Card> :
-                        <Card key={note._id} onClick={() => this.setState({currNote: note})}>
-                            <p>Pinned</p>
-                            <h4>{note.noteTitle}</h4>
+                        <Card className='note-card' key={note._id} 
+                            onClick={() => {
+                                // if already selected, unselect
+                                if (this.state.currNote === note){
+                                    this.setState({currNote: null})
+                                }
+                                else this.setState({currNote: note})
+                            }}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={10}>
+                                    <h4>{note.noteTitle}</h4>
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <OfflinePinIcon className='pinned-btn'/>
+                                </Grid>
+                            </Grid>
                             <p>{note.noteBody}</p>
                             <p>{note.author}</p>
                     </Card>
@@ -63,16 +93,41 @@ class NotesList extends React.Component{
                 !note.pinned ?
                     // if this is the note that the user is viewing in edit, outline it
                     this.state.currNote === note ? 
-                        <Card key={note._id} onClick={() => this.setState({currNote: note})}
-                            style={{borderStyle:'solid'}}>
-                            <p>Unpinned</p>
-                            <h4>{note.noteTitle}</h4>
+                        <Card key={note._id} onClick={() => {
+                            // if already selected, unselect
+                            if (this.state.currNote === note){
+                                this.setState({currNote: null})
+                            }
+                            else this.setState({currNote: note})
+                        }}
+                            className='note-card selected'>
+                            <Grid container spacing={1}>
+                                <Grid item xs={10}>
+                                    <h4>{note.noteTitle}</h4>
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <OfflinePinOutlinedIcon className='pinned-btn mr-5'/>
+                                </Grid>
+                            </Grid>
                             <p>{note.noteBody}</p>
                             <p>{note.author}</p>
                         </Card> :
-                        <Card key={note._id} onClick={() => this.setState({currNote: note})}>
-                            <p>Unpinned</p>
-                            <h4>{note.noteTitle}</h4>
+                        <Card className='note-card' key={note._id} 
+                            onClick={() => {
+                                // if already selected, unselect
+                                if (this.state.currNote === note){
+                                    this.setState({currNote: null})
+                                }
+                                else this.setState({currNote: note})
+                            }}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={10}>
+                                    <h4>{note.noteTitle}</h4>
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <OfflinePinOutlinedIcon className='pinned-btn'/>
+                                </Grid>
+                            </Grid>
                             <p>{note.noteBody}</p>
                             <p>{note.author}</p>
                         </Card>
@@ -82,16 +137,22 @@ class NotesList extends React.Component{
  
 
         return(
-            <div>
-                <h1>Notes for {currTeam.teamName}</h1>
-                <button onClick={() => this.props.history.goBack()}>Back to team</button>
+            <div className='total-notes-container'>
                 <Grid container spacing={2}>
-                    <Grid item xs={4} style={{height:'100vh', overflow:'auto'}}>
+                    <Grid item xs={1}>
+                        <ArrowBackIosIcon className='back-btn' onClick={() => this.props.history.push(`/team/${currTeam._id}`)} />
+                    </Grid>
+                    <Grid item xs={11}>
+                        <h1 className='note-list-title'>Notes for {currTeam.teamName}</h1>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                    <Grid className='note-list-container 'item xs={4}>
                         {pinnedNotesCompon}
                         {unpinnedNotesCompon}
                     </Grid>
                     <Grid item xs={8}>
-                        <EditNote currNote={this.state.currNote} />
+                        <EditNote currNote={this.state.currNote} currTeam={currTeam}/>
                     </Grid>
                 </Grid>
             </div>

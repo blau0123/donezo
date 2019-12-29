@@ -1,11 +1,13 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 
-import {updateNote, deleteNote} from '../../redux/actions/noteActions';
+import OfflinePinOutlinedIcon from '@material-ui/icons/OfflinePinOutlined';
+import OfflinePinIcon from '@material-ui/icons/OfflinePin';
+
+import {updateNote, deleteNote, addNoteToTeam} from '../../redux/actions/noteActions';
 import { connect } from 'react-redux';
+
+import './EditNote.css';
 
 class EditNote extends React.Component{
     constructor(props){
@@ -26,6 +28,16 @@ class EditNote extends React.Component{
     so this lifecycle allows us to update the state with these incoming props
     */
     componentWillReceiveProps(nextProps){
+        // if unselected a note, then set state items to null
+        if (nextProps.currNote === null){
+            this.setState({
+                title: '',
+                body: '',
+                pinned: false,
+            })
+            return;
+        }
+
         // when receive props, set the state to the current note
         if (nextProps.currNote !== this.props.currNote){
             this.setState({
@@ -38,11 +50,6 @@ class EditNote extends React.Component{
 
     onSubmit(evt){
         evt.preventDefault();
-        // if have not chosen a note to edit, don't do anything
-        if (Object.entries(this.props.currNote).length === 0){
-            alert('Choose a note to edit first!');
-            return;
-        }
 
         const noteData = {
             noteTitle: this.state.title,
@@ -50,9 +57,15 @@ class EditNote extends React.Component{
             noteId: this.props.currNote._id,
             pinned: this.state.pinned,
         }
-        console.log(noteData);
 
-        // update the note in the db
+        // if have not chosen a note to edit, create a new note
+        if (Object.entries(this.props.currNote).length === 0){
+            const teamData = this.props.currTeam;
+            this.props.addNoteToTeam(teamData, noteData);   
+            return;
+        }
+        
+        // update the note in the db if selected a note
         this.props.updateNote(noteData);
     }
 
@@ -69,25 +82,38 @@ class EditNote extends React.Component{
 
     render(){
         return(
-            <div style={{height:'100vh'}}>
-                {
-                    this.state.pinned ?
-                        <button onClick={() => this.setState({pinned: false})}>Pinned!</button> :
-                        <button onClick={() => this.setState({pinned: true})}>Unpinned</button>
-                }
+            <div className='edit-note-container'>
                 <form>
-                    <TextField name='title' style={{width:'100%'}} id='standard-uncontrolled' value={this.state.title} 
-                        onChange={this.onChange}/>
-                    <TextField name='body' style={{width:'100%'}} id='outlined-uncontrolled' multiline
-                        value={this.state.body} rows={25} variant='outlined' onChange={this.onChange}/>
-                    <Button variant='contained' color='primary' onClick={this.onSubmit}
-                        disableElevation>Submit</Button>
-                    <Button variant='contained' color='primary' onClick={this.onDeleteNote}
-                        disableElevation>Delete</Button>
+                    <Grid container spacing={1}>
+                        <Grid item xs={10}>
+                            <input type='text' name='title' className='note-title no-border' onChange={this.onChange}
+                                value={this.state.title} autoComplete='off' placeholder="What's on your mind?"/>
+                        </Grid>
+                        <Grid item xs={2}>
+                            {
+                                this.state.pinned ?
+                                    <OfflinePinIcon className='pinned-btn' onClick={evt => {
+                                        evt.preventDefault(); 
+                                        this.setState({pinned: false})
+                                    }}/> :
+                                    <OfflinePinOutlinedIcon className='pinned-btn' onClick={evt => {
+                                        evt.preventDefault(); 
+                                        this.setState({pinned: true})
+                                    }} />
+                            }
+                        </Grid>
+                    </Grid>
+
+                    <textarea className='note-body no-border' name='body' rows='15' onChange={this.onChange} 
+                        value={this.state.body} placeholder='Starting typing...'/>
+                    <div className='btn-container'>
+                        <button className='submit-btn btn' onClick={this.onSubmit}>Submit</button>
+                        <button className='delete-btn btn' onClick={this.onDeleteNote}>Delete</button>
+                    </div>
                 </form>
             </div>
         )
     }
 }
 
-export default connect(null, {updateNote, deleteNote})(EditNote);
+export default connect(null, {updateNote, deleteNote, addNoteToTeam})(EditNote);

@@ -1,0 +1,44 @@
+.total-notes-container{
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+}
+
+.note-list-title{
+    margin-left: 0px;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+.selected{
+    border-style: solid;
+    border-color: grey;
+    border-width: 3px;
+}
+
+.note-card{
+    margin: 10px;
+    padding: 10px 20px;
+    transition: all .2s ease-in-out;
+}
+
+.note-card:hover{
+    transform: scale(0.95);
+}
+
+.note-list-container{
+    height: 100vh;
+    overflow: auto;
+}
+
+.back-btn{
+    margin-top: 30px;
+    margin-left: 20px;
+    color:#779ECB;
+    transition: all .2s ease-in-out;
+}
+
+.back-btn:hover{
+    cursor: pointer;
+    transform: scale(0.95);
+}
+
