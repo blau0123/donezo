@@ -6,6 +6,8 @@ import DateFnsUtils from '@date-io/date-fns';
 import {addEventToTeam} from '../../redux/actions/eventActions';
 import { connect } from 'react-redux';
 
+import './AddEvent.css';
+
 class addEvent extends React.Component{
     constructor(){
         super();
@@ -73,29 +75,41 @@ class addEvent extends React.Component{
 
     render(){
         return(
-            <div className='container'>
-                <form onSubmit={this.onSubmit}>
-                    <label>What's the name of your event?</label>
-                    <input id='title' type='text' value={this.state.title} onChange={this.onChange} />
-                    <label>Describe your event.</label>
-                    <input id='description' type='text' value={this.state.description} onChange={this.onChange} />
-                    <label>Where will your event be?</label>
-                    <input id='location' type='text' value={this.state.location} onChange={this.onChange} />
-                    <MuiPickersUtilsProvider
-                        className='date-picker'
-                        utils={DateFnsUtils}>
-                        <DateTimePicker
-                            id='startTime'
-                            label='Choose a start time'
-                            value={this.state.startTime}
-                            onChange={this.handleStartDateChange}/>
-                        <DateTimePicker
-                            id='endTime'
-                            label='Choose an end time'
-                            value={this.state.endTime}
-                            onChange={this.handleEndDateChange}/>
-                    </MuiPickersUtilsProvider>
-                    <input type='submit' value='Submit' />
+            <div className='add-event-container'>
+                <h1 className='add-event-header'>What's the event?</h1>
+                <form className='add-event-form'>
+                    <label className='input-label'>What's the name of your event?</label>
+                    <input className='event-input' id='title' type='text' value={this.state.title} 
+                        onChange={this.onChange} />
+                    <label className='input-label'>Describe your event.</label>
+                    <input className='event-input' id='description' type='text' value={this.state.description} 
+                        onChange={this.onChange} />
+                    <label className='input-label'>Where will your event be?</label>
+                    <input className='event-input' id='location' type='text' value={this.state.location} 
+                        onChange={this.onChange} />
+                    <div className='date-selectors'>
+                        <MuiPickersUtilsProvider
+                            className='date-picker'
+                            utils={DateFnsUtils}>
+                            <div className='date-chooser'>
+                                <DateTimePicker
+                                    className='date-chooser'
+                                    id='startTime'
+                                    label='Choose a start time'
+                                    value={this.state.startTime}
+                                    onChange={this.handleStartDateChange}/>
+                            </div>
+                            <div className='date-chooser'>
+                                <DateTimePicker
+                                    className='date-chooser'
+                                    id='endTime'
+                                    label='Choose an end time'
+                                    value={this.state.endTime}
+                                    onChange={this.handleEndDateChange}/>
+                            </div>
+                        </MuiPickersUtilsProvider>
+                    </div>
+                    <button onClick={this.onSubmit} className='submit-btn btn'>Submit</button>
                 </form>
             </div>
         )

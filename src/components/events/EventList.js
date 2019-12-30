@@ -87,7 +87,7 @@ class EventList extends React.Component{
                             <ContextMenuTrigger id={event._id}>
                                 <Card className='event-card'>
                                     <h4 className='event-title color-blue'>{event.eventTitle}</h4>
-                                    <p>{event.eventDescription}</p>
+                                    <p>{event.eventDescription.slice(0, 100)}</p>
                                     <div className='event-details'>
                                         <Grid container spacing={2}>
                                             <Grid item xs={2}>
@@ -133,7 +133,7 @@ class EventList extends React.Component{
                             <ContextMenuTrigger id={event._id}>
                                 <Card className='event-card'>
                                     <h4 className='event-title color-blue'>{event.eventTitle}</h4>
-                                    <p>{event.eventDescription.slice(0, 50)}</p>
+                                    <p>{event.eventDescription.slice(0, 100)}</p>
                                     <div className='event-details'>
                                         <Grid container spacing={2}>
                                             <Grid item xs={2}>
@@ -175,11 +175,13 @@ class EventList extends React.Component{
                     </Grid>
                 </Grid>
                 <h1 className='event-list-title'>Upcoming Events</h1>
-                <div className='future-events-container'>
+                <div className='all-events-container'>
                     {futureEventsCompon}
                 </div>
                 <h1 className='event-list-title'>Past Events</h1>
-                {pastEventsCompon}
+                <div className='all-events-container'>
+                    {pastEventsCompon}
+                </div>
             </div>
         )
     }

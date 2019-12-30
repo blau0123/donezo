@@ -25,7 +25,7 @@
     transform: scale(0.95);
 }
 
-.future-events-container{
+.all-events-container{
     display: flex;
     flex-wrap: wrap;
 }
