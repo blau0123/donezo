@@ -1,0 +1,63 @@
+.team-container{
+    font-family: 'Roboto', sans-serif;
+}
+
+.list-title{
+    color:#779ECB;
+    text-decoration: none;
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+/* NOTES SECTION CSS */
+.list-title:hover{
+    color:#779ECB;
+    text-decoration: none;
+}
+
+.team-notes-list{
+    margin-left: 30px;
+}
+
+.home-note-content{
+    position: relative;
+    padding-left: 20px;
+    padding-top: 20px;
+    margin: 10px;
+    width: 350px;
+    height: 210px;
+    transition: all .3s ease-in-out;
+}
+
+.home-note-content:hover{
+    transform: scale(0.95);
+}
+
+.h-notes-list-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.home-note-title{
+    font-size: 25px;
+    color:#779ECB;
+}
+
+.note-details{
+    font-size: 12px;
+}
+
+.note-author{
+    position: absolute;
+    bottom: 0;
+}
+
+.delete-note-btn{
+    margin-right: 15px;
+}
+
+.delete-note-btn:hover{
+    cursor: pointer;
+    color:#779ECB;
+}

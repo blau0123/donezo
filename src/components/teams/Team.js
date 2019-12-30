@@ -3,10 +3,16 @@ import { connect } from 'react-redux';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import {Link} from 'react-router-dom';
-
 import Card from '@material-ui/core/Card'
+import Grid from '@material-ui/core/Grid';
+import OfflinePinIcon from '@material-ui/icons/OfflinePin';
+
+import HomeNotesList from '../notes/HomeNotesList';
+
+import './Team.css';
 
 import {getTeamWithId, getAllTeams, completeTeamTodo, deleteTeamTodo} from '../../redux/actions/teamActions';
+import {deleteNote} from '../../redux/actions/noteActions';
 
 /*
 Depends on the id of the team passed in, shows the team with that id
@@ -15,8 +21,14 @@ class Team extends React.Component{
     constructor(props){
         super(props);
 
+        // state holds the menu items for right click
+        this.state = {
+            menu:[{'label': 'delete'}]
+        }
+
         this.onToggle = this.onToggle.bind(this);
         this.sortFutureEvents = this.sortFutureEvents.bind(this);
+        this.rightClickNote = this.rightClickNote.bind(this);
     }
 
     componentDidMount(){
@@ -98,25 +110,19 @@ class Team extends React.Component{
         return eventsList;
     }
 
+    rightClickNote(evt){
+        evt.preventDefault();
+        console.log('yeet')
+    }
+
     render(){
         // get the curr team from props that was obtained from store state after getTeamWithId called
         const {currTeam} = this.props.team;
         console.log(currTeam);
         // get the curr user of the app
         const {user} = this.props.auth;
+        //console.log(currTeam.teamNotes);
         
-        // get all of the pinned notes for this curr team and make a component
-        const notesList = currTeam.teamNotes && currTeam.teamNotes.length > 0 ?
-            currTeam.teamNotes.map(note => 
-                note.pinned ? 
-                    <Card>
-                        <p>Pinned!</p>
-                        <h6>{note.noteTitle}</h6>
-                        <p>{note.noteBody}</p>
-                        <p>By, {note.author}</p>
-                    </Card>
-                : null
-            ) : <p>No notes yet!</p>;
 
         // get all of the todos for this curr team and make component
         const todosList = currTeam.teamTodos && currTeam.teamTodos.length > 0 ?
@@ -189,7 +195,7 @@ class Team extends React.Component{
             }) : null;
         
         return(
-            <div className="container">
+            <div className="team-container">
                 <Link to='/'>Home</Link>
                 <Dropdown>
                     <Dropdown.Toggle variant='success' id='team-selector'>
@@ -224,14 +230,17 @@ class Team extends React.Component{
         
                         <div className="team-notes-list">
                             <h4>
-                                <Link to={`/noteslist/${currTeam._id}`}>Notes</Link>
+                                <Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>
                             </h4>
-                            {notesList}
+                            <div className='h-notes-list-container'>
+                                {/*notesList*/}
+                                <HomeNotesList currTeam={currTeam} />
+                            </div>
                         </div>
                         <button><Link to={{pathname: '/addnote', state:{teamData: currTeam}}}>Add Note</Link></button>
                         
                         <div className="team-todos-list">
-                            <h4>Todos</h4>
+                            <h4 className='list-title'>Todos</h4>
                             <div>
                                 {todosList}
                             </div>
@@ -240,7 +249,7 @@ class Team extends React.Component{
                         
                         <div className="team-events-list">
                             <h4>
-                                <Link to={`/eventslist/${currTeam._id}`}>Events</Link>
+                                <Link className='list-title' to={`/eventslist/${currTeam._id}`}>Events</Link>
                             </h4>
                             {eventsList}
                             <p>You have {numPastEvents} past event(s).</p>
@@ -261,4 +270,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {getTeamWithId, getAllTeams, completeTeamTodo,
-        deleteTeamTodo})(Team);
+        deleteTeamTodo, deleteNote})(Team);
