@@ -25,14 +25,21 @@ export const addEventToTeam = (teamData, eventData) => dispatch => {
 }
 
 // delete event
-export const deleteEvent = (eventData) => dispatch => {
-    axios.post('http://localhost:5000/events/delete', {eventData})
+export const deleteEvent = (eventData, teamData) => dispatch => {
+    // delete event from team's event list of objid's first
+    axios.post('http://localhost:5000/teams/deleteevent', {eventData, teamData})
         .then(res => {
-            // dispatch null payload to refresh upon deletion
-            dispatch({
-                type: DELETE_EVENT,
-                payload: null,
+            console.log(res);
+            axios.post('http://localhost:5000/events/delete', {eventData})
+            .then(res => {
+                console.log(res);
+                // dispatch null payload to refresh upon deletion
+                dispatch({
+                    type: DELETE_EVENT,
+                    payload: null,
+                })
             })
+            .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
 }

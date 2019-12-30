@@ -1,16 +1,24 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+
+// for right click context menu to delete
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
 import {getTeamWithId} from '../../redux/actions/teamActions';
 import {deleteEvent} from '../../redux/actions/eventActions';
 import {connect} from 'react-redux';
+
+import './EventList.css';
 
 class EventList extends React.Component{
     constructor(){
         super();
         this.sortEvents = this.sortEvents.bind(this);
         this.sortFutureEvents = this.sortFutureEvents.bind(this);
+        this.onContextItemClick = this.onContextItemClick.bind(this);
     }
 
     componentDidMount(){
@@ -47,6 +55,14 @@ class EventList extends React.Component{
         })
         return eventsList;
     }
+    onContextItemClick(evt, data){
+        evt.preventDefault();
+        const {eventData} = data;
+        const {currTeam} = this.props.team;
+        this.props.deleteEvent(eventData, currTeam);
+        // reload page to show deletions
+        window.location.reload();
+    }
 
     render(){
         const {currTeam} = this.props.team;
@@ -67,21 +83,39 @@ class EventList extends React.Component{
                 if (currTime > start){
                     numPast++;
                     return(
-                        <Card key={event._id}>
-                            <button onClick={() => this.props.deleteEvent(event)}>Delete</button>
-                            <h4>{event.eventTitle}</h4>
-                            <p>{event.eventDescription}</p>
-                            <p>{event.eventLocation}</p>
-                            <p>Start: {start.toLocaleString()}</p>
-                            <p>End: {end.toLocaleString()}</p>
-                        </Card>
+                        <div key={event._id}>
+                            <ContextMenuTrigger id={event._id}>
+                                <Card className='event-card'>
+                                    <h4 className='event-title color-blue'>{event.eventTitle}</h4>
+                                    <p>{event.eventDescription}</p>
+                                    <div className='event-details'>
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={2}>
+                                                <LocationOnIcon className='location-icon color-blue'/>
+                                            </Grid>
+                                            <Grid item xs={10}>
+                                                <p>{event.eventLocation}</p>
+                                            </Grid>
+                                        </Grid>
+                                        <p>Start: {start.toLocaleString()}</p>
+                                        <p>End: {end.toLocaleString()}</p>
+                                    </div>
+                                </Card>
+                            </ContextMenuTrigger>
+                            <ContextMenu id={event._id} className='context-menu-container'>
+                                <MenuItem className='context-menu-item' data={{eventData: event}} 
+                                    onClick={this.onContextItemClick}>
+                                    Delete
+                                </MenuItem>
+                            </ContextMenu>
+                        </div>
                     )
                 }
             })
         : null;
 
         if (numPast === 0){
-            pastEventsCompon = <p>No past events to show!</p>
+            pastEventsCompon = <p className='no-event-text'>No past events to show!</p>
         }
 
         // make component for future events
@@ -95,29 +129,56 @@ class EventList extends React.Component{
                 if (currTime <= start){
                     numFuture++;
                     return(
-                        <Card key={event._id}>
-                            <button onClick={() => this.props.deleteEvent(event)}>Delete</button>
-                            <h4>{event.eventTitle}</h4>
-                            <p>{event.eventDescription}</p>
-                            <p>{event.eventLocation}</p>
-                            <p>Start: {start.toLocaleString()}</p>
-                            <p>End: {end.toLocaleString()}</p>
-                        </Card>
+                        <div key={event._id}>
+                            <ContextMenuTrigger id={event._id}>
+                                <Card className='event-card'>
+                                    <h4 className='event-title color-blue'>{event.eventTitle}</h4>
+                                    <p>{event.eventDescription.slice(0, 50)}</p>
+                                    <div className='event-details'>
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={2}>
+                                                <LocationOnIcon className='location-icon color-blue'/>
+                                            </Grid>
+                                            <Grid item xs={10}>
+                                                <p>{event.eventLocation}</p>
+                                            </Grid>
+                                        </Grid>
+                                        <p>Start: {start.toLocaleString()}</p>
+                                        <p>End: {end.toLocaleString()}</p>
+                                    </div>
+                                </Card>
+                            </ContextMenuTrigger>
+                            <ContextMenu id={event._id} className='context-menu-container'>
+                                <MenuItem className='context-menu-item' data={{eventData: event}} 
+                                    onClick={this.onContextItemClick}>
+                                    Delete
+                                </MenuItem>
+                            </ContextMenu>
+                        </div>
                     )
                 }
             })
         : <p>No upcoming events!</p>;
 
         if (numFuture === 0){
-            futureEventsCompon = <p>No upcoming events!</p>
+            futureEventsCompon = <p className='no-event-text'>No upcoming events!</p>
         }
 
         return(
-            <div>
-                <button onClick={() => this.props.history.goBack()}>Back to team</button>
-                <h1>Upcoming Events</h1>
-                {futureEventsCompon}
-                <h1>Past Events</h1>
+            <div className='event-list-container'>
+                <Grid container spacing={1}>
+                    <Grid item xs={1}>
+                        <ArrowBackIosIcon className='back-btn' onClick={() => this.props.history.goBack()} />
+                    </Grid>
+                    <Grid item xs={10}>
+                        <h1 className='event-list-header'>Events for {currTeam.teamName}</h1>
+                    </Grid>
+                </Grid>
+                <h1 className='event-list-title'>Upcoming Events</h1>
+                <div className='future-events-container'>
+                    {futureEventsCompon}
+                </div>
+                <h1 className='event-list-title'>Past Events</h1>
                 {pastEventsCompon}
             </div>
         )

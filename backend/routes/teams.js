@@ -314,6 +314,34 @@ router.route('/addevent').post((req, res) => {
 })
 
 /*
+@route POST /teams/deleteevent
+@desc Deletes event objectid from event list in team
+@access Public
+*/
+router.route('/deleteevent').post((req, res) => {
+    const eventData = req.body.eventData;
+    const teamData = req.body.teamData;
+    // find the team that this note belongs to
+    Team.findById(teamData._id)
+        .then(team => {
+            // find the note in the array of notes
+            const teamEvents = team.teamEvents;
+            for (let i = 0; i < teamEvents.length; i++){
+                // found the note, so remove it from the array
+                if (teamEvents[i]._id.toHexString() === eventData._id){
+                    teamEvents.splice(i, 1);
+                }
+            }
+
+            // save the team with the deleted note
+            team.save()
+                .then(() => res.json('event deleted'))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(404).json('Error: ' + err));
+})
+
+/*
 @route POST /teams/chat/add
 @desc Adds a new chat message
 @access Public

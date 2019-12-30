@@ -1,0 +1,44 @@
+.event-list-container{
+    font-family: 'Roboto', sans-serif;
+}
+
+.event-list-title{
+    margin: 15px 20px;
+    font-size: 30px;
+}
+
+.event-list-header{
+    margin-top: 20px;
+    margin-left: 0;
+}
+
+.event-card{
+    padding: 25px;
+    margin: 15px;
+    transition: all .3s ease-in-out;
+    height: 300px;
+    width: 300px;
+    position: relative;
+}
+
+.event-card:hover{
+    transform: scale(0.95);
+}
+
+.future-events-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.event-details{
+    position: absolute;
+    bottom: 0;
+}
+
+.color-blue{
+    color: #779ECB;
+}
+
+.no-event-text{
+    margin: 15px 20px;
+}
