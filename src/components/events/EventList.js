@@ -56,6 +56,7 @@ class EventList extends React.Component{
         })
         return eventsList;
     }
+    
     onContextItemClick(evt, data){
         evt.preventDefault();
         const {eventData} = data;

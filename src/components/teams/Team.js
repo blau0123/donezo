@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Dropdown from 'react-bootstrap/Dropdown';
 import {Link} from 'react-router-dom';
-import Card from '@material-ui/core/Card'
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
 
 import HomeNotesList from '../notes/HomeNotesList';
 import HomeTodoList from '../todos/HomeTodoList';
+import HomeEventsList from '../events/HomeEventsList';
 
 import './Team.css';
 
@@ -24,8 +24,6 @@ class Team extends React.Component{
         this.state = {
             menu:[{'label': 'delete'}]
         }
-
-        this.sortFutureEvents = this.sortFutureEvents.bind(this);
     }
 
     componentDidMount(){
@@ -80,48 +78,11 @@ class Team extends React.Component{
         return isInTeam;
     }
 
-    sortFutureEvents(eventsList){
-        eventsList.sort((a, b) => {
-            a = new Date(a.eventStartTime);
-            b = new Date(b.eventStartTime);
-            return a < b ? -1 : a > b ? 1 : 0
-        })
-        return eventsList;
-    }
-
     render(){
         // get the curr team from props that was obtained from store state after getTeamWithId called
         const {currTeam} = this.props.team;
         // get the curr user of the app
         const {user} = this.props.auth;
-
-        // get all events for this curr team and make component
-        let numPastEvents = 0;
-        const sortedEvents = currTeam.teamEvents ? this.sortFutureEvents(currTeam.teamEvents)
-                : currTeam.teamEvents;
-        const eventsList = sortedEvents && sortedEvents.length > 0 ?
-                sortedEvents.map(event => {
-                    const start = new Date(event.eventStartTime);
-                    const end = new Date(event.eventEndTime);
-                    // don't show events that have already passed
-                    const currTime = new Date();
-
-                    if (currTime < start){
-                        return(
-                            <Card key={event._id}>
-                                <h6>{event.eventTitle}</h6>
-                                <p>{event.eventDescription}</p>
-                                <p>Location: {event.eventLocation}</p>
-                                <p>Start: {start.toLocaleString()}</p>
-                                <p>End: {end.toLocaleString()}</p>
-                            </Card>
-                        )
-                    }
-                    else{ 
-                        numPastEvents++;
-                        return null;
-                     }
-                }) : <p>No events yet!</p>
 
         // have all dropdown items be teams user is in
         const {teamsList} = this.props.team;
@@ -183,7 +144,7 @@ class Team extends React.Component{
                     </div>
 
                     <Grid container spacing={2}>
-                        <Grid item sm={12} md={6} className='grid-todos'>
+                        <Grid item sm={12} md={5} className='grid-todos'>
                             <div className="team-todos-list h-team-list">
                                 <Grid container spacing={2}>
                                     <Grid item xs={9}>
@@ -200,15 +161,22 @@ class Team extends React.Component{
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item sm={12} md={6}>
+                        <Grid item sm={12} md={7}>
                             <div className="team-events-list">
-                                <h4>
-                                    <Link className='list-title' to={`/eventslist/${currTeam._id}`}>Events</Link>
-                                </h4>
-                                {eventsList}
-                                <p>You have {numPastEvents} past event(s).</p>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={9}>
+                                        <h4>
+                                            <Link className='list-title' to={`/eventslist/${currTeam._id}`}>Events</Link>
+                                        </h4>
+                                    </Grid>
+                                    <Grid item xs={1}>
+                                        <Link to={{pathname: '/addevent', state:{teamData: currTeam}}}>
+                                            <AddIcon className='add-todo' />
+                                        </Link>
+                                    </Grid>
+                                </Grid>
+                                <HomeEventsList currTeam={currTeam} />
                             </div>
-                            <button><Link to={{pathname: '/addevent', state:{teamData: currTeam}}}>Add Event</Link></button>
                         </Grid>
                     </Grid>
                 </div>
