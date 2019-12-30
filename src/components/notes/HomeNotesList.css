@@ -17,6 +17,15 @@
     transition: all .3s ease-in-out;
 }
 
+.show-note{
+    color: black;
+}
+
+.show-note:hover{
+    text-decoration: none;
+    color: black;
+}
+
 .home-note-content:hover{
     transform: scale(0.95);
 }

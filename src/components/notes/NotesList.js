@@ -37,6 +37,12 @@ class NotesList extends React.Component{
         const {id} = this.props.match.params;
         // get the team that the user is viewing
         this.props.getTeamWithId(id);
+
+        // if there is a current note sent from home, then show it immedaitely
+        if (this.props.location.state){
+            const {currNote} = this.props.location.state;
+            this.setState({currNote})
+        }
     }
 
     onContextItemClick(evt, data){
