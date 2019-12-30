@@ -38,25 +38,18 @@ class Team extends React.Component{
         this.props.getAllTeams();
     }
 
-    /*
-    When using Link to change which team to view on Team.js component, send a new state that
-    holds the id of the new team to view. we receive that new state here and we check if
-    the new team id is the same as the current team id and if not, then the user wants to view
-    a different team, so refresh
-    */
-    componentWillReceiveProps(nextProps){
-        const newTeamId = nextProps.location.state ? 
-            nextProps.location.state.teamId : '';
-        const currTeamId = this.props.team.currTeam._id ?
-            this.props.team.currTeam._id : '';
+    componentDidUpdate(prevProps){
+        // check if user selected new team in dropdown. if so, reload page to go to new team
+        const newTeamId = this.props.location.state ? 
+            this.props.location.state.teamId : '';
+        const currTeamId = prevProps.team.currTeam._id ?
+            prevProps.team.currTeam._id : '';
 
         // if the new team that the user wants to view is not the same team that's on screen, refresh
         if (newTeamId !== '' && currTeamId !== '' && newTeamId !== currTeamId){
             window.location.reload();
         }    
-    }
 
-    componentDidUpdate(prevProps){
         // if added a note, then should refresh to show new note
         if (this.props.note.lastAddedNote !== prevProps.note.lastAddedNote){
             window.location.reload();
@@ -225,16 +218,11 @@ class Team extends React.Component{
                         </div>
         
                         <div className="team-notes-list">
-                            <h4>
-                                <Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>
-                            </h4>
+                            <Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>
                             <div className='h-notes-list-container'>
-                                {/*notesList*/}
                                 <HomeNotesList currTeam={currTeam} />
                             </div>
                         </div>
-                        <button><Link to={{pathname: '/addnote', state:{teamData: currTeam}}}>Add Note</Link></button>
-                        
                         <div className="team-todos-list">
                             <h4 className='list-title'>Todos</h4>
                             <div>

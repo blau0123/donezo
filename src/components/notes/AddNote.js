@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 //import {addNoteToTeam} from '../../redux/actions/teamActions';
 import {addNoteToTeam} from '../../redux/actions/noteActions';
 
+/*
+NOT USED ANYMORE. WHEN CLICK ADD NOTE, USER IS DIRECTLY TAKEN TO NOTESLIST, WHICH
+CONTAINS EDITNOTE, WHICH ALSO ACTS AS AN ADD NOTE
+*/
 class AddNote extends React.Component{
     constructor(){
         super();
