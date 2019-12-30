@@ -5,14 +5,12 @@ import Form from 'react-bootstrap/Form';
 import {Link} from 'react-router-dom';
 import Card from '@material-ui/core/Card'
 import Grid from '@material-ui/core/Grid';
-import OfflinePinIcon from '@material-ui/icons/OfflinePin';
 
 import HomeNotesList from '../notes/HomeNotesList';
 
 import './Team.css';
 
 import {getTeamWithId, getAllTeams, completeTeamTodo, deleteTeamTodo} from '../../redux/actions/teamActions';
-import {deleteNote} from '../../redux/actions/noteActions';
 
 /*
 Depends on the id of the team passed in, shows the team with that id
@@ -53,24 +51,24 @@ class Team extends React.Component{
             this.props.team.currTeam._id : '';
 
         // if the new team that the user wants to view is not the same team that's on screen, refresh
-        if (newTeamId != '' && currTeamId != '' && newTeamId != currTeamId){
+        if (newTeamId !== '' && currTeamId !== '' && newTeamId !== currTeamId){
             window.location.reload();
         }    
     }
 
     componentDidUpdate(prevProps){
         // if added a note, then should refresh to show new note
-        if (this.props.note.lastAddedNote != prevProps.note.lastAddedNote){
+        if (this.props.note.lastAddedNote !== prevProps.note.lastAddedNote){
             window.location.reload();
         }
 
         // if added a todo, should refresh to show new todo
-        if (this.props.team.lastAddedTodo != prevProps.team.lastAddedTodo){
+        if (this.props.team.lastAddedTodo !== prevProps.team.lastAddedTodo){
             window.location.reload();
         }
 
         // if added an event, should refresh to show new event
-        if (this.props.event.lastAddedEvent != prevProps.event.lastAddedEvent){
+        if (this.props.event.lastAddedEvent !== prevProps.event.lastAddedEvent){
             window.location.reload();
         }
     }
@@ -121,13 +119,11 @@ class Team extends React.Component{
         console.log(currTeam);
         // get the curr user of the app
         const {user} = this.props.auth;
-        //console.log(currTeam.teamNotes);
-        
-
+    
         // get all of the todos for this curr team and make component
         const todosList = currTeam.teamTodos && currTeam.teamTodos.length > 0 ?
             currTeam.teamTodos.map(todo => 
-                <Card>
+                <Card key={todo._id}>
                     <Link to={{pathname: '/edittodo', state:{teamData: currTeam, currTodo: todo}}}>
                         <p style={{fontWeight:'bold'}}>Assigned: 
                             {
@@ -161,7 +157,7 @@ class Team extends React.Component{
 
                     if (currTime < start){
                         return(
-                            <Card>
+                            <Card key={event._id}>
                                 <h6>{event.eventTitle}</h6>
                                 <p>{event.eventDescription}</p>
                                 <p>Location: {event.eventLocation}</p>
@@ -270,4 +266,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {getTeamWithId, getAllTeams, completeTeamTodo,
-        deleteTeamTodo, deleteNote})(Team);
+        deleteTeamTodo})(Team);

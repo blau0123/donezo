@@ -59,7 +59,6 @@ router.route('/:id').get((req, res) => {
         .exec((err, team) => {
             if (err) return res.status(400).json(err);
 
-            console.log(team);
             return res.json(team);
         })
 })
@@ -151,6 +150,34 @@ router.route('/addnote').post((req, res) => {
                 // send the note data to update the lastAddedNote in store
                 .then(() => res.json('Added note'))
                 .catch(err => res.status(400).json('Error: ' + err))
+        })
+        .catch(err => res.status(404).json('Error: ' + err));
+})
+
+/*
+@route POST /teams/deletenote
+@desc Deletes a given note object id to notes list
+@access Public
+*/
+router.route('/deletenote').post((req, res) => {
+    const noteData = req.body.noteData;
+    const teamData = req.body.teamData;
+    // find the team that this note belongs to
+    Team.findById(teamData._id)
+        .then(team => {
+            // find the note in the array of notes
+            const teamNotes = team.teamNotes;
+            for (let i = 0; i < teamNotes.length; i++){
+                // found the note, so remove it from the array
+                if (teamNotes[i]._id.toHexString() === noteData._id){
+                    teamNotes.splice(i, 1);
+                }
+            }
+
+            // save the team with the deleted note
+            team.save()
+                .then(() => res.json('note deleted'))
+                .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(404).json('Error: ' + err));
 })

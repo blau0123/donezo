@@ -10,6 +10,10 @@ import OfflinePinOutlinedIcon from '@material-ui/icons/OfflinePinOutlined';
 import OfflinePinIcon from '@material-ui/icons/OfflinePin';
 import EditNote from './EditNote';
 
+// for right click context menu to delete
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
+import {deleteNote} from '../../redux/actions/noteActions';
+
 import './NotesList.css';
 
 class NotesList extends React.Component{
@@ -18,6 +22,7 @@ class NotesList extends React.Component{
         this.state = {
             currNote:{}
         }
+        this.onContextItemClick = this.onContextItemClick.bind(this);
     }
 
     componentDidUpdate(prevProps){
@@ -34,6 +39,15 @@ class NotesList extends React.Component{
         this.props.getTeamWithId(id);
     }
 
+    onContextItemClick(evt, data){
+        // data holds the note that was right clicked
+        const teamData = this.props.team.currTeam;
+        console.log(teamData);
+        this.props.deleteNote(data.noteData, teamData);
+        // reload page to show deletions
+        window.location.reload();
+    }
+
     render(){
         const {currTeam} = this.props.team;
         //console.log(currTeam);
@@ -45,44 +59,64 @@ class NotesList extends React.Component{
                 note.pinned ?
                     // if this is the note that the user is viewing in edit, outline it
                     this.state.currNote === note ?
-                        <Card key={note._id} onClick={() => {
-                            // if already selected, unselect
-                            if (this.state.currNote === note){
-                                this.setState({currNote: null})
-                            }
-                            else this.setState({currNote: note})
-                        }}
-                            className='note-card selected'>
-                            <Grid container spacing={2}>
-                                <Grid item xs={10}>
-                                    <h4>{note.noteTitle}</h4>
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <OfflinePinIcon className='pinned-btn'/>
-                                </Grid>
-                            </Grid>
-                            <p>{note.noteBody.slice(0, 110)}</p>
-                            <p>{note.author}</p>
-                        </Card> :
-                        <Card className='note-card' key={note._id} 
-                            onClick={() => {
-                                // if already selected, unselect
-                                if (this.state.currNote === note){
-                                    this.setState({currNote: null})
-                                }
-                                else this.setState({currNote: note})
-                            }}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={10}>
-                                    <h4>{note.noteTitle}</h4>
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <OfflinePinIcon className='pinned-btn'/>
-                                </Grid>
-                            </Grid>
-                            <p>{note.noteBody.slice(0, 110)}</p>
-                            <p>{note.author}</p>
-                    </Card>
+                        <div>
+                            <ContextMenuTrigger id={note._id}>
+                                <Card key={note._id} onClick={() => {
+                                    // if already selected, unselect
+                                    if (this.state.currNote === note){
+                                        this.setState({currNote: null})
+                                    }
+                                    else this.setState({currNote: note})
+                                }}
+                                    className='note-card selected'>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={10}>
+                                            <h4>{note.noteTitle}</h4>
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <OfflinePinIcon className='pinned-btn'/>
+                                        </Grid>
+                                    </Grid>
+                                    <p>{note.noteBody.slice(0, 110)}</p>
+                                    <p>{note.author}</p>
+                                </Card> 
+                            </ContextMenuTrigger>
+                            <ContextMenu id={note._id} className='context-menu-container'>
+                                <MenuItem className='context-menu-item' data={{noteData: note}} 
+                                    onClick={this.onContextItemClick}>
+                                    Delete
+                                </MenuItem>
+                            </ContextMenu>
+                        </div> :
+                        <div>
+                            <ContextMenuTrigger id={note._id}>
+                                <Card className='note-card' key={note._id} 
+                                    onClick={() => {
+                                        // if already selected, unselect
+                                        if (this.state.currNote === note){
+                                            this.setState({currNote: null})
+                                        }
+                                        else this.setState({currNote: note})
+                                    }}>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={10}>
+                                            <h4>{note.noteTitle}</h4>
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <OfflinePinIcon className='pinned-btn'/>
+                                        </Grid>
+                                    </Grid>
+                                    <p>{note.noteBody.slice(0, 110)}</p>
+                                    <p>{note.author}</p>
+                                </Card>
+                            </ContextMenuTrigger>
+                            <ContextMenu id={note._id} className='context-menu-container'>
+                                <MenuItem className='context-menu-item' data={{noteData: note}} 
+                                    onClick={this.onContextItemClick}>
+                                        Delete
+                                </MenuItem>
+                            </ContextMenu>
+                        </div>
                 : null
             )
         : null;
@@ -93,44 +127,64 @@ class NotesList extends React.Component{
                 !note.pinned ?
                     // if this is the note that the user is viewing in edit, outline it
                     this.state.currNote === note ? 
-                        <Card key={note._id} onClick={() => {
-                            // if already selected, unselect
-                            if (this.state.currNote === note){
-                                this.setState({currNote: null})
-                            }
-                            else this.setState({currNote: note})
-                        }}
-                            className='note-card selected'>
-                            <Grid container spacing={1}>
-                                <Grid item xs={10}>
-                                    <h4>{note.noteTitle}</h4>
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <OfflinePinOutlinedIcon className='pinned-btn mr-5'/>
-                                </Grid>
-                            </Grid>
-                            <p>{note.noteBody.slice(0, 110)}</p>
-                            <p>{note.author}</p>
-                        </Card> :
-                        <Card className='note-card' key={note._id} 
-                            onClick={() => {
-                                // if already selected, unselect
-                                if (this.state.currNote === note){
-                                    this.setState({currNote: null})
-                                }
-                                else this.setState({currNote: note})
-                            }}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={10}>
-                                    <h4>{note.noteTitle}</h4>
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <OfflinePinOutlinedIcon className='pinned-btn'/>
-                                </Grid>
-                            </Grid>
-                            <p>{note.noteBody.slice(0, 110)}</p>
-                            <p>{note.author}</p>
-                        </Card>
+                        <div>
+                            <ContextMenuTrigger id={note._id}>
+                                <Card key={note._id} onClick={() => {
+                                    // if already selected, unselect
+                                    if (this.state.currNote === note){
+                                        this.setState({currNote: null})
+                                    }
+                                    else this.setState({currNote: note})
+                                }}
+                                    className='note-card selected'>
+                                    <Grid container spacing={1}>
+                                        <Grid item xs={10}>
+                                            <h4>{note.noteTitle}</h4>
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <OfflinePinOutlinedIcon className='pinned-btn mr-5'/>
+                                        </Grid>
+                                    </Grid>
+                                    <p>{note.noteBody.slice(0, 110)}</p>
+                                    <p>{note.author}</p>
+                                </Card>
+                            </ContextMenuTrigger>
+                            <ContextMenu id={note._id} className='context-menu-container'>
+                                <MenuItem className='context-menu-item' data={{noteData: note}} 
+                                    onClick={this.onContextItemClick}>
+                                        Delete
+                                </MenuItem>
+                            </ContextMenu>
+                        </div> :
+                        <div>
+                            <ContextMenuTrigger id={note._id}>
+                                <Card className='note-card' key={note._id} 
+                                    onClick={() => {
+                                        // if already selected, unselect
+                                        if (this.state.currNote === note){
+                                            this.setState({currNote: null})
+                                        }
+                                        else this.setState({currNote: note})
+                                    }}>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={10}>
+                                            <h4>{note.noteTitle}</h4>
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <OfflinePinOutlinedIcon className='pinned-btn'/>
+                                        </Grid>
+                                    </Grid>
+                                    <p>{note.noteBody.slice(0, 110)}</p>
+                                    <p>{note.author}</p>
+                                </Card>
+                            </ContextMenuTrigger>
+                            <ContextMenu id={note._id} className='context-menu-container'>
+                                <MenuItem className='context-menu-item' data={{noteData: note}} 
+                                    onClick={this.onContextItemClick}>
+                                        Delete
+                                </MenuItem>
+                            </ContextMenu>
+                        </div>
                 : null
             )
         : null;
@@ -165,4 +219,4 @@ const mapStateToProps = state => ({
     note: state.note,
 })
 
-export default connect(mapStateToProps, {getTeamWithId})(NotesList);
+export default connect(mapStateToProps, {getTeamWithId, deleteNote})(NotesList);

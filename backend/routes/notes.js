@@ -81,7 +81,6 @@ router.route('/update').post((req, res) => {
 */
 router.route('/delete').post((req, res) => {
     const noteId = req.body.noteData._id;
-
     // delete note by id from db
     Note.deleteOne({_id: noteId}, (err) => {
         if (err) return res.status(400).json('Error: ' + err);

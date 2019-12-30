@@ -38,14 +38,21 @@ export const updateNote = (noteData) => dispatch => {
 }
 
 // delete a note
-export const deleteNote = (noteData) => dispatch => {
-    axios.post('http://localhost:5000/notes/delete', {noteData})
+export const deleteNote = (noteData, teamData) => dispatch => {
+    // remove objectid of note from team and then delete note document
+    axios.post('http://localhost:5000/teams/deletenote', {noteData, teamData})
         .then(res => {
-            console.log(res);
-            // updates state with null (newest note was deleted)
-            dispatch({
-                type: DELETE_NOTE,
-                payload: null,
-            })
+            // now delete the actual document
+            axios.post('http://localhost:5000/notes/delete', {noteData})
+                .then(res => {
+                    console.log(res);
+                    // updates state with null (newest note was deleted)
+                    dispatch({
+                        type: DELETE_NOTE,
+                        payload: {deleted: true},
+                    })
+                })
+                .catch(err => console.log('error!!', err))
         })
+        .catch(err => console.log('error: ', err))
 }

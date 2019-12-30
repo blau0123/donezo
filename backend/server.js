@@ -94,7 +94,6 @@ io.on('connection', socket => {
         // get the user that is sending the message
         const user = getUser(socket.id);
         const chatData = {user:user.name, text:msg};
-        console.log(user.team);
         // adds the new message to the given team
         Team.findById(user.team._id)
             .then(team => {
