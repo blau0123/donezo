@@ -55,8 +55,9 @@ class NotesList extends React.Component{
         // make a component to show all notes
         const notesList = currTeam.teamNotes;
         const pinnedNotesCompon = notesList && notesList.length > 0 ?
-            notesList.map(note => 
-                note.pinned ?
+            notesList.map(note => {
+                const lastUpdated = new Date(note.updatedAt);
+                return note.pinned ?
                     // if this is the note that the user is viewing in edit, outline it
                     this.state.currNote === note ?
                         <div>
@@ -69,16 +70,17 @@ class NotesList extends React.Component{
                                     else this.setState({currNote: note})
                                 }}
                                     className='note-card selected'>
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={1}>
                                         <Grid item xs={10}>
-                                            <h4>{note.noteTitle}</h4>
+                                            <p className='note-details'>Last updated: {lastUpdated.toLocaleString()}</p>
                                         </Grid>
                                         <Grid item xs={2}>
                                             <OfflinePinIcon className='pinned-btn'/>
                                         </Grid>
                                     </Grid>
+                                    <h4 className='indiv-note-title'>{note.noteTitle}</h4>
                                     <p>{note.noteBody.slice(0, 110)}</p>
-                                    <p>{note.author}</p>
+                                    <p className='note-details note-author'>{note.author}</p>
                                 </Card> 
                             </ContextMenuTrigger>
                             <ContextMenu id={note._id} className='context-menu-container'>
@@ -98,16 +100,17 @@ class NotesList extends React.Component{
                                         }
                                         else this.setState({currNote: note})
                                     }}>
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={1}>
                                         <Grid item xs={10}>
-                                            <h4>{note.noteTitle}</h4>
+                                            <p className='note-details'>Last updated: {lastUpdated.toLocaleString()}</p>
                                         </Grid>
                                         <Grid item xs={2}>
                                             <OfflinePinIcon className='pinned-btn'/>
                                         </Grid>
                                     </Grid>
+                                    <h4 className='indiv-note-title'>{note.noteTitle}</h4>
                                     <p>{note.noteBody.slice(0, 110)}</p>
-                                    <p>{note.author}</p>
+                                    <p className='note-details note-author'>{note.author}</p>
                                 </Card>
                             </ContextMenuTrigger>
                             <ContextMenu id={note._id} className='context-menu-container'>
@@ -118,13 +121,14 @@ class NotesList extends React.Component{
                             </ContextMenu>
                         </div>
                 : null
-            )
+            })
         : null;
 
         // show all unpinned notes after the pinned notes in the list
         const unpinnedNotesCompon = notesList && notesList.length > 0 ?
-            notesList.map(note => 
-                !note.pinned ?
+            notesList.map(note => {
+                const lastUpdated = new Date(note.updatedAt);
+                return !note.pinned ?
                     // if this is the note that the user is viewing in edit, outline it
                     this.state.currNote === note ? 
                         <div>
@@ -139,14 +143,15 @@ class NotesList extends React.Component{
                                     className='note-card selected'>
                                     <Grid container spacing={1}>
                                         <Grid item xs={10}>
-                                            <h4>{note.noteTitle}</h4>
+                                            <p className='note-details'>Last updated: {lastUpdated.toLocaleString()}</p>
                                         </Grid>
                                         <Grid item xs={2}>
-                                            <OfflinePinOutlinedIcon className='pinned-btn mr-5'/>
+                                            <OfflinePinOutlinedIcon className='pinned-btn'/>
                                         </Grid>
                                     </Grid>
+                                    <h4 className='indiv-note-title'>{note.noteTitle}</h4>
                                     <p>{note.noteBody.slice(0, 110)}</p>
-                                    <p>{note.author}</p>
+                                    <p className='note-details note-author'>{note.author}</p>
                                 </Card>
                             </ContextMenuTrigger>
                             <ContextMenu id={note._id} className='context-menu-container'>
@@ -166,16 +171,17 @@ class NotesList extends React.Component{
                                         }
                                         else this.setState({currNote: note})
                                     }}>
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={1}>
                                         <Grid item xs={10}>
-                                            <h4>{note.noteTitle}</h4>
+                                            <p className='note-details'>Last updated: {lastUpdated.toLocaleString()}</p>
                                         </Grid>
                                         <Grid item xs={2}>
                                             <OfflinePinOutlinedIcon className='pinned-btn'/>
                                         </Grid>
                                     </Grid>
+                                    <h4 className='indiv-note-title'>{note.noteTitle}</h4>
                                     <p>{note.noteBody.slice(0, 110)}</p>
-                                    <p>{note.author}</p>
+                                    <p className='note-details note-author'>{note.author}</p>
                                 </Card>
                             </ContextMenuTrigger>
                             <ContextMenu id={note._id} className='context-menu-container'>
@@ -186,7 +192,7 @@ class NotesList extends React.Component{
                             </ContextMenu>
                         </div>
                 : null
-            )
+            })
         : null;
  
 
@@ -205,7 +211,7 @@ class NotesList extends React.Component{
                         {pinnedNotesCompon}
                         {unpinnedNotesCompon}
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={8} className='edit-note-container'>
                         <EditNote currNote={this.state.currNote} currTeam={currTeam}/>
                     </Grid>
                 </Grid>

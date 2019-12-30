@@ -9,6 +9,10 @@
     margin-top: 15px;
 }
 
+.indiv-note-title{
+    color:#779ECB;
+}
+
 .selected{
     border-style: solid;
     border-color: grey;
@@ -19,7 +23,8 @@
     margin: 10px;
     padding: 10px 20px;
     transition: all .2s ease-in-out;
-    min-height: 150px;
+    min-height: 210px;
+    position: relative;
 }
 
 .note-card:hover{
@@ -27,7 +32,7 @@
 }
 
 .note-list-container{
-    height: 100vh;
+    height: 90vh;
     overflow: auto;
 }
 
@@ -41,5 +46,14 @@
 .back-btn:hover{
     cursor: pointer;
     transform: scale(0.95);
+}
+
+.note-details{
+    font-size: 12px;
+}
+
+.note-author{
+    position: absolute;
+    bottom: 0;
 }
 

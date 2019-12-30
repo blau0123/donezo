@@ -106,7 +106,7 @@ class EditNote extends React.Component{
                         </Grid>
                     </Grid>
 
-                    <textarea className='note-body no-border' name='body' rows='15' onChange={this.onChange} 
+                    <textarea className='note-body no-border' name='body' rows='12' onChange={this.onChange} 
                         value={this.state.body} placeholder='Starting typing...'/>
                     <div className='btn-container'>
                         <button className='submit-btn btn' onClick={this.onSubmit}>Submit</button>
