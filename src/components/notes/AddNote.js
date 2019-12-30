@@ -39,7 +39,7 @@ class AddNote extends React.Component{
         const {user} = this.props.auth;
         // get team data passed in by state from team.js
         const {teamData} = this.props.location.state;
-
+        
         const noteToAdd = {
             noteTitle: this.state.noteTitle,
             noteBody: this.state.noteBody,

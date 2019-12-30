@@ -61,7 +61,7 @@ class NotesList extends React.Component{
                                     <OfflinePinIcon className='pinned-btn'/>
                                 </Grid>
                             </Grid>
-                            <p>{note.noteBody}</p>
+                            <p>{note.noteBody.slice(0, 110)}</p>
                             <p>{note.author}</p>
                         </Card> :
                         <Card className='note-card' key={note._id} 
@@ -80,7 +80,7 @@ class NotesList extends React.Component{
                                     <OfflinePinIcon className='pinned-btn'/>
                                 </Grid>
                             </Grid>
-                            <p>{note.noteBody}</p>
+                            <p>{note.noteBody.slice(0, 110)}</p>
                             <p>{note.author}</p>
                     </Card>
                 : null
@@ -109,7 +109,7 @@ class NotesList extends React.Component{
                                     <OfflinePinOutlinedIcon className='pinned-btn mr-5'/>
                                 </Grid>
                             </Grid>
-                            <p>{note.noteBody}</p>
+                            <p>{note.noteBody.slice(0, 110)}</p>
                             <p>{note.author}</p>
                         </Card> :
                         <Card className='note-card' key={note._id} 
@@ -128,7 +128,7 @@ class NotesList extends React.Component{
                                     <OfflinePinOutlinedIcon className='pinned-btn'/>
                                 </Grid>
                             </Grid>
-                            <p>{note.noteBody}</p>
+                            <p>{note.noteBody.slice(0, 110)}</p>
                             <p>{note.author}</p>
                         </Card>
                 : null

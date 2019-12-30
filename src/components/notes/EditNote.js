@@ -50,11 +50,13 @@ class EditNote extends React.Component{
 
     onSubmit(evt){
         evt.preventDefault();
+        const {user} = this.props.auth;
 
         const noteData = {
             noteTitle: this.state.title,
             noteBody: this.state.body,
             noteId: this.props.currNote._id,
+            author: user.firstName + ' ' + user.lastName,
             pinned: this.state.pinned,
         }
 
@@ -116,4 +118,8 @@ class EditNote extends React.Component{
     }
 }
 
-export default connect(null, {updateNote, deleteNote, addNoteToTeam})(EditNote);
+const mapStateToProps = state => ({
+    auth: state.auth,
+})
+
+export default connect(mapStateToProps, {updateNote, deleteNote, addNoteToTeam})(EditNote);
