@@ -14,4 +14,13 @@
     margin-bottom: 20px;
 }
 
+.add-todo{
+    margin-top: 5px;
+    margin-left: 10px;
+    color: #779ECB;
+    transition: all .3s ease-in-out;
+}
 
+.add-todo:hover{
+    transform: scale(0.9);
+}

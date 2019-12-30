@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Form from 'react-bootstrap/Form';
 import {Link} from 'react-router-dom';
 import Card from '@material-ui/core/Card'
 import Grid from '@material-ui/core/Grid';
+import AddIcon from '@material-ui/icons/Add';
 
 import HomeNotesList from '../notes/HomeNotesList';
 import HomeTodoList from '../todos/HomeTodoList';
@@ -181,13 +181,22 @@ class Team extends React.Component{
                                 <HomeNotesList currTeam={currTeam} />
                             </div>
                         </div>
+
                         <div className="team-todos-list h-team-list">
-                            <h2 className='list-title'>Todos</h2>
+                            <Grid container spacing={2}>
+                                <Grid item xs={1}>
+                                    <h2 className='list-title'>Todos</h2>
+                                </Grid>
+                                <Grid item xs={1}>
+                                    <Link to={{pathname: '/addtodo', state:{teamData: currTeam}}}>
+                                        <AddIcon className='add-todo' />
+                                    </Link>
+                                </Grid>
+                            </Grid>
                             <div>
                                 <HomeTodoList currTeam={currTeam} history={this.props.history}/>
                             </div>
                         </div>
-                        <button><Link to={{pathname: '/addtodo', state:{teamData: currTeam}}}>Add Todo</Link></button>
                         
                         <div className="team-events-list">
                             <h4>
