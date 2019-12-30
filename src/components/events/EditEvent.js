@@ -3,12 +3,12 @@ import React from 'react';
 import {MuiPickersUtilsProvider, DateTimePicker} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
-import {addEventToTeam} from '../../redux/actions/eventActions';
+import {updateEvent} from '../../redux/actions/eventActions';
 import { connect } from 'react-redux';
 
 import './AddEvent.css';
 
-class AddEvent extends React.Component{
+class EditEvent extends React.Component{
     constructor(){
         super();
         this.state = {
@@ -23,6 +23,21 @@ class AddEvent extends React.Component{
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    componentDidMount(){
+        // get the info from the event that was clicked on
+        const {event} = this.props.location.state;
+        console.log(event);
+        if (event){
+            this.setState({
+                title: event.eventTitle,
+                description: event.eventDescription,
+                location: event.eventLocation,
+                startTime: new Date(event.eventStartTime),
+                endTime: new Date(event.eventEndTime),
+            })
+        }
     }
 
     handleStartDateChange(date){
@@ -60,7 +75,8 @@ class AddEvent extends React.Component{
             return;
         }
 
-        const newEvent = {
+        const eventToUpdate = {
+            eventId: this.props.location.state.event._id,
             eventTitle: this.state.title,
             eventDescription: this.state.description,
             eventLocation: this.state.location,
@@ -69,14 +85,15 @@ class AddEvent extends React.Component{
             author: user.firstName + ' ' + user.lastName,
         }
 
-        this.props.addEventToTeam(teamData, newEvent);
-        this.props.history.push(`/team/${teamData._id}`);
+        this.props.updateEvent(eventToUpdate);
+        //this.props.history.push(`/team/${teamData._id}`);
+        this.props.history.goBack();
     }
 
     render(){
         return(
             <div className='add-event-container'>
-                <h1 className='add-event-header'>What's the event?</h1>
+                <h1 className='add-event-header'>What would you like to change?</h1>
                 <form className='add-event-form'>
                     <label className='input-label'>What's the name of your event?</label>
                     <input className='event-input' id='title' type='text' value={this.state.title} 
@@ -122,4 +139,4 @@ const mapStateToProps = state =>({
     event: state.event,
 })
 
-export default connect(mapStateToProps, {addEventToTeam})(AddEvent);
+export default connect(mapStateToProps, {updateEvent})(EditEvent);

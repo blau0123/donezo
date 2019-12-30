@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ADD_EVENT_TO_TEAM, DELETE_EVENT} from './types';
+import {ADD_EVENT_TO_TEAM, DELETE_EVENT, UPDATE_EVENT} from './types';
 
 // add a note to the notes list for a given team
 export const addEventToTeam = (teamData, eventData) => dispatch => {
@@ -42,4 +42,17 @@ export const deleteEvent = (eventData, teamData) => dispatch => {
             .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
+}
+
+// updates a given event
+export const updateEvent = (eventData) => dispatch => {
+    axios.post('http://localhost:5000/events/update', {eventData})
+        .then(res => {
+            console.log(res);
+            dispatch({
+                type: UPDATE_EVENT,
+                payload: eventData,
+            })
+        })
+        .catch(err => console.log('error!! ' + err))
 }

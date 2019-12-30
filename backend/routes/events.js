@@ -40,4 +40,31 @@ router.route('/delete').post((req, res) => {
     })
 })
 
+/*
+@route POST /events/update
+@desc Updates an event
+@access Public
+*/
+router.route('/update').post((req, res) => {
+    //const eventId = req.params.id;
+    const newEventData = req.body.eventData;
+    const eventId = newEventData.eventId;
+
+    // find the event and update with the new info
+    Event.findById(eventId)
+        .then(event => {
+            event.eventTitle = newEventData.eventTitle;
+            event.eventLocation = newEventData.eventLocation;
+            event.eventDescription = newEventData.eventDescription;
+            event.eventStartTime = newEventData.eventStartTime;
+            event.eventEndTime = newEventData.eventEndTime;
+
+            // save the updated event to db
+            event.save()
+                .then(() => res.json('updated event'))
+                .catch(err => res.status(400).json(err));
+        })
+        .catch(err => res.status(400).json(err));
+})
+
 module.exports = router;

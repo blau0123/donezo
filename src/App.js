@@ -16,6 +16,7 @@ import AddTodo from './components/todos/AddTodo';
 import AddEvent from './components/events/AddEvent';
 import PrivateRoute from './components/private-route/PrivateRoute';
 import EventList from './components/events/EventList';
+import EditEvent from './components/events/EditEvent';
 import EditTodo from './components/todos/EditTodo';
 import Messages from './components/chat/Messages';
 import Chat from './components/chat/Chat';
@@ -68,6 +69,7 @@ function App() {
         <PrivateRoute path='/chat' component={Chat} />
         <PrivateRoute path='/messages' component={Messages} />
         <PrivateRoute path='/message' component={Message} />
+        <PrivateRoute path='/editevent' component={EditEvent} />
         <PrivateRoute exact path="/createTeam" component = {CreateTeam} />
       </Router>
     </Provider>

@@ -22,6 +22,7 @@ export const EDIT_TODO = "EDIT_TODO";
 
 export const ADD_EVENT_TO_TEAM = "ADD_EVENT_TO_TEAM";
 export const DELETE_EVENT = "DELETE_EVENT";
+export const UPDATE_EVENT = "UPDATE_EVENT";
 
 export const ADD_CHAT_MSG = "ADD_CHAT_MSG";
 export const GET_CHAT_HISTORY = "GET_CHAT_HISTORY";

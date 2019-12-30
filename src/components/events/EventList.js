@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import {Link} from 'react-router-dom';
 
 // for right click context menu to delete
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
@@ -85,22 +86,25 @@ class EventList extends React.Component{
                     return(
                         <div key={event._id}>
                             <ContextMenuTrigger id={event._id}>
-                                <Card className='event-card'>
-                                    <h4 className='event-title color-blue'>{event.eventTitle}</h4>
-                                    <p>{event.eventDescription.slice(0, 100)}</p>
-                                    <div className='event-details'>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={2}>
-                                                <LocationOnIcon className='location-icon color-blue'/>
+                                <Link className='link-to-edit'
+                                    to={{pathname:'/editevent', state:{event}}}>
+                                    <Card className='event-card'>
+                                        <h4 className='event-title color-blue'>{event.eventTitle}</h4>
+                                        <p>{event.eventDescription.slice(0, 100)}</p>
+                                        <div className='event-details'>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={2}>
+                                                    <LocationOnIcon className='location-icon color-blue'/>
+                                                </Grid>
+                                                <Grid item xs={10}>
+                                                    <p>{event.eventLocation}</p>
+                                                </Grid>
                                             </Grid>
-                                            <Grid item xs={10}>
-                                                <p>{event.eventLocation}</p>
-                                            </Grid>
-                                        </Grid>
-                                        <p>Start: {start.toLocaleString()}</p>
-                                        <p>End: {end.toLocaleString()}</p>
-                                    </div>
-                                </Card>
+                                            <p>Start: {start.toLocaleString()}</p>
+                                            <p>End: {end.toLocaleString()}</p>
+                                        </div>
+                                    </Card>
+                                </Link>
                             </ContextMenuTrigger>
                             <ContextMenu id={event._id} className='context-menu-container'>
                                 <MenuItem className='context-menu-item' data={{eventData: event}} 
@@ -131,22 +135,25 @@ class EventList extends React.Component{
                     return(
                         <div key={event._id}>
                             <ContextMenuTrigger id={event._id}>
-                                <Card className='event-card'>
-                                    <h4 className='event-title color-blue'>{event.eventTitle}</h4>
-                                    <p>{event.eventDescription.slice(0, 100)}</p>
-                                    <div className='event-details'>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={2}>
-                                                <LocationOnIcon className='location-icon color-blue'/>
+                                <Link className='link-to-edit'
+                                    to={{pathname:'/editevent', state:{event}}}>
+                                    <Card className='event-card'>
+                                        <h4 className='event-title color-blue'>{event.eventTitle}</h4>
+                                        <p>{event.eventDescription.slice(0, 100)}</p>
+                                        <div className='event-details'>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={2}>
+                                                    <LocationOnIcon className='location-icon color-blue'/>
+                                                </Grid>
+                                                <Grid item xs={10}>
+                                                    <p>{event.eventLocation}</p>
+                                                </Grid>
                                             </Grid>
-                                            <Grid item xs={10}>
-                                                <p>{event.eventLocation}</p>
-                                            </Grid>
-                                        </Grid>
-                                        <p>Start: {start.toLocaleString()}</p>
-                                        <p>End: {end.toLocaleString()}</p>
-                                    </div>
-                                </Card>
+                                            <p>Start: {start.toLocaleString()}</p>
+                                            <p>End: {end.toLocaleString()}</p>
+                                        </div>
+                                    </Card>
+                                </Link>
                             </ContextMenuTrigger>
                             <ContextMenu id={event._id} className='context-menu-container'>
                                 <MenuItem className='context-menu-item' data={{eventData: event}} 

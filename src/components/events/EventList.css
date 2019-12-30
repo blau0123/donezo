@@ -25,6 +25,10 @@
     transform: scale(0.95);
 }
 
+.link-to-edit:hover{
+    text-decoration: none;
+}
+
 .all-events-container{
     display: flex;
     flex-wrap: wrap;
