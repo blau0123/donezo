@@ -1,0 +1,24 @@
+.todo-container{
+    padding-left: 20px;
+    padding-top: 20px;
+    margin: 20px 10px;
+    transition: all .3s ease-in-out;
+}
+
+.todo-container:hover{
+    transform: scale(0.98);
+}
+
+.edit-todo{
+    color: black;
+}
+
+.edit-todo:hover{
+    color: black;
+    text-decoration: none;
+}
+
+.todo-form{
+    font-size: 20px;
+}
+

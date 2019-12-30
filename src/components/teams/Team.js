@@ -7,6 +7,7 @@ import Card from '@material-ui/core/Card'
 import Grid from '@material-ui/core/Grid';
 
 import HomeNotesList from '../notes/HomeNotesList';
+import HomeTodoList from '../todos/HomeTodoList';
 
 import './Team.css';
 
@@ -24,9 +25,7 @@ class Team extends React.Component{
             menu:[{'label': 'delete'}]
         }
 
-        this.onToggle = this.onToggle.bind(this);
         this.sortFutureEvents = this.sortFutureEvents.bind(this);
-        this.rightClickNote = this.rightClickNote.bind(this);
     }
 
     componentDidMount(){
@@ -81,17 +80,6 @@ class Team extends React.Component{
         return isInTeam;
     }
 
-    onToggle(evt){
-        console.log(evt.target.id, evt.target.value);
-        const todoData = {
-            id: evt.target.id,
-        }
-        const teamData = this.props.team.currTeam;
-
-        // toggle the todo with this action dispatch
-        this.props.completeTeamTodo(teamData, todoData);
-    }
-
     sortFutureEvents(eventsList){
         eventsList.sort((a, b) => {
             a = new Date(a.eventStartTime);
@@ -101,41 +89,11 @@ class Team extends React.Component{
         return eventsList;
     }
 
-    rightClickNote(evt){
-        evt.preventDefault();
-        console.log('yeet')
-    }
-
     render(){
         // get the curr team from props that was obtained from store state after getTeamWithId called
         const {currTeam} = this.props.team;
-        console.log(currTeam);
         // get the curr user of the app
         const {user} = this.props.auth;
-    
-        // get all of the todos for this curr team and make component
-        const todosList = currTeam.teamTodos && currTeam.teamTodos.length > 0 ?
-            currTeam.teamTodos.map(todo => 
-                <Card key={todo._id}>
-                    <Link to={{pathname: '/edittodo', state:{teamData: currTeam, currTodo: todo}}}>
-                        <p style={{fontWeight:'bold'}}>Assigned: 
-                            {
-                                todo.assignee && todo.assignee.length > 0 ? todo.assignee : 'None'
-                            }
-                        </p>
-                        <Form>
-                            <Form.Check 
-                                custom
-                                type='checkbox'
-                                id={todo._id}
-                                label={todo.todoText}
-                                checked={todo.isCompleted}
-                                onChange={this.onToggle}/>
-                        </Form>
-                        <button onClick={() => this.props.deleteTeamTodo(currTeam, todo)}>Delete</button>
-                    </Link>
-                </Card>
-            ) : <p>No todos yet!</p>;
 
         // get all events for this curr team and make component
         let numPastEvents = 0;
@@ -217,16 +175,16 @@ class Team extends React.Component{
                             </div>
                         </div>
         
-                        <div className="team-notes-list">
+                        <div className="team-notes-list h-team-list">
                             <Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>
                             <div className='h-notes-list-container'>
                                 <HomeNotesList currTeam={currTeam} />
                             </div>
                         </div>
-                        <div className="team-todos-list">
-                            <h4 className='list-title'>Todos</h4>
+                        <div className="team-todos-list h-team-list">
+                            <h2 className='list-title'>Todos</h2>
                             <div>
-                                {todosList}
+                                <HomeTodoList currTeam={currTeam} history={this.props.history}/>
                             </div>
                         </div>
                         <button><Link to={{pathname: '/addtodo', state:{teamData: currTeam}}}>Add Todo</Link></button>

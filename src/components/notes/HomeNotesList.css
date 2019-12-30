@@ -3,10 +3,6 @@
     text-decoration: none;
 }
 
-.team-notes-list{
-    margin-left: 30px;
-}
-
 .home-note-content{
     position: relative;
     padding-left: 20px;
@@ -56,6 +52,11 @@
     border-width: 1px;
     background-color: white;
     padding: 10px;
+    text-align: center;
+}
+
+.context-menu-item{
+    padding: 5px;
 }
 
 .context-menu-item:hover{

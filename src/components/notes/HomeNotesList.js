@@ -19,6 +19,7 @@ class HomeNotesList extends React.Component{
     }
 
     onContextItemClick(evt, data){
+        evt.preventDefault();
         // data holds the note that was right clicked
         const teamData = this.props.currTeam;
         this.props.deleteNote(data.noteData, teamData);

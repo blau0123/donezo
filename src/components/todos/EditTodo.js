@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import {updateTeamTodo} from '../../redux/actions/teamActions';
 import Dropdown from 'react-bootstrap/Dropdown';
 
+import './EditTodo.css';
+
 class EditTodo extends React.Component{
     constructor(){
         super();
@@ -34,6 +36,7 @@ class EditTodo extends React.Component{
         const {teamData} = this.props.location.state;
         const {user} = this.props.auth;
         const {currTodo} = this.props.location.state;
+
         const todoData = {
             todoText: this.state.todoText,
             assignee: this.state.assignee,
@@ -43,7 +46,8 @@ class EditTodo extends React.Component{
 
         // add todo to team and redirect back to the team home
         this.props.updateTeamTodo(teamData, todoData);
-        this.props.history.push(`/team/${teamData._id}`);
+        //this.props.history.push(`/team/${teamData._id}`);
+        this.props.history.goBack();
     }
 
     render(){
@@ -54,19 +58,21 @@ class EditTodo extends React.Component{
         // dropdown of all members in curr team to choose an assignee
         const memberDropdownItems = membersList && membersList.length > 0 ?
             membersList.map(member => 
-                <Dropdown.Item onClick={() => this.setState({assignee: `${member.firstName} ${member.lastName}`})}>
+                <Dropdown.Item key={member._id}
+                    onClick={() => this.setState({assignee: `${member.firstName} ${member.lastName}`})}>
                     {member.firstName + ' ' + member.lastName}
                 </Dropdown.Item> 
             ) : null;
 
         return(
-            <div className='container'>
-                <form onSubmit={this.onSubmitTodo}>
-                    <label>What do you what to complete?</label>
-                    <input name='todoText' type='text' onChange={this.onChange} value={this.state.todoText} />
-                    <input type='submit' value='Submit' />
-                    <Dropdown>
-                        <Dropdown.Toggle variant='success' id='team-selector'>
+            <div className='edit-todo-container'>
+                <h1 className='edit-todo-title'>What do you want to change?</h1>
+                <form className='edit-todo-form'>
+                    <input className='todo-input' name='todoText' type='text' 
+                        onChange={this.onChange} value={this.state.todoText} />
+
+                    <Dropdown className='assign-dropdown'>
+                        <Dropdown.Toggle id='team-selector'>
                             {
                                 // decide if the user is on a team or if the user hasn't selected a team yet
                                 this.state.assignee.length > 0 ? this.state.assignee : "None"
@@ -80,6 +86,7 @@ class EditTodo extends React.Component{
                         </Dropdown.Menu>
                     </Dropdown>
                 </form>
+                <button className='submit-btn btn' onClick={this.onSubmitTodo}>Submit</button>
             </div>
         )
     }

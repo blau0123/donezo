@@ -1,0 +1,38 @@
+.edit-todo-container{
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-todo-title{
+    margin: 20px 10px;
+}
+
+.edit-todo-form{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.todo-input{
+    margin: 20px 10px 20px 40px;
+    font-size: 20px;
+    padding: 5px 15px;
+    width: 60%;
+    border-radius: 10px;
+    border-width: 1px;
+}
+
+.todo-input:focus{
+    border-color: #779ECB;
+}
+
+.assign-dropdown{
+    margin: 20px 40px 20px 10px;
+}
+

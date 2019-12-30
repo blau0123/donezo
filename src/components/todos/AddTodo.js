@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import {addTodoToTeam} from '../../redux/actions/teamActions';
 import Dropdown from 'react-bootstrap/Dropdown';
 
+import './AddTodo.css';
+
 class AddTodo extends React.Component{
     constructor(){
         super();
@@ -50,13 +52,14 @@ class AddTodo extends React.Component{
             ) : null;
 
         return(
-            <div className='container'>
-                <form onSubmit={this.onSubmitTodo}>
-                    <label>What do you what to complete?</label>
-                    <input name='todoText' type='text' onChange={this.onChange} value={this.state.todoText} />
-                    <input type='submit' value='Submit' />
-                    <Dropdown>
-                        <Dropdown.Toggle variant='success' id='team-selector'>
+            <div className='edit-todo-container'>
+                <h1 className='edit-todo-title'>What do you want to accomplish?</h1>
+                <form className='edit-todo-form'>
+                    <input className='todo-input' name='todoText' type='text' 
+                        onChange={this.onChange} value={this.state.todoText} />
+
+                    <Dropdown className='assign-dropdown'>
+                        <Dropdown.Toggle id='team-selector'>
                             {
                                 // decide if the user is on a team or if the user hasn't selected a team yet
                                 this.state.assignee.length > 0 ? this.state.assignee : "None"
@@ -70,6 +73,7 @@ class AddTodo extends React.Component{
                         </Dropdown.Menu>
                     </Dropdown>
                 </form>
+                <button className='submit-btn btn' onClick={this.onSubmitTodo}>Submit</button>
             </div>
         )
     }
