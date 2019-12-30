@@ -1,8 +1,9 @@
 .todo-container{
     padding-left: 20px;
     padding-top: 20px;
-    margin: 20px 10px;
+    margin: 10px;
     transition: all .3s ease-in-out;
+    width: 85%;
 }
 
 .todo-container:hover{

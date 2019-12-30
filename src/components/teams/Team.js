@@ -157,56 +157,61 @@ class Team extends React.Component{
                 </Dropdown>
 
                 <div className="teamNames" key={currTeam._id}>
-                        <h2>{currTeam.teamName}</h2>
-                        <h4>{currTeam.teamDescription}</h4>
-                        <Link to={{pathname:'/chat', state:{currTeam}}}>Chat</Link>
-                        <div className="container" style={{display:'flex'}}>
-                            <p style={{fontWeight:'bold', flex:'0 20%'}}>Members:</p>
-                            <div style={{flex:'1'}}>
-                                {
-                                    // if there are members for a given team, get the names of the members and display each name
-                                    currTeam.teamMembers && currTeam.teamMembers.length > 0 ? 
-                                        currTeam.teamMembers.map(member => 
-                                            <p style={{display:'inline-block', marginRight:'10px'}}>
-                                                {member.firstName + ' ' + member.lastName}
-                                            </p>)
-                                    : null
-                                }
-                            </div>
+                    <h2>{currTeam.teamName}</h2>
+                    <h4>{currTeam.teamDescription}</h4>
+                    <Link to={{pathname:'/chat', state:{currTeam}}}>Chat</Link>
+                    <div className="container" style={{display:'flex'}}>
+                        <p style={{fontWeight:'bold', flex:'0 20%'}}>Members:</p>
+                        <div style={{flex:'1'}}>
+                            {
+                                // if there are members for a given team, get the names of the members and display each name
+                                currTeam.teamMembers && currTeam.teamMembers.length > 0 ? 
+                                    currTeam.teamMembers.map(member => 
+                                        <p style={{display:'inline-block', marginRight:'10px'}}>
+                                            {member.firstName + ' ' + member.lastName}
+                                        </p>)
+                                : null
+                            }
                         </div>
-        
-                        <div className="team-notes-list h-team-list">
-                            <Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>
-                            <div className='h-notes-list-container'>
-                                <HomeNotesList currTeam={currTeam} />
-                            </div>
-                        </div>
-
-                        <div className="team-todos-list h-team-list">
-                            <Grid container spacing={2}>
-                                <Grid item xs={1}>
-                                    <h2 className='list-title'>Todos</h2>
-                                </Grid>
-                                <Grid item xs={1}>
-                                    <Link to={{pathname: '/addtodo', state:{teamData: currTeam}}}>
-                                        <AddIcon className='add-todo' />
-                                    </Link>
-                                </Grid>
-                            </Grid>
-                            <div>
-                                <HomeTodoList currTeam={currTeam} history={this.props.history}/>
-                            </div>
-                        </div>
-                        
-                        <div className="team-events-list">
-                            <h4>
-                                <Link className='list-title' to={`/eventslist/${currTeam._id}`}>Events</Link>
-                            </h4>
-                            {eventsList}
-                            <p>You have {numPastEvents} past event(s).</p>
-                        </div>
-                        <button><Link to={{pathname: '/addevent', state:{teamData: currTeam}}}>Add Event</Link></button>
                     </div>
+        
+                    <div className="team-notes-list h-team-list">
+                        <Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>
+                        <div className='h-notes-list-container'>
+                            <HomeNotesList currTeam={currTeam} />
+                        </div>
+                    </div>
+
+                    <Grid container spacing={2}>
+                        <Grid item sm={12} md={6} className='grid-todos'>
+                            <div className="team-todos-list h-team-list">
+                                <Grid container spacing={2}>
+                                    <Grid item xs={9}>
+                                        <h2 className='list-title'>Todos</h2>
+                                    </Grid>
+                                    <Grid item xs={1}>
+                                        <Link to={{pathname: '/addtodo', state:{teamData: currTeam}}}>
+                                            <AddIcon className='add-todo' />
+                                        </Link>
+                                    </Grid>
+                                </Grid>
+                                <div className='h-todos-container'>
+                                    <HomeTodoList currTeam={currTeam} history={this.props.history}/>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item sm={12} md={6}>
+                            <div className="team-events-list">
+                                <h4>
+                                    <Link className='list-title' to={`/eventslist/${currTeam._id}`}>Events</Link>
+                                </h4>
+                                {eventsList}
+                                <p>You have {numPastEvents} past event(s).</p>
+                            </div>
+                            <button><Link to={{pathname: '/addevent', state:{teamData: currTeam}}}>Add Event</Link></button>
+                        </Grid>
+                    </Grid>
+                </div>
             </div>
         )
         

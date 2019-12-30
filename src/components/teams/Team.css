@@ -1,5 +1,6 @@
 .team-container{
     font-family: 'Roboto', sans-serif;
+    overflow: hidden;
 }
 
 .list-title{
