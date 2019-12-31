@@ -8,8 +8,9 @@ import AddIcon from '@material-ui/icons/Add';
 import HomeNotesList from '../notes/HomeNotesList';
 import HomeTodoList from '../todos/HomeTodoList';
 import HomeEventsList from '../events/HomeEventsList';
+import TeamHeader from './TeamHeader';
 
-import './Team.css';
+import './css/Team.css';
 
 import {getTeamWithId, getAllTeams, completeTeamTodo, deleteTeamTodo} from '../../redux/actions/teamActions';
 
@@ -19,11 +20,6 @@ Depends on the id of the team passed in, shows the team with that id
 class Team extends React.Component{
     constructor(props){
         super(props);
-
-        // state holds the menu items for right click
-        this.state = {
-            menu:[{'label': 'delete'}]
-        }
     }
 
     componentDidMount(){
@@ -92,7 +88,7 @@ class Team extends React.Component{
                 const userIsInTeam = this.isUserInTeam(team);
                 // if the user is in the team, show it and if not don't show the team
                 return (userIsInTeam ? 
-                        <Dropdown.Item>
+                        <Dropdown.Item key={team._id}>
                             <Link to={{
                                 pathname: `/team/${team._id}`, 
                                 state: {teamId: team._id}
@@ -118,24 +114,8 @@ class Team extends React.Component{
                 </Dropdown>
 
                 <div className="teamNames" key={currTeam._id}>
-                    <h2>{currTeam.teamName}</h2>
-                    <h4>{currTeam.teamDescription}</h4>
-                    <Link to={{pathname:'/chat', state:{currTeam}}}>Chat</Link>
-                    <div className="container" style={{display:'flex'}}>
-                        <p style={{fontWeight:'bold', flex:'0 20%'}}>Members:</p>
-                        <div style={{flex:'1'}}>
-                            {
-                                // if there are members for a given team, get the names of the members and display each name
-                                currTeam.teamMembers && currTeam.teamMembers.length > 0 ? 
-                                    currTeam.teamMembers.map(member => 
-                                        <p style={{display:'inline-block', marginRight:'10px'}}>
-                                            {member.firstName + ' ' + member.lastName}
-                                        </p>)
-                                : null
-                            }
-                        </div>
-                    </div>
-        
+                    <TeamHeader currTeam={currTeam} />
+
                     <div className="team-notes-list h-team-list">
                         <Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>
                         <div className='h-notes-list-container'>
@@ -148,11 +128,11 @@ class Team extends React.Component{
                             <div className="team-todos-list h-team-list">
                                 <Grid container spacing={2}>
                                     <Grid item xs={9}>
-                                        <h2 className='list-title'>Todos</h2>
+                                        <h2 className='list-title h-todo-list'>Todos</h2>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Link to={{pathname: '/addtodo', state:{teamData: currTeam}}}>
-                                            <AddIcon className='add-todo' />
+                                            <AddIcon fontSize='large' className='add-icon todo-add' />
                                         </Link>
                                     </Grid>
                                 </Grid>
@@ -163,18 +143,22 @@ class Team extends React.Component{
                         </Grid>
                         <Grid item sm={12} md={7}>
                             <div className="team-events-list">
-                                <Grid container spacing={2}>
-                                    <Grid item xs={9}>
-                                        <h4>
-                                            <Link className='list-title' to={`/eventslist/${currTeam._id}`}>Events</Link>
-                                        </h4>
+                                <div>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={9}>
+                                            <h4>
+                                                <Link className='list-title h-event-list' to={`/eventslist/${currTeam._id}`}>
+                                                    Events
+                                                </Link>
+                                            </h4>
+                                        </Grid>
+                                        <Grid item xs={1}>
+                                            <Link to={{pathname: '/addevent', state:{teamData: currTeam}}}>
+                                                <AddIcon fontSize='large' className='add-icon event-add' />
+                                            </Link>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item xs={1}>
-                                        <Link to={{pathname: '/addevent', state:{teamData: currTeam}}}>
-                                            <AddIcon className='add-todo' />
-                                        </Link>
-                                    </Grid>
-                                </Grid>
+                                </div>
                                 <HomeEventsList currTeam={currTeam} />
                             </div>
                         </Grid>

@@ -90,7 +90,7 @@ class HomeEventsList extends React.Component{
         
         return (
             <div className='home-events'>
-                <div className='all-events-container'>
+                <div className='all-events-container center-cards'>
                     {eventsList}
                 </div>
                 <p className='past-events-text'>You have {numPastEvents} past event(s).</p>

@@ -15,13 +15,29 @@
     margin-bottom: 20px;
 }
 
-.add-todo{
+.add-icon{
     margin-top: 5px;
     margin-left: 10px;
     color: #779ECB;
     transition: all .3s ease-in-out;
 }
 
-.add-todo:hover{
+.add-icon:hover{
     transform: scale(0.9);
 }
+
+.team-events-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.h-event-list{
+    margin-right: 30vw;
+}
+
+.event-add{
+    margin-left: 5vw;
+}
+

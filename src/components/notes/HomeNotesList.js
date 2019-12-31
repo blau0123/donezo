@@ -38,9 +38,9 @@ class HomeNotesList extends React.Component{
                 return note.pinned ? 
                     <div key={note._id}>
                         <ContextMenuTrigger id={note._id}>
-                            <Card className='home-note-content' onContextMenu={this.rightClickNote}>
-                                <Link to={{pathname:`/noteslist/${currTeam._id}`, state:{currNote: note}}}
-                                    className='show-note'>
+                            <Link to={{pathname:`/noteslist/${currTeam._id}`, state:{currNote: note}}}
+                                className='show-note'>
+                                <Card className='home-note-content' onContextMenu={this.rightClickNote}>
                                     <Grid container spacing={1}>
                                         <Grid item xs={10}>
                                             <p className='note-details'>Last updated: {lastUpdated.toLocaleString()}</p>
@@ -52,8 +52,8 @@ class HomeNotesList extends React.Component{
                                     <h6 className='home-note-title'>{note.noteTitle}</h6>
                                     <p>{note.noteBody.slice(0, 110)}</p>
                                     <p className='note-details note-author'>By, {note.author}</p>
-                                </Link>
-                            </Card>
+                                </Card>
+                            </Link>
                         </ContextMenuTrigger>
 
                         <ContextMenu id={note._id} className='context-menu-container'>

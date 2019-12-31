@@ -1,0 +1,46 @@
+.team-header-container{
+    margin: 10px 40px;
+}
+
+.team-name-title{
+    font-size: 35px;
+}
+
+.chat-icon{
+    color:#779ECB;
+    transition: all .3s ease-in-out;
+}
+
+.chat-icon:hover{
+    transform: scale(0.9);
+}
+
+.members-icon{
+    color:#779ECB;
+    margin-right: 20px;
+    transition: all .3s ease-in-out;
+}
+
+.members-icon:hover{
+    cursor: pointer;
+    transform: scale(0.9);
+}
+
+.members-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.members-list{
+    display: flex;
+    flex-direction: row;
+}
+
+.indiv-member{
+    margin-right: 5px;
+}
+
+.members-chat{
+    display: flex;
+    flex-direction: row;
+}
