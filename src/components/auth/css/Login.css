@@ -1,0 +1,25 @@
+.container{
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+}
+
+.form-width{
+    width: 100%;
+}
+
+.title-text{
+    margin: 20px;
+}
+
+.m-20{
+    margin: 20px;
+}
+
+.blue-link{
+    color:#779ECB;
+}
+
+.blue-link:hover{
+    color:rgb(63, 104, 151);
+    text-decoration: none;
+}

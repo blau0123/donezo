@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {loginUser} from '../../redux/actions/authActions';
 
+import './css/Login.css';
+
 class Login extends React.Component{
     constructor(){
         super();
@@ -54,19 +56,24 @@ class Login extends React.Component{
     render(){
         const {errors} = this.state;
         return(
-            <div>
-                <form onSubmit={this.onSubmit}>
-                    <label>Username</label>
-                    <input type='text' name='username' value={this.state.username} onChange={this.onChange}/>
-                    <label>Password</label>
-                    <input type='password' name='password' value={this.state.password} onChange={this.onChange}/>
+            <div className='center container'>
+                <h1 className='title-text'>Login here.</h1>
+                <form onSubmit={this.onSubmit} className='center form-width'>
+                    <label className='create-label input-label'>Username</label>
+                    <input className='search-input' type='text' name='username' 
+                        value={this.state.username} onChange={this.onChange}/>
+                    <label className='create-label input-label'>Password</label>
+                    <input className='search-input' type='password' name='password' 
+                        value={this.state.password} onChange={this.onChange}/>
                     <span>
                         {errors.password}
                         {errors.passwordincorrect}
                     </span>
 
-                    <input type='submit' value='Login' />
-                    <p>Don't have an account? Register <Link to='/register'>here</Link></p>
+                    <input className='btn' type='submit' value='Login' />
+                    <p className='m-20'>
+                        Don't have an account? Register <Link className='blue-link' to='/register'>here</Link>
+                    </p>
                 </form>
             </div>
         )
