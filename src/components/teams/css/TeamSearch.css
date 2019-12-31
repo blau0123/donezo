@@ -1,0 +1,59 @@
+.search-container{
+    font-family: 'Roboto', sans-serif;
+}
+
+.search-bar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.search-prompt{
+    margin: 20px;
+}
+
+.search-input{
+    margin: 20px 0;
+    width: 55%;
+    border-radius: 10px;
+    border-width: 1px;
+    font-size: 15px;
+    padding: 5px 15px;
+}
+
+.search-input:focus{
+    border-color: #779ECB;
+}
+
+.searched-card{
+    padding: 20px;
+    margin: 20px;
+    width: 400px;
+    height: 300px;  
+    position: relative;
+    transition: all .3s ease-in-out;
+}
+
+.searched-card:hover{
+    transform: scale(0.98);
+}
+
+.matched-teams{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.join-btn{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+    margin-left: 0px;
+}
+
+.team-name{
+    color: #779ECB;
+}

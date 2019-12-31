@@ -92,18 +92,7 @@ class Home extends React.Component{
 
         return(
             <div className='home-container'>
-                <Card className='home-card-container'>
-                    {/*
-                    <Grid container spacing={1}>
-                        <Grid item xs={11}>
-                            <h2 className="welcome-text">Welcome, {user.firstName}</h2>        
-                        </Grid>
-                        <Grid item xs={1}>
-                            <button onClick={this.onLogoutClick}>Log out</button>
-                        </Grid>
-                    </Grid>
-                    */}
-                                    
+                <Card className='home-card-container'>         
                     <div className='logout-container'>
                         <MoreVertIcon fontSize='large' onClick={this.showModal}
                             className='settings-icon'/>
