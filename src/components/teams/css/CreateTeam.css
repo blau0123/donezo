@@ -1,0 +1,28 @@
+.create-team-container{
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+}
+
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-body{
+    width: 100%;
+}
+
+.create-team-title{
+    margin: 20px;
+}
+
+.create-label{
+    margin-top: 20px;
+}
+
+.error{
+    color: red;
+    margin: 10px;
+}

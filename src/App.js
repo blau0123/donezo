@@ -9,7 +9,7 @@ import Note from './components/notes/Note';
 import AddNote from './components/notes/AddNote';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
-import CreateTeam from './components/CreateTeam';
+import CreateTeam from './components/teams/CreateTeam';
 import TeamSearch from './components/teams/TeamSearch';
 import Team from './components/teams/Team';
 import AddTodo from './components/todos/AddTodo';
