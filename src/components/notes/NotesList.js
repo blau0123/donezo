@@ -20,7 +20,8 @@ class NotesList extends React.Component{
     constructor(){
         super();
         this.state = {
-            currNote:{}
+            currNote:{},
+            fromChat: false,
         }
         this.onContextItemClick = this.onContextItemClick.bind(this);
     }
@@ -38,10 +39,11 @@ class NotesList extends React.Component{
         // get the team that the user is viewing
         this.props.getTeamWithId(id);
 
-        // if there is a current note sent from home, then show it immedaitely
+        // if there is a current note sent from home/chat, then show it immedaitely
         if (this.props.location.state){
             const {currNote} = this.props.location.state;
-            this.setState({currNote})
+            const {fromChat} = this.props.location.state;
+            this.setState({currNote, fromChat})
         }
     }
 
@@ -66,7 +68,7 @@ class NotesList extends React.Component{
                 return note.pinned ?
                     // if this is the note that the user is viewing in edit, outline it
                     this.state.currNote === note ?
-                        <div>
+                        <div key={note._id}>
                             <ContextMenuTrigger id={note._id}>
                                 <Card key={note._id} onClick={() => {
                                     // if already selected, unselect
@@ -96,7 +98,7 @@ class NotesList extends React.Component{
                                 </MenuItem>
                             </ContextMenu>
                         </div> :
-                        <div>
+                        <div key={note._id}>
                             <ContextMenuTrigger id={note._id}>
                                 <Card className='note-card' key={note._id} 
                                     onClick={() => {
@@ -137,7 +139,7 @@ class NotesList extends React.Component{
                 return !note.pinned ?
                     // if this is the note that the user is viewing in edit, outline it
                     this.state.currNote === note ? 
-                        <div>
+                        <div key={note._id}>
                             <ContextMenuTrigger id={note._id}>
                                 <Card key={note._id} onClick={() => {
                                     // if already selected, unselect
@@ -167,7 +169,7 @@ class NotesList extends React.Component{
                                 </MenuItem>
                             </ContextMenu>
                         </div> :
-                        <div>
+                        <div key={note._id}>
                             <ContextMenuTrigger id={note._id}>
                                 <Card className='note-card' key={note._id} 
                                     onClick={() => {
@@ -200,7 +202,6 @@ class NotesList extends React.Component{
                 : null
             })
         : null;
- 
 
         return(
             <div className='total-notes-container'>
@@ -218,7 +219,8 @@ class NotesList extends React.Component{
                         {unpinnedNotesCompon}
                     </Grid>
                     <Grid item xs={8} className='edit-note-container'>
-                        <EditNote currNote={this.state.currNote} currTeam={currTeam}/>
+                        <EditNote currNote={this.state.currNote} currTeam={currTeam} 
+                            fromChat={this.state.fromChat}/>
                     </Grid>
                 </Grid>
             </div>

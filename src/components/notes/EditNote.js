@@ -16,6 +16,7 @@ class EditNote extends React.Component{
             title: '',
             body: '',
             pinned: false,
+            fromChat: false,
         }
 
         this.onChange = this.onChange.bind(this);
@@ -44,6 +45,7 @@ class EditNote extends React.Component{
                 title: nextProps.currNote.noteTitle,
                 body: nextProps.currNote.noteBody,
                 pinned: nextProps.currNote.pinned,
+                fromChat: nextProps.fromChat,
             })
         }
     }
@@ -59,9 +61,9 @@ class EditNote extends React.Component{
             author: user.firstName + ' ' + user.lastName,
             pinned: this.state.pinned,
         }
-
-        // if have not chosen a note to edit, create a new note
-        if (Object.entries(this.props.currNote).length === 0){
+        console.log(this.state.fromChat);
+        // if have not chosen a note to edit or its a note created from chat, create a new note
+        if (Object.entries(this.props.currNote).length === 0 || this.state.fromChat){
             const teamData = this.props.currTeam;
             this.props.addNoteToTeam(teamData, noteData);   
             return;

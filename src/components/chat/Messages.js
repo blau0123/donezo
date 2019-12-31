@@ -63,7 +63,6 @@ class Messages extends React.Component{
 
     render(){
         const {userName, team} = this.props;
-        console.log(this.state.msgs);
         return(
             <div ref='containerRef' id='msgsContainer' onScroll={this.onScroll} style={{height:'70vh', overflow:'auto'}} >
                 { 

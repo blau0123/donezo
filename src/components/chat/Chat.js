@@ -4,6 +4,8 @@ import Messages from './Messages';
 import { connect } from 'react-redux';
 import {addChatMsg, getChatHistory} from '../../redux/actions/teamActions';
 import Grid from '@material-ui/core/Grid';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+
 import './Chat.css';
 
 let socket;
@@ -74,9 +76,16 @@ const Chat = (props) => {
     }
 
     return (
-        <div ref={containerRef}>
-            <h1>{team.teamName} Chat</h1>
-            <button onClick={() => props.history.goBack()}>Back to team</button>
+        <div ref={containerRef} className='tot-chat-container'>
+            <Grid container spacing={2}>
+                <Grid item xs={1}>
+                    <ArrowBackIosIcon fontSize='large' className='back-btn' 
+                        onClick={() => props.history.goBack()} />
+                </Grid>
+                <Grid item xs={11}>
+                    <h1 className='chat-title'>{team.teamName} Chat</h1>
+                </Grid>
+            </Grid>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={8}>
                     <Messages msgs={messages} userName={userName} team={team}/>
@@ -86,13 +95,13 @@ const Chat = (props) => {
                         }}/>
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                    <h3>Online Team Members</h3>
+                    <h3 className='chat-member-list color-blue'>Team Members</h3>
                     {
                         // show all team members in this team
                         team.teamMembers ? team.teamMembers.map(member => {
                             const name = member.firstName + ' ' + member.lastName;
                             return name === userName ?
-                                <p>{member.firstName} {member.lastName} (You)</p> :
+                                <p className='bold'>{member.firstName} {member.lastName} (You)</p> :
                                 <p>{member.firstName} {member.lastName}</p>    
                         }) : null
                     }

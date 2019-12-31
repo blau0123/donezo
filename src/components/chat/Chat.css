@@ -1,3 +1,7 @@
+.tot-chat-container{
+    font-family: 'Roboto', sans-serif;
+}
+
 .send-msg{
     width: 100%;
     margin-top: 20px;
@@ -7,4 +11,16 @@
     padding: 10px;
     padding-left: 20px;
     background-color: #F1F0F0;
+}
+
+.chat-title{
+    margin-top: 20px;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.chat-member-list{
+    font-size: 35px;
 }
