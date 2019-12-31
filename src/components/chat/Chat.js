@@ -101,7 +101,9 @@ const Chat = (props) => {
                         team.teamMembers ? team.teamMembers.map(member => {
                             const name = member.firstName + ' ' + member.lastName;
                             return name === userName ?
-                                <p className='bold'>{member.firstName} {member.lastName} (You)</p> :
+                                <p key={member._id}className='bold'>
+                                    {member.firstName} {member.lastName} (You)
+                                </p> :
                                 <p>{member.firstName} {member.lastName}</p>    
                         }) : null
                     }

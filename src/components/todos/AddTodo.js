@@ -17,6 +17,15 @@ class AddTodo extends React.Component{
         this.onSubmitTodo = this.onSubmitTodo.bind(this);
     }
 
+    componentDidMount(){
+        // if came from a message, then set the body to the message
+        if (this.props.location.state){
+            this.setState({
+                todoText: this.props.location.state.todoText
+            })
+        }
+    }
+
     onChange(evt){
         this.setState({todoText: evt.target.value});
     }
@@ -35,7 +44,8 @@ class AddTodo extends React.Component{
 
         // add todo to team and redirect back to the team home
         this.props.addTodoToTeam(teamData, todoData);
-        this.props.history.push(`/team/${teamData._id}`);
+        //this.props.history.push(`/team/${teamData._id}`);
+        this.props.history.goBack();
     }
 
     render(){
@@ -46,7 +56,8 @@ class AddTodo extends React.Component{
         // dropdown of all members in curr team to choose an assignee
         const memberDropdownItems = membersList && membersList.length > 0 ?
             membersList.map(member => 
-                <Dropdown.Item onClick={() => this.setState({assignee: `${member.firstName} ${member.lastName}`})}>
+                <Dropdown.Item key={member._id}
+                    onClick={() => this.setState({assignee: `${member.firstName} ${member.lastName}`})}>
                     {member.firstName + ' ' + member.lastName}
                 </Dropdown.Item> 
             ) : null;

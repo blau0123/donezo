@@ -64,7 +64,8 @@ io.on('connection', socket => {
             const desired = res.filter(team => team._id.toHexString() === currTeam._id)[0];
             console.log('sending old msgs...');
             // sends the most recent 5 messages
-            socket.emit('old msgs', desired.teamChat.slice(1).slice(-5));
+            //socket.emit('old msgs', desired.teamChat.slice(1).slice(-5));
+            socket.emit('old msgs', desired.teamChat);
         })
         
         // add the user to the chat

@@ -176,7 +176,8 @@ class EventList extends React.Component{
             <div className='event-list-container'>
                 <Grid container spacing={1}>
                     <Grid item xs={1}>
-                        <ArrowBackIosIcon className='back-btn' onClick={() => this.props.history.goBack()} />
+                        <ArrowBackIosIcon fontSize='large' className='back-btn' 
+                            onClick={() => this.props.history.goBack()} />
                     </Grid>
                     <Grid item xs={10}>
                         <h1 className='event-list-header'>Events for {currTeam.teamName}</h1>

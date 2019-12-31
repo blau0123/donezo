@@ -207,7 +207,8 @@ class NotesList extends React.Component{
             <div className='total-notes-container'>
                 <Grid container spacing={2}>
                     <Grid item xs={1}>
-                        <ArrowBackIosIcon className='back-btn' onClick={() => this.props.history.push(`/team/${currTeam._id}`)} />
+                        <ArrowBackIosIcon fontSize='large' className='back-btn' 
+                            onClick={() => this.props.history.push(`/team/${currTeam._id}`)} />
                     </Grid>
                     <Grid item xs={11}>
                         <h1 className='note-list-title'>Notes for {currTeam.teamName}</h1>
