@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Dropdown from 'react-bootstrap/Dropdown';
 import {Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
@@ -59,60 +58,14 @@ class Team extends React.Component{
         }
     }
 
-    // checks if the user is in the teamMember list of this team
-    isUserInTeam(team){
-        // check if user is in the team
-        const {user} = this.props.auth;
-        const teamMembers = team.teamMembers;
-        let isInTeam = false;
-        for (let i = 0; i < teamMembers.length; i++){
-            if (teamMembers[i].userId === user.id){
-                isInTeam = true;
-                break;
-            }
-        }
-        return isInTeam;
-    }
-
     render(){
         // get the curr team from props that was obtained from store state after getTeamWithId called
         const {currTeam} = this.props.team;
         // get the curr user of the app
         const {user} = this.props.auth;
-
-        // have all dropdown items be teams user is in
-        const {teamsList} = this.props.team;
-        const teamDropdownItems = teamsList && teamsList.length > 0 ?
-            teamsList.map(team => {
-                // need to check if the user is in a certain team or not
-                const userIsInTeam = this.isUserInTeam(team);
-                // if the user is in the team, show it and if not don't show the team
-                return (userIsInTeam ? 
-                        <Dropdown.Item key={team._id}>
-                            <Link to={{
-                                pathname: `/team/${team._id}`, 
-                                state: {teamId: team._id}
-                            }}>{team.teamName}</Link>
-                        </Dropdown.Item>
-                    : null)
-                
-            }) : null;
         
         return(
             <div className="team-container">
-                <Link to='/'>Home</Link>
-                <Dropdown>
-                    <Dropdown.Toggle variant='success' id='team-selector'>
-                        {
-                            // decide if the user is on a team or if the user hasn't selected a team yet
-                            this.props.team.teamsList.length > 0 ? this.props.team.currTeam.teamName : "Select Team"
-                        }
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        {teamDropdownItems}
-                    </Dropdown.Menu>
-                </Dropdown>
-
                 <div className="teamNames" key={currTeam._id}>
                     <TeamHeader currTeam={currTeam} />
 
