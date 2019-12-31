@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import OfflinePinIcon from '@material-ui/icons/OfflinePin';
 import {Link} from 'react-router-dom';
 
-import './HomeNotesList.css';
+import './css/HomeNotesList.css';
 
 import {deleteNote} from '../../redux/actions/noteActions';
 

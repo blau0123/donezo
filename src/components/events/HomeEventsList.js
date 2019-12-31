@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 // for right click context menu to delete
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
-import './HomeEventsList.css';
+import './css/HomeEventsList.css';
 
 class HomeEventsList extends React.Component{
     constructor(){

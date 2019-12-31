@@ -7,7 +7,7 @@ import OfflinePinIcon from '@material-ui/icons/OfflinePin';
 import {updateNote, deleteNote, addNoteToTeam} from '../../redux/actions/noteActions';
 import { connect } from 'react-redux';
 
-import './EditNote.css';
+import './css/EditNote.css';
 
 class EditNote extends React.Component{
     constructor(props){

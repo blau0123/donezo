@@ -7,7 +7,7 @@ import {completeTeamTodo, deleteTeamTodo} from '../../redux/actions/teamActions'
 // for right click context menu to delete
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
-import './HomeTodoList.css';
+import './css/HomeTodoList.css';
 import { connect } from 'react-redux';
 
 // <Link className='edit-todo' to={{pathname: '/edittodo', state:{teamData: currTeam, currTodo: todo}}}>

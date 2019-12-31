@@ -14,7 +14,7 @@ import EditNote from './EditNote';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import {deleteNote} from '../../redux/actions/noteActions';
 
-import './NotesList.css';
+import './css/NotesList.css';
 
 class NotesList extends React.Component{
     constructor(){

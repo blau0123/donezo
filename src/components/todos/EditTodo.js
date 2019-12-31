@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {updateTeamTodo} from '../../redux/actions/teamActions';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-import './EditTodo.css';
+import './css/EditTodo.css';
 
 class EditTodo extends React.Component{
     constructor(){

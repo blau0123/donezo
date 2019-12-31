@@ -1,5 +1,5 @@
 import React from 'react';
-import './Message.css';
+import './css/Message.css';
 import {Link, withRouter} from 'react-router-dom';
 
 // for right click context menu to delete

@@ -6,7 +6,7 @@ import {addChatMsg, getChatHistory} from '../../redux/actions/teamActions';
 import Grid from '@material-ui/core/Grid';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
-import './Chat.css';
+import './css/Chat.css';
 
 let socket;
 

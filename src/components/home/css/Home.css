@@ -1,0 +1,78 @@
+.home-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    background-color: #779ECB;
+}
+
+.horiz-container{
+    display: flex;
+}
+
+.logout-container{
+    float: right;
+    width: 100%;
+}
+
+.welcome-text{
+    font-size: 50px;
+    padding: 0px 20px 20px 20px;
+    text-align: center;
+}
+
+.list-of-user-teams{
+    list-style-type: none;
+}
+
+.home-card-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 30px;
+    margin: 15px;
+}
+
+.team-item{
+    transition: all .3s ease-in-out;
+    padding: 20px;
+    margin: 20px 60px 20px 20px;
+    text-align: center;
+}
+
+.team-item:hover{
+    transform: scale(0.98);
+}
+
+.team-item-link{
+    font-size: 25px;
+}
+
+.team-item-link:hover{
+    text-decoration: none;
+    color: #779ECB;
+}
+
+.home-btn{
+    color: black;
+    margin: 10px;
+    font-size: 20px;
+}
+
+.home-btn:hover{
+    color:grey;
+    text-decoration: none;
+}
+
+.create-team{
+    padding-bottom: 10px;
+}
+
+.settings-icon{
+    margin-top: 20px;
+    float: right;
+}
+
+.settings-icon:hover{
+    cursor: pointer;
+}

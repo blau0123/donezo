@@ -6,7 +6,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import {updateEvent} from '../../redux/actions/eventActions';
 import { connect } from 'react-redux';
 
-import './AddEvent.css';
+import './css/AddEvent.css';
 
 class EditEvent extends React.Component{
     constructor(){

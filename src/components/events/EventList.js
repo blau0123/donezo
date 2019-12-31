@@ -12,7 +12,7 @@ import {getTeamWithId} from '../../redux/actions/teamActions';
 import {deleteEvent} from '../../redux/actions/eventActions';
 import {connect} from 'react-redux';
 
-import './EventList.css';
+import './css/EventList.css';
 
 class EventList extends React.Component{
     constructor(){
