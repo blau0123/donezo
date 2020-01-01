@@ -25,7 +25,7 @@ const userSchema = new Schema({
     email: {
         type: String,
         required: true,
-    }
+    },
 }, {
         // automatically adds fields for when created and modified
         timestamps: true,

@@ -31,7 +31,8 @@ class Home extends React.Component{
     
     componentDidMount(){
         // show the list of teams in the database
-        axios.get('http://localhost:5000/teams/')
+        const userId = this.props.auth.user.id;
+        axios.get('http://localhost:5000/teams/', userId)
             .then(res => this.setState({teams: res.data}));
     }
 
@@ -42,7 +43,7 @@ class Home extends React.Component{
         const teamMembers = team.teamMembers;
         let isInTeam = false;
         for (let i = 0; i < teamMembers.length; i++){
-            if (teamMembers[i].userId === user.id){
+            if (teamMembers[i].user._id === user.id){
                 isInTeam = true;
                 break;
             }

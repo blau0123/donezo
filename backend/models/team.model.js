@@ -19,6 +19,7 @@ const teamSchema = new Schema({
     },
     // array of user ID's who are apart of this team
     teamMembers: [{
+        /*
         userId: {
             type: String,
             required: true,
@@ -31,6 +32,12 @@ const teamSchema = new Schema({
             type: String,
             required: true,
         },
+        */
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        isAdmin: Boolean,
     }],
     teamNotes: [{
         type: mongoose.Schema.Types.ObjectId, 

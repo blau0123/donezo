@@ -36,12 +36,18 @@ class CreateTeam extends React.Component{
         // prevent default html form submit behavior
         evt.preventDefault();
 
-        // create the team object to send to database with the only member being the creator
+        /* create the team object to send to database with the only member being the creator
         const currUser = {
             userId: this.props.auth.user.id,
             firstName: this.props.auth.user.firstName,
             lastName: this.props.auth.user.lastName,
         }
+        */
+        // the creator of the team starts off as admin
+        const currUser = {
+            user: this.props.auth.user.id,
+            isAdmin: true,
+        };
 
         // reset any errors that may have occurred
         this.setState({currErrors: -1})
@@ -59,11 +65,13 @@ class CreateTeam extends React.Component{
             teamNotes: this.state.teamNotes,
         }
 
-        // call the team action to create the team
+        // call the team action to create the team. 
+        // sending objid as a string, will convert to objid later
         this.props.createTeam(team, this.props.history);
     }
 
     render(){
+        console.log(this.props.auth);
         return(
             <div className='create-team-container center'>
                 <h1 className='create-team-title'>Create your own team.</h1>

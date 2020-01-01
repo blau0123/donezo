@@ -5,6 +5,7 @@ Endpoints: get all teams, add single team
 
 const router = require('express').Router();
 let Team = require('../models/team.model');
+const mongoose = require('mongoose');
 
 /*
 @route GET /teams/
@@ -15,6 +16,7 @@ router.route('/').get((req, res) => {
     // find() is a mongoose method that gets list of all users in mongodb database
     Team.find()
         .populate('teamNotes')
+        .populate({path:'teamMembers.user', mode:'User'})
         .exec((err,teams) => {
             if (err) return res.status(400).json(err);
             return res.json(teams)
@@ -32,6 +34,8 @@ router.route('/add').post((req, res) => {
     const teamDescription = req.body.teamDescription;
     const teamMembers = req.body.teamMembers;
     const teamNotes = req.body.teamNotes;
+    // teammembers will only have founding member, convert id to objectid
+    teamMembers[0].user = mongoose.Types.ObjectId(teamMembers[0].user);
 
     const newTeam = new Team({
         teamName,

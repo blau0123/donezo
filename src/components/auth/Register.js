@@ -49,6 +49,7 @@ class Register extends React.Component{
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             password: this.state.password,
+            isAdmin: true,
         }
 
         console.log(newUser);
