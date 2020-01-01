@@ -10,8 +10,11 @@ class TeamSearch extends React.Component{
     constructor(){
         super();
 
+        // hasSearched is used to show the user if no teams match their prompt after they search
+        // (rather than showing it before they even search)
         this.state = {
             prompt: '',
+            hasSearched: false,
         }
 
         this.searchForTeamWithPrompt = this.searchForTeamWithPrompt.bind(this);
@@ -58,6 +61,7 @@ class TeamSearch extends React.Component{
         evt.preventDefault();
         // call the team action to search for a team
         const searchPrompt = this.state.prompt;
+        this.setState({hasSearched: true})
         this.props.searchTeamWithPrompt(searchPrompt);
     }
 
@@ -114,7 +118,12 @@ class TeamSearch extends React.Component{
                         <input className='submit-btn btn' type='submit' value='Search' />
                     </form>
                     <div className='matched-teams'>
-                        {matchedTeamsList}
+                        {
+                            matchedTeams.length > 0 ? 
+                                matchedTeamsList : 
+                                this.state.hasSearched ? 
+                                    <p className='no-match'>No teams matched your search 😢</p> : null
+                        }
                     </div>
                 </div>
             </div>

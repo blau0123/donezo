@@ -57,3 +57,8 @@
 .team-name{
     color: #779ECB;
 }
+
+.no-match{
+    font-size: 20px;
+    margin: 15px;
+}
