@@ -28,7 +28,7 @@ class TeamSearch extends React.Component{
     // when user clicks join team button, calls the redux action to let the user join
     joinTeam(evt){
         evt.preventDefault();
-        // collect the data required to join the team members list
+        /* collect the data required to join the team members list
         const userId = this.props.auth.user.id;
         const userFirst = this.props.auth.user.firstName;
         const userLast = this.props.auth.user.lastName;
@@ -37,6 +37,13 @@ class TeamSearch extends React.Component{
             firstName: userFirst,
             lastName: userLast,
         };
+        */
+        const userId = this.props.auth.user.id;
+        const userData = {
+            user: userId,
+            isAdmin: false,
+        }
+
         const teamData = evt.target.id;
         // call the team action that joins a given user to a given team
         this.props.joinTeam(userData, teamData);
@@ -59,10 +66,9 @@ class TeamSearch extends React.Component{
         // check if user is in the team
         const {user} = this.props.auth;
         const teamMembers = team.teamMembers;
-        console.log(user, teamMembers);
         let isInTeam = false;
         for (let i = 0; i < teamMembers.length; i++){
-            if (teamMembers[i].userId === user.id){
+            if (teamMembers[i].user._id === user.id){
                 isInTeam = true;
                 break;
             }

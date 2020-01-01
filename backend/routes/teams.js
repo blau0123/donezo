@@ -60,6 +60,7 @@ router.route('/:id').get((req, res) => {
     Team.findById(req.params.id)
         .populate('teamNotes')
         .populate('teamEvents')
+        .populate({path:'teamMembers.user', mode:'User'})
         .exec((err, team) => {
             if (err) return res.status(400).json(err);
 
@@ -106,18 +107,17 @@ router.route('/update/:id').post((req, res) => {
 @access Public
 */
 router.route('/join').post((req, res) => {
-    const userId = req.body.userData.id;
-    //const userData = req.body.userData;
+    const userData = req.body.userData;
     const teamId = req.body.teamData;
-    const firstName = req.body.userData.firstName;
-    const lastName = req.body.userData.lastName;
+    let userId = req.body.userData.user;
+    userId = mongoose.Types.ObjectId(userId);
 
     Team.findById(teamId)
         .then(team => {
             // check to make sure that the user isn't already apart of the team (can't add twice)
             let found = false;
             for (let i = 0; i < team.teamMembers.length; i++){
-                if (userId === team.teamMembers[i].userId){
+                if (userId === team.teamMembers[i].user._id){
                     found = true;
                     break;
                 }
@@ -125,7 +125,7 @@ router.route('/join').post((req, res) => {
 
             // if user is not in list, then add them to team
             if (!found){
-                team.teamMembers.push({userId, firstName, lastName});
+                team.teamMembers.push(userData);
                 team.save()
                     .then(() => res.json('You have been added to the team'))
                     .catch(err => res.status(400).json('Error: ' + err));

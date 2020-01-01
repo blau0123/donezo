@@ -50,7 +50,6 @@ export const searchTeamWithPrompt = (prompt) => dispatch => {
                     match.push(res.data[i])
                 }
             }
-            console.log(match);
             // send match to reducer to update the state of TeamSearch component
             dispatch({
                 type: GET_TEAMS_WITH_PROMPT,

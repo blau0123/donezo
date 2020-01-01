@@ -24,6 +24,10 @@
     padding-bottom: 10px;
 }
 
+.admin{
+    font-weight: bold;
+}
+
 .display-none{
     display: none;
 }

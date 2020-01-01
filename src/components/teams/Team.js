@@ -63,7 +63,7 @@ class Team extends React.Component{
         const {currTeam} = this.props.team;
         // get the curr user of the app
         const {user} = this.props.auth;
-        
+
         return(
             <div className="team-container">
                 <div className="teamNames" key={currTeam._id}>

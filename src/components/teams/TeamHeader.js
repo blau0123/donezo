@@ -27,6 +27,7 @@ class TeamHeader extends React.Component{
 
     /*
     checks if the user is in the teamMember list of this team
+    Used when creating the dropdown menu of teams the user is in
     */
     isUserInTeam(team){
         // check if user is in the team
@@ -34,7 +35,7 @@ class TeamHeader extends React.Component{
         const teamMembers = team.teamMembers;
         let isInTeam = false;
         for (let i = 0; i < teamMembers.length; i++){
-            if (teamMembers[i].userId === user.id){
+            if (teamMembers[i].user._id === user.id){
                 isInTeam = true;
                 break;
             }
@@ -45,12 +46,14 @@ class TeamHeader extends React.Component{
     render(){
         const {currTeam} = this.props;
 
-         // have all dropdown items be teams user is in
+        // have all dropdown items be teams user is in
          const {teamsList} = this.props.team;
+
          const teamDropdownItems = teamsList && teamsList.length > 0 ?
              teamsList.map(team => {
                  // need to check if the user is in a certain team or not
                  const userIsInTeam = this.isUserInTeam(team);
+
                  // if the user is in the team, show it and if not don't show the team
                  return (userIsInTeam ? 
                          <Dropdown.Item key={team._id}>

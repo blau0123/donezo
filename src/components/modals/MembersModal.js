@@ -55,9 +55,13 @@ class MembersModal extends React.Component{
                     <p className='member-title'>Members</p>
                     {
                         members && members.length > 0 ? members.map(member => 
-                            <p key={member._id} className='member-name'>
-                                {member.firstName + ' ' + member.lastName}
-                            </p>
+                            member.isAdmin ? 
+                                <p key={member.user._id} className='member-name admin'>
+                                    {member.user.firstName + ' ' + member.user.lastName} (Admin)
+                                </p> :
+                                <p key={member.user._id} className='member-name'>
+                                    {member.user.firstName + ' ' + member.user.lastName}
+                                </p>
                         ) : null
                     }
                 </Card>

@@ -4,6 +4,8 @@
     align-items: center;
     font-family: 'Roboto', sans-serif;
     background-color: #779ECB;
+    min-height: 100vh;
+    height: 100%;
 }
 
 .horiz-container{

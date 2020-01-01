@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {addChatMsg, getChatHistory} from '../../redux/actions/teamActions';
 import Grid from '@material-ui/core/Grid';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import GradeIcon from '@material-ui/icons/Grade';
 
 import './css/Chat.css';
 
@@ -12,6 +13,7 @@ let socket;
 
 const Chat = (props) => {
     const [userName, setUserName] = useState('');
+    const [currUserId, setCurrUserId] = useState('');
     const [team, setTeam] = useState({});
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
@@ -29,6 +31,7 @@ const Chat = (props) => {
         socket = io(ENDPOINT);
 
         setUserName(user.firstName + ' ' + user.lastName);
+        setCurrUserId(user.id);
         setTeam(currTeam);
 
         // emit a join event to let the user join the team chat
@@ -99,12 +102,29 @@ const Chat = (props) => {
                     {
                         // show all team members in this team
                         team.teamMembers ? team.teamMembers.map(member => {
-                            const name = member.firstName + ' ' + member.lastName;
-                            return name === userName ?
-                                <p key={member._id}className='bold'>
-                                    {member.firstName} {member.lastName} (You)
-                                </p> :
-                                <p>{member.firstName} {member.lastName}</p>    
+                            const name = member.user.firstName + ' ' + member.user.lastName;
+                            // checks if the user in the list is curr user and if the user in the list is admin
+                            return currUserId === member.user._id ?
+                                member.isAdmin ? 
+                                    <div className='admin-container'>
+                                        <GradeIcon className='admin-icon' fontSize='small' />
+                                        <p key={member._id}className='bold'>
+                                            {member.user.firstName} {member.user.lastName} (You)
+                                        </p>
+                                    </div> :
+                                    <p key={member._id}className='bold'>
+                                        {member.user.firstName} {member.user.lastName} (You)
+                                    </p> 
+                                :  member.isAdmin ? 
+                                    <div className='admin-container'>
+                                        <GradeIcon className='admin-icon' fontSize='small' />
+                                        <p key={member._id}>
+                                            {member.user.firstName} {member.user.lastName} 
+                                        </p>
+                                    </div> :
+                                    <p key={member._id}>
+                                        {member.user.firstName} {member.user.lastName}
+                                    </p>   
                         }) : null
                     }
                 </Grid>
