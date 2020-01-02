@@ -4,8 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import ChatIcon from '@material-ui/icons/Chat';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import Dropdown from 'react-bootstrap/Dropdown';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import MembersModal from '../modals/MembersModal';
+import TeamSettingsModal from '../modals/TeamSettingsModal';
 
 import './css/TeamHeader.css';
 import { connect } from 'react-redux';
@@ -14,16 +16,24 @@ class TeamHeader extends React.Component{
     constructor(){
         super();
         this.state = {
-            showModal: false,
+            showMembersModal: false,
+            showTeamSettingsModal: false,
+            teamSettings:[{id:'sk', text:'Secret Key'}, {id:'et', text:'Edit Team'}]
         }
-        this.showModal = this.showModal.bind(this);
-        this.hideModal = this.hideModal.bind(this);
+        this.showMembersModal = this.showMembersModal.bind(this);
+        this.hideMembersModal = this.hideMembersModal.bind(this);
+        this.hideTeamSettingsModal = this.hideTeamSettingsModal.bind(this);
+        this.showTeamSettingsModal = this.showTeamSettingsModal.bind(this);
         this.isUserInTeam = this.isUserInTeam.bind(this);
     }
 
-    showModal = () => {this.setState({showModal: true})}
+    showMembersModal = () => {this.setState({showMembersModal: true})}
 
-    hideModal = () => {this.setState({showModal: false})}
+    showTeamSettingsModal = () => {this.setState({showTeamSettingsModal: true})}
+
+    hideMembersModal = () => {this.setState({showMembersModal: false})}
+
+    hideTeamSettingsModal = () => {this.setState({showTeamSettingsModal: false})}
 
     /*
     checks if the user is in the teamMember list of this team
@@ -43,28 +53,42 @@ class TeamHeader extends React.Component{
         return isInTeam;
     }
 
+    /*
+    Given a team and a user, find if the user is an admin in that team
+    */
+   findIfAdmin(team, user){
+        const members = team.teamMembers;
+        for (let i = 0; i < members.length; i++){
+            if (members[i].user._id === user.id){
+                return members[i].isAdmin;
+            }
+        }
+    }
+
     render(){
         const {currTeam} = this.props;
+        const {currUser} = this.props;
+        const isAdmin = currTeam.teamMembers ? this.findIfAdmin(currTeam, currUser) : false;
 
         // have all dropdown items be teams user is in
-         const {teamsList} = this.props.team;
+        const {teamsList} = this.props.team;
 
-         const teamDropdownItems = teamsList && teamsList.length > 0 ?
-             teamsList.map(team => {
-                 // need to check if the user is in a certain team or not
-                 const userIsInTeam = this.isUserInTeam(team);
+        const teamDropdownItems = teamsList && teamsList.length > 0 ?
+            teamsList.map(team => {
+                // need to check if the user is in a certain team or not
+                const userIsInTeam = this.isUserInTeam(team);
 
-                 // if the user is in the team, show it and if not don't show the team
-                 return (userIsInTeam ? 
-                         <Dropdown.Item key={team._id}>
-                             <Link to={{
-                                 pathname: `/team/${team._id}`, 
-                                 state: {teamId: team._id}
-                             }}>{team.teamName}</Link>
-                         </Dropdown.Item>
-                     : null)
-                 
-             }) : null;
+                // if the user is in the team, show it and if not don't show the team
+                return (userIsInTeam ? 
+                        <Dropdown.Item key={team._id}>
+                            <Link to={{
+                                pathname: `/team/${team._id}`, 
+                                state: {teamId: team._id}
+                            }}>{team.teamName}</Link>
+                        </Dropdown.Item>
+                    : null)
+                
+            }) : null;
 
         return(
             <div className='team-header-container'>
@@ -87,14 +111,27 @@ class TeamHeader extends React.Component{
                     <Grid item xs={2}>
                         <div className='members-chat'>
                             <div className="members-container">
-                                <PeopleAltIcon className='members-icon' onClick={this.showModal}
-                                    fontSize='large'/>
-                                <MembersModal showModal={this.state.showModal} handleClose={this.hideModal}
-                                    members={currTeam.teamMembers}></MembersModal>
+                                <PeopleAltIcon className='members-icon scale-hover color-blue' 
+                                    onClick={this.showMembersModal} fontSize='large'/>
+                                <MembersModal showModal={this.state.showMembersModal} 
+                                    handleClose={this.hideMembersModal}
+                                    members={currTeam.teamMembers} />
                             </div>
                             <Link to={{pathname:'/chat', state:{currTeam}}}>
-                                <ChatIcon className='chat-icon' fontSize='large'/>
+                                <ChatIcon className='chat-icon scale-hover color-blue' fontSize='large'/>
                             </Link>
+                            {
+                                // if user is admin, then show the team options menu
+                                isAdmin ? 
+                                    <div className='team-options-container'>
+                                        <MoreVertIcon className='options-icon scale-hover color-blue' 
+                                            fontSize='large' onClick={this.showTeamSettingsModal}/>
+                                        <TeamSettingsModal showModal={this.state.showTeamSettingsModal} 
+                                            handleClose={this.hideTeamSettingsModal}
+                                            currTeam={currTeam}
+                                            children={this.state.teamSettings} />
+                                    </div> : null
+                            }
                         </div>
                     </Grid>
                 </Grid>

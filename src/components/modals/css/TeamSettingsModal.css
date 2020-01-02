@@ -1,0 +1,11 @@
+.team-set-modal-main{
+    position:fixed;
+    /* moves modal left and down */
+    transform: translate(-80%, -20%);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 180px;  
+    width: 200px;
+}

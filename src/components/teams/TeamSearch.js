@@ -4,6 +4,8 @@ import {joinTeam, searchTeamWithPrompt} from '../../redux/actions/teamActions';
 import { Link } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 
+import JoinTeamModal from '../modals/JoinTeamModal';
+
 import './css/TeamSearch.css';
 
 class TeamSearch extends React.Component{
@@ -15,6 +17,7 @@ class TeamSearch extends React.Component{
         this.state = {
             prompt: '',
             hasSearched: false,
+            showModal: false,
         }
 
         this.searchForTeamWithPrompt = this.searchForTeamWithPrompt.bind(this);
@@ -23,31 +26,22 @@ class TeamSearch extends React.Component{
         this.isUserInTeam = this.isUserInTeam.bind(this);
     }
 
+    showModal = () => {this.setState({showModal: true})}
+    hideModal = () => {this.setState({showModal: false})}
+
     componentDidMount(){
         // reset prompt
         this.setState({prompt: ''})
     }
 
     // when user clicks join team button, calls the redux action to let the user join
-    joinTeam(evt){
-        evt.preventDefault();
-        /* collect the data required to join the team members list
-        const userId = this.props.auth.user.id;
-        const userFirst = this.props.auth.user.firstName;
-        const userLast = this.props.auth.user.lastName;
-        const userData = {
-            id: userId,
-            firstName: userFirst,
-            lastName: userLast,
-        };
-        */
+    joinTeam(teamData){
         const userId = this.props.auth.user.id;
         const userData = {
             user: userId,
             isAdmin: false,
         }
 
-        const teamData = evt.target.id;
         // call the team action that joins a given user to a given team
         this.props.joinTeam(userData, teamData);
     }
@@ -95,11 +89,17 @@ class TeamSearch extends React.Component{
                                 // only show join btn if user is not apart of team
                                 matchedTeam.teamMembers && matchedTeam.teamMembers.length > 0 
                                     && this.isUserInTeam(matchedTeam) ?
-                                   <p className='join-btn'>You are already in this team.</p> :
-                                   <button id={matchedTeam._id} onClick={this.joinTeam} 
-                                        className='join-btn btn'>
-                                        Join {matchedTeam.teamName}
-                                    </button>
+                                    <p className='join-btn'>You are already in this team.</p> :
+                                    <div className="members-container">
+                                        <button id={matchedTeam._id} onClick={this.showModal} 
+                                                className='join-btn btn'>
+                                            Join {matchedTeam.teamName}
+                                        </button>
+                                        <JoinTeamModal showModal={this.state.showModal} 
+                                            handleClose={this.hideModal}
+                                            currTeam={matchedTeam}
+                                            joinTeam={this.joinTeam}/>
+                                    </div>
                             }
                         </Card>
                     </div>

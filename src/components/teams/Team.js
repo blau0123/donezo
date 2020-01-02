@@ -67,7 +67,7 @@ class Team extends React.Component{
         return(
             <div className="team-container">
                 <div className="teamNames" key={currTeam._id}>
-                    <TeamHeader currTeam={currTeam} />
+                    <TeamHeader currTeam={currTeam} currUser={user}/>
 
                     <div className="team-notes-list h-team-list">
                         <Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>

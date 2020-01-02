@@ -11,6 +11,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import CreateTeam from './components/teams/CreateTeam';
 import TeamSearch from './components/teams/TeamSearch';
+import EditTeam from './components/teams/EditTeam';
 import Team from './components/teams/Team';
 import AddTodo from './components/todos/AddTodo';
 import AddEvent from './components/events/AddEvent';
@@ -57,6 +58,7 @@ function App() {
         <PrivateRoute exact path="/" component = {Home} />
         <PrivateRoute exact path="/noteslist/:id" component = {NotesList} />
         <PrivateRoute path="/team/:id" component = {Team} />
+        <PrivateRoute path="/editteam" component={EditTeam} />
         <PrivateRoute path="/teamsearch" component = {TeamSearch} />
         <PrivateRoute path="/addnote" component = {AddNote} />
         <PrivateRoute path="/note/:id" component = {Note} />

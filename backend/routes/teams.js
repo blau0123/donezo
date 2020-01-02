@@ -37,7 +37,10 @@ router.route('/add').post((req, res) => {
     // teammembers will only have founding member, convert id to objectid
     teamMembers[0].user = mongoose.Types.ObjectId(teamMembers[0].user);
 
+    // create random secret num (4 digits)
+    const secretNum = (Math.floor(10000 * Math.random()) + 10000).toString().substring(1);
     const newTeam = new Team({
+        secretNum,
         teamName,
         teamDescription,
         teamMembers,

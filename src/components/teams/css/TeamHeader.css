@@ -7,24 +7,28 @@
     margin-bottom: 10px;
 }
 
-.chat-icon{
-    color:#779ECB;
+.scale-hover{
     transition: all .3s ease-in-out;
 }
 
-.chat-icon:hover{
+.scale-hover:hover{
     transform: scale(0.9);
 }
 
+.chat-icon{
+    margin-right: 15px;
+}
+
+.options-icon:hover{
+    cursor: pointer;
+}
+
 .members-icon{
-    color:#779ECB;
     margin-right: 20px;
-    transition: all .3s ease-in-out;
 }
 
 .members-icon:hover{
     cursor: pointer;
-    transform: scale(0.9);
 }
 
 .members-container{
@@ -55,3 +59,4 @@
 .home-btn{
     margin-left: 10px;
 }
+

@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const teamSchema = new Schema({
+    secretNum: {
+        type: String,
+        required: true,
+    },
     teamName: {
         type: String,
         required: true,
@@ -19,20 +23,6 @@ const teamSchema = new Schema({
     },
     // array of user ID's who are apart of this team
     teamMembers: [{
-        /*
-        userId: {
-            type: String,
-            required: true,
-        },
-        firstName: {
-            type: String,
-            required: true,
-        },
-        lastName: {
-            type: String,
-            required: true,
-        },
-        */
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
