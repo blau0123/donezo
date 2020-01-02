@@ -10,6 +10,7 @@ export const JOIN_TEAM = "JOIN_TEAM";
 export const GET_TEAMS_WITH_PROMPT = "GET_TEAMS_WITH_PROMPT";
 export const GET_TEAM_WITH_ID = "GET_TEAM_WITH_ID";
 export const GET_ALL_TEAMS = "GET_ALL_TEAMS";
+export const EDIT_TEAM = "EDIT_TEAM";
 
 export const ADD_NOTE_TO_TEAM = "ADD_NOTE_TO_TEAM";
 export const UPDATE_NOTE = "UPDATE_NOTE";

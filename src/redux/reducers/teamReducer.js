@@ -1,5 +1,5 @@
 import { JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, ADD_NOTE_TO_TEAM, 
-            ADD_TODO_TO_TEAM, COMPLETE_TODO, ADD_EVENT_TO_TEAM, DELETE_TODO, EDIT_TODO, GET_CHAT_HISTORY} from "../actions/types";
+            ADD_TODO_TO_TEAM, COMPLETE_TODO, ADD_EVENT_TO_TEAM, DELETE_TODO, EDIT_TODO, GET_CHAT_HISTORY, EDIT_TEAM} from "../actions/types";
 
 /*
 Changes the state variables that deal with teams depending on which 
@@ -41,6 +41,12 @@ export default function(state = initState, action){
             return {
                 ...state,
                 teamsList: action.payload,
+            }
+        case EDIT_TEAM:
+            // set state of teams with list of all teams
+            return {
+                ...state,
+                currTeam: action.payload,
             }
         case ADD_TODO_TO_TEAM:
             // set the state of last added todo (for page refresh)

@@ -94,11 +94,10 @@ router.route('/update/:id').post((req, res) => {
             // update each attribute for the given team with the new values passed in
             team.teamName = req.body.teamName;
             team.teamDescription = req.body.teamDescription;
-            team.teamMembers = req.body.teamMembers;
-            team.teamNotes = req.body.teamNotes;
+            team.secretNum = req.body.secretNum;
 
             team.save()
-                .then(() => res.json('Team updated'))
+                .then(() => res.json(team))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(400).json('Error: ' + err));

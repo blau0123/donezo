@@ -44,7 +44,6 @@ class AddTodo extends React.Component{
 
         // add todo to team and redirect back to the team home
         this.props.addTodoToTeam(teamData, todoData);
-        //this.props.history.push(`/team/${teamData._id}`);
         this.props.history.goBack();
     }
 
@@ -52,13 +51,13 @@ class AddTodo extends React.Component{
         // get current team
         const {teamData} = this.props.location.state;
         const membersList = teamData.teamMembers;
-        
+
         // dropdown of all members in curr team to choose an assignee
         const memberDropdownItems = membersList && membersList.length > 0 ?
             membersList.map(member => 
                 <Dropdown.Item key={member._id}
-                    onClick={() => this.setState({assignee: `${member.firstName} ${member.lastName}`})}>
-                    {member.firstName + ' ' + member.lastName}
+                    onClick={() => this.setState({assignee: `${member.user.firstName} ${member.user.lastName}`})}>
+                    {member.user.firstName + ' ' + member.user.lastName}
                 </Dropdown.Item> 
             ) : null;
 

@@ -69,7 +69,6 @@ class TeamHeader extends React.Component{
         const {currTeam} = this.props;
         const {currUser} = this.props;
         const isAdmin = currTeam.teamMembers ? this.findIfAdmin(currTeam, currUser) : false;
-
         // have all dropdown items be teams user is in
         const {teamsList} = this.props.team;
 

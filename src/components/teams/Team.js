@@ -62,7 +62,8 @@ class Team extends React.Component{
         // get the curr team from props that was obtained from store state after getTeamWithId called
         const {currTeam} = this.props.team;
         // get the curr user of the app
-        const {user} = this.props.auth;
+        const {user} = this.props.auth;        
+        console.log(currTeam);
 
         return(
             <div className="team-container">

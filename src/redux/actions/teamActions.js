@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, ADD_NOTE_TO_TEAM,
+import {JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, EDIT_TEAM,
             ADD_TODO_TO_TEAM, COMPLETE_TODO, DELETE_TODO, EDIT_TODO,
             ADD_CHAT_MSG,
             GET_CHAT_HISTORY} from './types';
@@ -86,19 +86,18 @@ export const getAllTeams = () => dispatch => {
         .catch(err => console.log(err))
 }
 
-/* add a note to the notes list for a given team
-export const addNoteToTeam = (teamData, noteData) => dispatch => {
-    axios.post('http://localhost:5000/teams/addnote', {teamData, noteData})
+// edit a specific team
+export const editTeam = (teamData) => dispatch => {
+    axios.post(`http://localhost:5000/teams/update/${teamData.teamId}`, teamData)
         .then(res => {
             console.log(res);
             dispatch({
-                type: ADD_NOTE_TO_TEAM,
+                type: EDIT_TEAM,
                 payload: res.data,
             })
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
 }
-*/
 
 // add new todo to a given team
 export const addTodoToTeam = (teamData, todoData) => dispatch => {

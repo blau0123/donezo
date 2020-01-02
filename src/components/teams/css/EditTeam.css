@@ -1,0 +1,30 @@
+.edit-team-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+}
+
+.back-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-back{
+    color: #779ECB;
+    margin-top: 15px;
+    transition: all .3s ease-in-out;
+}
+
+.edit-back:hover{
+    cursor: pointer;
+    transform: scale(0.95);
+}
+
+.edit-team-title{
+    margin-top: 20px;
+    margin-left: 0;
+}
