@@ -95,6 +95,7 @@ router.route('/update/:id').post((req, res) => {
             team.teamName = req.body.teamName;
             team.teamDescription = req.body.teamDescription;
             team.secretNum = req.body.secretNum;
+            team.teamMembers = req.body.teamMembers;
 
             team.save()
                 .then(() => res.json(team))

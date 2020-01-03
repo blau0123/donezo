@@ -7,6 +7,29 @@
     width: 100%;
 }
 
+.edit-separator{
+    width: 100%;
+    display: flex;
+}
+
+.edit-search-input{
+    margin: 20px 0;
+    border-radius: 10px;
+    border-width: 1px;
+    font-size: 15px;
+    padding: 5px 15px;
+    width: 90%;
+}
+
+.members-edit-list{
+   height: 100%;
+   overflow: auto; 
+}
+
+.edit-team-btn{
+    margin: 30px;
+}
+
 .back-title{
     display: flex;
     justify-content: center;
@@ -27,4 +50,12 @@
 .edit-team-title{
     margin-top: 20px;
     margin-left: 0;
+}
+
+.edit-member-admin{
+    display: flex;
+}
+
+.admin:hover{
+    cursor: pointer;
 }
