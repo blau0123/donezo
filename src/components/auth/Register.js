@@ -14,7 +14,7 @@ class Register extends React.Component{
             email: '',
             firstName: '',
             lastName: '',
-            errors: {},
+            errors: '',
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -30,8 +30,8 @@ class Register extends React.Component{
 
     componentWillReceiveProps(nextProps){
         // if there are errors, then set the state
-        if (nextProps.errors){
-            this.setState({errors: nextProps.errors})
+        if (nextProps.error){
+            this.setState({errors: nextProps.error.err})
         }
     }
 
@@ -49,10 +49,8 @@ class Register extends React.Component{
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             password: this.state.password,
-            isAdmin: true,
         }
 
-        console.log(newUser);
         this.props.registerUser(newUser, this.props.history);
     }
 
@@ -77,7 +75,9 @@ class Register extends React.Component{
                     <label className='create-label input-label'>Password</label>
                     <input className='search-input' name='password' type='password' value={this.state.password} 
                         onChange={this.onChange} />
-
+                    <span className='error-text'>
+                        {errors}
+                    </span>         
                     <input className='btn' type='submit' value='Register' />
                     <p className='m-20'>Have an account already? Login <Link className='blue-link' to='/login'>here</Link></p>
                 </form>
