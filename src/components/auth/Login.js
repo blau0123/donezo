@@ -11,7 +11,7 @@ class Login extends React.Component{
         this.state = {
             username: '',
             password: '',
-            errors: {},
+            errors: '',
         }
         
         this.onChange = this.onChange.bind(this);
@@ -26,13 +26,14 @@ class Login extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
+        console.log(nextProps);
         if (nextProps.auth.isAuthenticated){
             // send user to dashboard if logged in already
             this.props.history.push('/');
         }
 
-        if (nextProps.errors){
-            this.setState({errors: nextProps.errors})
+        if (nextProps.error){
+            this.setState({errors: nextProps.error.err})
         }
     }
 
@@ -55,6 +56,7 @@ class Login extends React.Component{
 
     render(){
         const {errors} = this.state;
+        console.log(errors);
         return(
             <div className='center container'>
                 <h1 className='title-text'>Login here.</h1>
@@ -65,9 +67,8 @@ class Login extends React.Component{
                     <label className='create-label input-label'>Password</label>
                     <input className='search-input' type='password' name='password' 
                         value={this.state.password} onChange={this.onChange}/>
-                    <span>
-                        {errors.password}
-                        {errors.passwordincorrect}
+                    <span className='error-text'>
+                        {errors}
                     </span>
 
                     <input className='btn' type='submit' value='Login' />
@@ -83,7 +84,7 @@ class Login extends React.Component{
 // puts the state from the store into the props of this component
 const mapStateToProps = state => ({
     auth: state.auth,
-    errors: state.errors,
+    error: state.error,
 });
 
 export default connect(mapStateToProps, {loginUser})(Login);
