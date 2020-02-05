@@ -31,7 +31,7 @@ require('./config/passport')(passport);
 const uri = require('./config/keys.js').ATLAS_URI;
 
 // start connection with mongodb database
-mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true});
+mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
