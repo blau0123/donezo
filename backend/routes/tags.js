@@ -16,10 +16,10 @@ router.route('/').get((req, res) => {
 @desc add a new tag 
 */
 router.route('/add').post((req, res) => {
-    const newTag = {
-        title:  req.body.title,
-        description: req.body.description,
-    }
+    const newTag = new Tag({
+        title:  req.body.tagData.title,
+        description: req.body.tagData.description,
+    });
 
     newTag.save()
         .then(() => res.json('Tag added!'))
@@ -37,3 +37,5 @@ router.route('/:id').get((req, res) => {
         .then(tag => res.json(tag))
         .catch(err => res.status(400).json(err));
 })
+
+module.exports = router;

@@ -42,11 +42,13 @@ const teamsRouter = require('./routes/teams');
 const usersRouter = require('./routes/users');
 const notesRouter = require('./routes/notes');
 const eventsRouter = require('./routes/events');
+const tagsRouter = require('./routes/tags');
 // when user goes to /teams, server will load everything in teamsRouter
 app.use('/teams', teamsRouter);
 app.use('/users', usersRouter);
 app.use('/notes', notesRouter);
 app.use('/events', eventsRouter);
+app.use('/tags', tagsRouter);
 
 let numMsgsRead = 5;
 

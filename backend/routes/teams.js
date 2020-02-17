@@ -17,6 +17,7 @@ router.route('/').get((req, res) => {
     Team.find()
         .populate('teamNotes')
         .populate({path:'teamMembers.user', mode:'User'})
+        .populate('teamTags')
         .exec((err,teams) => {
             if (err) return res.status(400).json(err);
             return res.json(teams)

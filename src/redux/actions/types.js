@@ -27,3 +27,5 @@ export const UPDATE_EVENT = "UPDATE_EVENT";
 
 export const ADD_CHAT_MSG = "ADD_CHAT_MSG";
 export const GET_CHAT_HISTORY = "GET_CHAT_HISTORY";
+
+export const ADD_TAG = "ADD_TAG";

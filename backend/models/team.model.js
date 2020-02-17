@@ -55,6 +55,10 @@ const teamSchema = new Schema({
     teamChat:[{
         user: String,
         text: String,
+    }],
+    teamTags:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tag',
     }]
 }, {
         // automatically adds fields for when created and modified

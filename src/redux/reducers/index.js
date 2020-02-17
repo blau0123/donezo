@@ -9,12 +9,18 @@ import errorReducer from './errorReducers';
 import teamReducer from './teamReducer';
 import noteReducer from './noteReducer';
 import eventReducer from './eventReducer';
+import tagReducer from './tagReducers';
 
-// authReducer will be referred to as auth by the root reducer & same for error
+/*
+Creates root reducer with all of the reducers inside
+Can access the state inside of a reducer in the frontend
+by using mapStateToProps and doing tags: state.tags
+*/
 export default combineReducers({
     auth: authReducer,
     error: errorReducer,
     team: teamReducer,
     note: noteReducer,
     event: eventReducer,
+    tags: tagReducer,
 });
