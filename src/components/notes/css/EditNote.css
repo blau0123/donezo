@@ -58,6 +58,10 @@ input:focus{
     color: #779ECB;
 }
 
+.pinned-btn:hover{
+    cursor: pointer;
+}
+
 input::placeholder{
     color: #779ECB;
     opacity: 1;

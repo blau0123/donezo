@@ -18,7 +18,7 @@ class TeamHeader extends React.Component{
         this.state = {
             showMembersModal: false,
             showTeamSettingsModal: false,
-            teamSettings:[{id:'sk', text:'Secret Key'}, {id:'et', text:'Edit Team'}]
+            teamSettings:[{id:'sk', text:'Secret Key'}, {id:'et', text:'Edit Team'}, {id:'tags', text:'View Tags'}]
         }
         this.showMembersModal = this.showMembersModal.bind(this);
         this.hideMembersModal = this.hideMembersModal.bind(this);

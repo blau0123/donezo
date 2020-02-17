@@ -71,6 +71,13 @@ class TeamSettingsModal extends React.Component{
                 state: {currTeam: currTeam}
             })
         }
+        // if user wants to view/edit tags
+        else if (evt.target.id === 'tags'){
+            this.props.history.push({
+                pathname:'/tags',
+                state: {currTeam: currTeam}
+            })
+        }
     }
 
     render(){

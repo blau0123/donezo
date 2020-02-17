@@ -17,6 +17,7 @@ class EditNote extends React.Component{
             body: '',
             pinned: false,
             fromChat: false,
+            tags: [],
         }
 
         this.onChange = this.onChange.bind(this);
@@ -110,6 +111,7 @@ class EditNote extends React.Component{
 
                     <textarea className='note-body no-border' name='body' rows='12' onChange={this.onChange} 
                         value={this.state.body} placeholder='Starting typing...'/>
+                    <button>Add Tags</button>
                     <div className='btn-container'>
                         <button className='submit-btn btn' onClick={this.onSubmit}>Submit</button>
                         <button className='delete-btn btn' onClick={this.onDeleteNote}>Delete</button>

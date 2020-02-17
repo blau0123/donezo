@@ -14,7 +14,11 @@ const noteSchema = new Schema({
         trim: true,
     },
     pinned: Boolean,
-    author: String
+    author: String,
+    tags: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tag'
+    }]
 }, {
         // automatically adds fields for when created and modified
         timestamps: true,
