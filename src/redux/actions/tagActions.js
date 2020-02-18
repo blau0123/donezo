@@ -3,6 +3,7 @@ import {ADD_TAG} from './types';
 
 // add a note to the notes list for a given team
 export const addTag = (teamId, tagData) => dispatch => {
+    console.log(tagData);
     axios.post('http://localhost:5000/tags/add', {tagData})
         .then(res1 => {
             console.log(res1);

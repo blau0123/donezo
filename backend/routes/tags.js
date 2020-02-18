@@ -19,6 +19,7 @@ router.route('/add').post((req, res) => {
     const newTag = new Tag({
         title:  req.body.tagData.title,
         description: req.body.tagData.description,
+        color: req.body.tagData.color
     });
 
     newTag.save()

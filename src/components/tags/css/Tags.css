@@ -1,0 +1,16 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+.tagContainer{
+    color: white;
+    display: inline-block;
+    margin: 20px;
+    padding: 10px 15px 0 15px;
+    border-radius: 10px;
+    transition: all .2s ease-in-out;
+}
+
+.tagContainer:hover{
+    transform: scale(0.95);
+}

@@ -7,6 +7,10 @@ const tagSchema = new Schema({
         required: true,
     },
     description: String,
+    color: {
+        type: String,
+        required: true,
+    }
 })
 
 const Tag = mongoose.model('Tag', tagSchema);
