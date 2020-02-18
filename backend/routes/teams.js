@@ -16,8 +16,8 @@ router.route('/').get((req, res) => {
     // find() is a mongoose method that gets list of all users in mongodb database
     Team.find()
         .populate('teamNotes')
-        .populate({path:'teamMembers.user', mode:'User'})
         .populate('teamTags')
+        .populate({path:'teamMembers.user', mode:'User'})
         .exec((err,teams) => {
             if (err) return res.status(400).json(err);
             return res.json(teams)
@@ -64,6 +64,7 @@ router.route('/:id').get((req, res) => {
     Team.findById(req.params.id)
         .populate('teamNotes')
         .populate('teamEvents')
+        .populate('teamTags')
         .populate({path:'teamMembers.user', mode:'User'})
         .exec((err, team) => {
             if (err) return res.status(400).json(err);
@@ -298,6 +299,34 @@ router.route('/updatetodo').post((req, res) => {
                 .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(404).json('Error: ' + err));
+})
+
+/*
+@route GET /teams/:id/tags/
+@desc get a list of a specific team's tags
+*/
+router.route('/:id/tags/').get((req, res) => {
+    const teamId = req.params.id;
+})
+
+/*
+@route POST /teams/:id/tags/add
+@desc add a tag to a specific team
+*/
+router.route('/:id/tags/add').post((req, res) => {
+    const tagId = req.body.tagId;
+    const teamId = req.params.id;
+
+    Team.findById(teamId)
+        .then(team => {
+            // got the team with the specific id, so add tag
+            team.teamTags.push(tagId);
+            console.log(tagId);
+            
+            team.save()
+                .then(() => res.json('Tag added to team'))
+                .catch(err => res.status(400).json(err));
+        })
 })
 
 /*

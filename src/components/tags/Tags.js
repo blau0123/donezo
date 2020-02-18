@@ -25,8 +25,10 @@ class Tags extends React.Component{
             return {tags, tag:'', tagDesc:''}
         });
 
+        const teamId = this.props.location.state.currTeam._id;
+
         // add new tag to the db
-        this.props.addTag(tagData);
+        this.props.addTag(teamId, tagData);
     }
 
     onChange = evt => {
@@ -37,8 +39,9 @@ class Tags extends React.Component{
         // get the current team that was passed in
         const {currTeam} = this.props.location.state;
         //const tags = currTeam.teamTags;
-        const tags = this.props.tags;
-        console.log(tags);
+        //const tags = this.props.tags;
+        const tags = currTeam.teamTags;
+        console.log(currTeam);
         return(
             <div>
                 <h1>Tags</h1>

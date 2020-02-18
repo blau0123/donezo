@@ -22,7 +22,8 @@ router.route('/add').post((req, res) => {
     });
 
     newTag.save()
-        .then(() => res.json('Tag added!'))
+        // return newly added tag object (will have objectid)
+        .then(() => res.json(newTag))
         .catch(err => res.status(400).json(err));
 })
 
