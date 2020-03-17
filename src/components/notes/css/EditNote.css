@@ -67,3 +67,19 @@ input::placeholder{
     color: #779ECB;
     opacity: 1;
 }
+
+.select-tag-container{
+    margin: 10px;
+}
+
+.select-tag{
+    border: none;
+    padding: 10px;
+    box-shadow: 1px 1px 5px #cccccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.added-tag:hover{
+    cursor: pointer;
+}

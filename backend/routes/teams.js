@@ -15,7 +15,11 @@ const mongoose = require('mongoose');
 router.route('/').get((req, res) => {
     // find() is a mongoose method that gets list of all users in mongodb database
     Team.find()
-        .populate('teamNotes')
+        .populate({
+            path: 'teamNotes',
+            populate: {path: "tags"}
+        })
+        .populate('teamEvents')
         .populate('teamTags')
         .populate({path:'teamMembers.user', mode:'User'})
         .exec((err,teams) => {
@@ -62,7 +66,10 @@ router.route('/add').post((req, res) => {
 router.route('/:id').get((req, res) => {
     // find the given team, populate teamNotes with notes docs 
     Team.findById(req.params.id)
-        .populate('teamNotes')
+        .populate({
+            path: 'teamNotes',
+            populate: {path: "tags"}
+        })
         .populate('teamEvents')
         .populate('teamTags')
         .populate({path:'teamMembers.user', mode:'User'})

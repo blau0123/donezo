@@ -27,9 +27,14 @@ class Tags extends React.Component{
         console.log(id);
         // get the team that the user is viewing and put it into this.props.team
         this.props.getTeamWithId(id);
-        // get all teams to display in the dropdown
     }
 
+    componentDidUpdate(prevProps){
+        // if added a note, then should refresh to show new note
+        if (this.props.tags.tags != prevProps.tags.tags){
+            window.location.reload();
+        }
+    }
 
     addTagClick = evt => {
         evt.preventDefault();

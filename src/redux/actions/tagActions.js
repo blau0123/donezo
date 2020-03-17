@@ -21,3 +21,11 @@ export const addTag = (teamId, tagData) => dispatch => {
         })
         .catch(err => console.log(err))
 }
+
+// check if a tag is already in a team
+export const checkTagUnique = (teamId, tagData) => dispatch => {
+    axios.post(`http://localhost:5000/teams/${teamId}/tags/checkUnique`, {tagData})
+        .then(res => {
+            console.log(res);
+        })
+}

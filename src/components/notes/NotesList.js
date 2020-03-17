@@ -58,10 +58,10 @@ class NotesList extends React.Component{
 
     render(){
         const {currTeam} = this.props.team;
-        //console.log(currTeam);
 
         // make a component to show all notes
         const notesList = currTeam.teamNotes;
+        console.log(notesList)
         const pinnedNotesCompon = notesList && notesList.length > 0 ?
             notesList.map(note => {
                 const lastUpdated = new Date(note.updatedAt);
