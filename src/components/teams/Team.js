@@ -8,6 +8,7 @@ import HomeNotesList from '../notes/HomeNotesList';
 import HomeTodoList from '../todos/HomeTodoList';
 import HomeEventsList from '../events/HomeEventsList';
 import TeamHeader from './TeamHeader';
+import SearchResults from "./SearchResults";
 
 import './css/Team.css';
 
@@ -19,6 +20,10 @@ Depends on the id of the team passed in, shows the team with that id
 class Team extends React.Component{
     constructor(props){
         super(props);
+
+        this.state = {
+            search:""
+        }
     }
 
     componentDidMount(){
@@ -58,65 +63,82 @@ class Team extends React.Component{
         }
     }
 
+    onChange = evt => {
+        this.setState({search: evt.target.value})
+    }
+
     render(){
         // get the curr team from props that was obtained from store state after getTeamWithId called
         const {currTeam} = this.props.team;
         // get the curr user of the app
         const {user} = this.props.auth;        
-        console.log(currTeam);
+
+        // the search bar
+        const search = 
+        <div>
+            <input className="search" onChange={this.onChange} value={this.state.search} placeholder="Search for something..."></input>
+        </div>
 
         return(
             <div className="team-container">
                 <div className="teamNames" key={currTeam._id}>
                     <TeamHeader currTeam={currTeam} currUser={user}/>
 
-                    <div className="team-notes-list h-team-list">
-                        <Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>
-                        <div className='h-notes-list-container'>
-                            <HomeNotesList currTeam={currTeam} />
-                        </div>
-                    </div>
+                    {search}
 
-                    <Grid container spacing={2}>
-                        <Grid item sm={12} md={5} className='grid-todos'>
-                            <div className="team-todos-list h-team-list">
+                    {
+                        // if the user is searching for something, show the search results. if not, show regular view
+                        this.state.search && this.state.search.trim().length > 0 ? <SearchResults search={this.state.search} currTeam={currTeam}/> :
+                            <React.Fragment>
+                                <div className="team-notes-list h-team-list">
+                                    <Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>
+                                    <div className='h-notes-list-container'>
+                                        <HomeNotesList currTeam={currTeam} />
+                                    </div>
+                                </div>
+
                                 <Grid container spacing={2}>
-                                    <Grid item xs={9}>
-                                        <h2 className='list-title h-todo-list'>Todos</h2>
+                                    <Grid item sm={12} md={5} className='grid-todos'>
+                                        <div className="team-todos-list h-team-list">
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={9}>
+                                                    <h2 className='list-title h-todo-list'>Todos</h2>
+                                                </Grid>
+                                                <Grid item xs={1}>
+                                                    <Link to={{pathname: '/addtodo', state:{teamData: currTeam}}}>
+                                                        <AddIcon fontSize='large' className='add-icon todo-add' />
+                                                    </Link>
+                                                </Grid>
+                                            </Grid>
+                                            <div className='h-todos-container'>
+                                                <HomeTodoList currTeam={currTeam} history={this.props.history}/>
+                                            </div>
+                                        </div>
                                     </Grid>
-                                    <Grid item xs={1}>
-                                        <Link to={{pathname: '/addtodo', state:{teamData: currTeam}}}>
-                                            <AddIcon fontSize='large' className='add-icon todo-add' />
-                                        </Link>
+                                    <Grid item sm={12} md={7}>
+                                        <div className="team-events-list">
+                                            <div>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={9}>
+                                                        <h4>
+                                                            <Link className='list-title h-event-list' to={`/eventslist/${currTeam._id}`}>
+                                                                Events
+                                                            </Link>
+                                                        </h4>
+                                                    </Grid>
+                                                    <Grid item xs={1}>
+                                                        <Link to={{pathname: '/addevent', state:{teamData: currTeam}}}>
+                                                            <AddIcon fontSize='large' className='add-icon event-add' />
+                                                        </Link>
+                                                    </Grid>
+                                                </Grid>
+                                            </div>
+                                            <HomeEventsList currTeam={currTeam} />
+                                        </div>
                                     </Grid>
                                 </Grid>
-                                <div className='h-todos-container'>
-                                    <HomeTodoList currTeam={currTeam} history={this.props.history}/>
-                                </div>
-                            </div>
-                        </Grid>
-                        <Grid item sm={12} md={7}>
-                            <div className="team-events-list">
-                                <div>
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={9}>
-                                            <h4>
-                                                <Link className='list-title h-event-list' to={`/eventslist/${currTeam._id}`}>
-                                                    Events
-                                                </Link>
-                                            </h4>
-                                        </Grid>
-                                        <Grid item xs={1}>
-                                            <Link to={{pathname: '/addevent', state:{teamData: currTeam}}}>
-                                                <AddIcon fontSize='large' className='add-icon event-add' />
-                                            </Link>
-                                        </Grid>
-                                    </Grid>
-                                </div>
-                                <HomeEventsList currTeam={currTeam} />
-                            </div>
-                        </Grid>
-                    </Grid>
+                            </React.Fragment>
+                    }
                 </div>
             </div>
         )

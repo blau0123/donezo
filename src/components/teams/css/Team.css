@@ -41,3 +41,18 @@
     margin-left: 5vw;
 }
 
+.search{
+    margin: 10px 45px;
+    width: 90%;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px #cccccc;
+    padding: 10px 15px;
+}
+
+.search-result-container{
+    margin: 45px;
+    display: flex;
+    flex-direction: row;
+}
+

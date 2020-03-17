@@ -30,6 +30,7 @@ class Tags extends React.Component{
     }
 
     componentDidUpdate(prevProps){
+        console.log(this.props.tags, prevProps.tags);
         // if added a note, then should refresh to show new note
         if (this.props.tags.tags != prevProps.tags.tags){
             window.location.reload();
