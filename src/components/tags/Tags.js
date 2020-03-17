@@ -2,6 +2,8 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import {addTag} from '../../redux/actions/tagActions';
+import {getTeamWithId} from "../../redux/actions/teamActions";
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 import './css/Tags.css';
 
@@ -17,6 +19,17 @@ class Tags extends React.Component{
             tagColors: ['#eea990', '#f6e0b5', '#aa6f73', '#0D97AC', '#588C73', '#F2AE72', '#8C4646', '#53BBF4', '#92B06A', '#E19D29']
         }
     }
+
+    componentDidMount(){
+        // get the id of the team and call the action to get the specific team
+       // const {id} = this.props.match.params;
+        const id = this.props.location.state.currTeam._id;
+        console.log(id);
+        // get the team that the user is viewing and put it into this.props.team
+        this.props.getTeamWithId(id);
+        // get all teams to display in the dropdown
+    }
+
 
     addTagClick = evt => {
         evt.preventDefault();
@@ -34,7 +47,7 @@ class Tags extends React.Component{
         });
 
         const teamId = this.props.location.state.currTeam._id;
-
+        console.log(tagData);
         // add new tag to the db
         this.props.addTag(teamId, tagData);
     }
@@ -45,12 +58,17 @@ class Tags extends React.Component{
 
     render(){
         // get the current team that was passed in
-        const {currTeam} = this.props.location.state;
-        //const {currTeam} = this.props.team;
+        //const {currTeam} = this.props.location.state;
+        const {currTeam} = this.props.team;
         const tags = currTeam.teamTags;
         return(
-            <div>
-                <h1>Tags</h1>
+            <div className="tag-page-container">
+                <div className="tag-header-container">
+                    <ArrowBackIosIcon fontSize='large' className='back-btn' 
+                                onClick={() => this.props.history.push(`/team/${currTeam._id}`)} />
+                    <h1 className="tag-header">Tags</h1>
+                </div>
+                <div className="tag-list">
                 {
                     tags && tags.length > 0 ? tags.map(tag =>
                         <div className="tagContainer" style={{backgroundColor: tag.color}}>
@@ -58,9 +76,14 @@ class Tags extends React.Component{
                         </div> 
                     ) : <p>No tags yet!</p>
                 }
-                <input type="text" id="tag" value={this.state.tag} onChange={this.onChange}/>
-                <input type="text" id="tagDesc" value={this.state.tagDesc} onChange={this.onChange} />
-                <button onClick={this.addTagClick}>Add Tag</button>
+                </div>
+                <div className="tag-input-container">
+                    <label className="input-label">What tag do you want to create?</label>
+                    <input type="text" className="tag-input" id="tag" value={this.state.tag} onChange={this.onChange}/>
+                    <label className="input-label">Describe your tag.</label>
+                    <input type="text" className="tag-input" id="tagDesc" value={this.state.tagDesc} onChange={this.onChange} />
+                    <button className="btn add-tag-btn" onClick={this.addTagClick}>Add Tag</button>
+                </div>
             </div>
         )
     }
@@ -71,4 +94,4 @@ const mapStateToProps = state => ({
     tags: state.tags
 })
 
-export default connect(mapStateToProps, {addTag})(Tags);
+export default connect(mapStateToProps, {addTag, getTeamWithId})(Tags);

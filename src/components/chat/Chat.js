@@ -90,14 +90,15 @@ const Chat = (props) => {
                 </Grid>
             </Grid>
             <Grid container spacing={2}>
-                <Grid item xs={12} sm={8}>
+                <Grid item xs={12} sm={9}>
                     <Messages msgs={messages} userName={userName} team={team}/>
                     <input className='send-msg' value={message} onChange={evt => setMessage(evt.target.value)} 
                         onKeyPress={evt => {
                             return evt.key === 'Enter' ? sendMessage(evt) : null
-                        }}/>
+                        }}
+                        placeholder="Start typing here"/>
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} sm={3}>
                     <h3 className='chat-member-list color-blue'>Team Members</h3>
                     {
                         // show all team members in this team

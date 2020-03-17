@@ -2,6 +2,19 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
+.tag-page-container{
+    margin-left: 20px;
+}
+
+.tag-header-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.tag-header{
+    margin-top: 20px;
+}
+
 .tagContainer{
     color: white;
     display: inline-block;
@@ -13,4 +26,23 @@ body{
 
 .tagContainer:hover{
     transform: scale(0.95);
+}
+
+.tag-input-container{
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+    margin: 10px 50px;
+}
+
+.tag-input{
+    margin: 5px 15px 15px 15px;
+    border: none;
+    box-shadow: 1px 1px 6px #cccccc;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+.add-tag-btn{
+    margin-top: 10px;
 }
