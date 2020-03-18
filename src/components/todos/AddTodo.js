@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {addTodoToTeam} from '../../redux/actions/teamActions';
 import Dropdown from 'react-bootstrap/Dropdown';
+import AddTag from "../tags/AddTag";
 
 import './css/AddTodo.css';
 
@@ -121,14 +122,6 @@ class AddTodo extends React.Component{
                 </Dropdown.Item> 
             ) : null;
 
-        const tagDropdownItems = teamData.teamTags && teamData.teamTags.length > 0 ?
-            teamData.teamTags.map(tag => {
-                // return the dropdown item for that specific tag
-                return(
-                   <option value={tag.title} key={tag._id} className="tag-option">{tag.title}</option>
-                )
-            }) : null;
-
         return(
             <div className='edit-todo-container'>
                 <h1 className='edit-todo-title'>What do you want to accomplish?</h1>
@@ -151,20 +144,7 @@ class AddTodo extends React.Component{
                         </Dropdown.Menu>
                     </Dropdown>
 
-                    <div className="select-tag-container">
-                        {
-                            // show the selected tags
-                            tags && tags.length > 0 ? tags.map(tag => 
-                                <div id={tag._id} key={tag._id} className="tagContainer added-tag" style={{backgroundColor: tag.color}} onClick={this.deleteTag}>
-                                    <p id={tag._id}>{tag.title}</p>   
-                                </div> ) : null
-                        }
-                        <select className="select-tag" id="select-tag">
-                            {tagDropdownItems}
-                        </select>
-
-                        <button onClick={this.addTag} className="btn">Add</button>
-                    </div>
+                    <AddTag tags={tags} addTag={this.addTag} deleteTag={this.deleteTag} currTeam={teamData}/>
                 </form>
                 <button className='submit-btn btn' onClick={this.onSubmitTodo}>Submit</button>
             </div>

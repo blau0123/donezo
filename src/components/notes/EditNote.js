@@ -1,4 +1,5 @@
 import React from 'react';
+import AddTag from "../tags/AddTag";
 import Grid from '@material-ui/core/Grid';
 import Dropdown from 'react-bootstrap/Dropdown';
 
@@ -153,15 +154,6 @@ class EditNote extends React.Component{
     render(){
         const {currTeam} = this.props;
         const {tags} = this.state;
-        console.log(tags);
-
-        const tagDropdownItems = currTeam.teamTags && currTeam.teamTags.length > 0 ?
-            currTeam.teamTags.map(tag => {
-                // return the dropdown item for that specific tag
-                return(
-                   <option value={tag.title} key={tag._id} className="tag-option">{tag.title}</option>
-                )
-            }) : null;
 
         return(
             <div className='edit-note-container'>
@@ -189,19 +181,7 @@ class EditNote extends React.Component{
                     <textarea className='note-body no-border' name='body' rows='12' onChange={this.onChange} 
                         value={this.state.body} placeholder='Starting typing...'/>
                     
-                    <div className="select-tag-container">
-                        {
-                            // show the selected tags
-                            tags && tags.length > 0 ? tags.map(tag => 
-                                <div id={tag._id} key={tag._id} className="tagContainer added-tag" style={{backgroundColor: tag.color}} onClick={this.deleteTag}>
-                                    <p id={tag._id}>{tag.title}</p>   
-                                </div> ) : null
-                        }
-                        <select className="select-tag" id="select-tag">
-                            {tagDropdownItems}
-                        </select>
-                        <button onClick={this.addTag} className="btn">Add</button>
-                    </div>
+                    <AddTag tags={tags} addTag={this.addTag} deleteTag={this.deleteTag} currTeam={currTeam}/>
 
                     <div className='btn-container'>
                         <button className='submit-btn btn' onClick={this.onSubmit}>Submit</button>
@@ -213,16 +193,6 @@ class EditNote extends React.Component{
     }
 }
 
-/*
- <Dropdown>
-    <Dropdown.Toggle variant='primary'>
-        {this.state.selectedTag.title ? this.state.selectedTag.title : "Add a tag"}
-    </Dropdown.Toggle>
-    <Dropdown.Menu>
-        {tagDropdownItems}
-    </Dropdown.Menu>
-</Dropdown>
-*/
 const mapStateToProps = state => ({
     auth: state.auth,
 })

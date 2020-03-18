@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/home/Home';
 import NotesList from './components/notes/NotesList';
 import Note from './components/notes/Note';
-import AddNote from './components/notes/AddNote';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import CreateTeam from './components/teams/CreateTeam';
@@ -61,7 +60,6 @@ function App() {
         <PrivateRoute path="/team/:id" component = {Team} />
         <PrivateRoute path="/editteam" component={EditTeam} />
         <PrivateRoute path="/teamsearch" component = {TeamSearch} />
-        <PrivateRoute path="/addnote" component = {AddNote} />
         <PrivateRoute path="/note/:id" component = {Note} />
         <PrivateRoute path="/eventslist/:id" component = {EventList} />
         <Route exact path="/login" component = {Login} />

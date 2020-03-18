@@ -299,11 +299,11 @@ router.route('/updatetodo').post((req, res) => {
             // go through array of todos to find the correct id
             for (let i = 0; i < team.teamTodos.length; i++){
                 const currTodo = team.teamTodos[i];
-                console.log(currTodo._id.toHexString(),todoData.id,todoData._id);
                 // if found correct todo, update the todo
                 if (currTodo._id.toHexString() === todoData.id){
                     currTodo.todoText = todoData.todoText;
                     currTodo.assignee = todoData.assignee;
+                    currTodo.tags = todoData.tags;
                     break;
                 }
             }
