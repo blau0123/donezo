@@ -8,7 +8,11 @@ const todoSchema = new Schema({
         required: true,
         trim: true,
     },
-    author: String
+    author: String,
+    tags:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tag'
+    }]
 }, {
         // automatically adds fields for when created and modified
         timestamps: true,

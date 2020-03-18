@@ -94,7 +94,7 @@ class TeamHeader extends React.Component{
                 <Link to='/' className='home-btn'>Home</Link>
                 <Grid container spacing={2}>
                     <Grid item xs={10}>
-                        <Dropdown>
+                        <Dropdown className="dropdown">
                             <Dropdown.Toggle variant='primary' id='team-selector' className='team-name-title'>
                                 {
                                     // decide if the user is on a team or if the user hasn't selected a team yet

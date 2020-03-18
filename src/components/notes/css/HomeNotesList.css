@@ -9,8 +9,22 @@
     padding-top: 20px;
     margin: 10px;
     width: 350px;
-    height: 210px;
+    height: 300px;
     transition: all .3s ease-in-out;
+}
+
+.sm-tag-container{
+    color: white;
+    display: inline-block;
+    font-size: 12px;
+    margin: 5px;
+    padding: 10px 10px 0 10px;
+    border-radius: 10px;
+    transition: all .2s ease-in-out;
+}
+
+.sm-tag-container:hover{
+    transform: scale(0.95);
 }
 
 .show-note{

@@ -19,6 +19,10 @@ router.route('/').get((req, res) => {
             path: 'teamNotes',
             populate: {path: "tags"}
         })
+        .populate({
+            path: 'teamTodos',
+            populate: {path: "tags"}
+        })
         .populate('teamEvents')
         .populate('teamTags')
         .populate({path:'teamMembers.user', mode:'User'})
@@ -69,6 +73,10 @@ router.route('/:id').get((req, res) => {
         .populate({
             path: 'teamNotes',
             populate: {path: "tags"}
+        })
+        .populate({
+            path: 'teamTodos.tags',
+            model: "Tag"
         })
         .populate('teamEvents')
         .populate('teamTags')

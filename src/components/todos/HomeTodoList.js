@@ -50,6 +50,7 @@ class HomeTodoList extends React.Component{
 
     render(){
         const {currTeam} = this.props;
+        console.log(currTeam);
         // get all of the todos for this curr team and make component
         const todosList = currTeam.teamTodos && currTeam.teamTodos.length > 0 ?
             currTeam.teamTodos.map(todo => 
@@ -71,6 +72,14 @@ class HomeTodoList extends React.Component{
                                     todo.assignee && todo.assignee.length > 0 ? ' ' + todo.assignee : 'None'
                                 }
                             </p>
+                            {
+                                // show all todo tags
+                                todo.tags && todo.tags.length > 0 ? todo.tags.map(tag =>
+                                    <div id={tag._id} key={tag._id} className="sm-tag-container todo-tag" style={{backgroundColor: tag.color}} onClick={this.deleteTag}>
+                                        <p id={tag._id}>{tag.title}</p>   
+                                    </div>
+                                ) : null
+                            }
                         </Card>
                     </ContextMenuTrigger>
 

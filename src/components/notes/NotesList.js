@@ -89,6 +89,14 @@ class NotesList extends React.Component{
                                     <h4 className='indiv-note-title'>{note.noteTitle}</h4>
                                     <p>{note.noteBody.slice(0, 110)}</p>
                                     <p className='note-details note-author'>{note.author}</p>
+                                    {
+                                        // show all note tags
+                                        note.tags && note.tags.length > 0 ? note.tags.map(tag =>
+                                            <div id={tag._id} key={tag._id} className="sm-tag-container" style={{backgroundColor: tag.color}} onClick={this.deleteTag}>
+                                                <p id={tag._id}>{tag.title}</p>   
+                                            </div>
+                                        ) : null
+                                    }
                                 </Card> 
                             </ContextMenuTrigger>
                             <ContextMenu id={note._id} className='context-menu-container'>
@@ -119,6 +127,14 @@ class NotesList extends React.Component{
                                     <h4 className='indiv-note-title'>{note.noteTitle}</h4>
                                     <p>{note.noteBody.slice(0, 110)}</p>
                                     <p className='note-details note-author'>{note.author}</p>
+                                    {
+                                        // show all note tags
+                                        note.tags && note.tags.length > 0 ? note.tags.map(tag =>
+                                            <div id={tag._id} key={tag._id} className="sm-tag-container" style={{backgroundColor: tag.color}} onClick={this.deleteTag}>
+                                                <p id={tag._id}>{tag.title}</p>   
+                                            </div>
+                                        ) : null
+                                    }
                                 </Card>
                             </ContextMenuTrigger>
                             <ContextMenu id={note._id} className='context-menu-container'>
@@ -160,6 +176,14 @@ class NotesList extends React.Component{
                                     <h4 className='indiv-note-title'>{note.noteTitle}</h4>
                                     <p>{note.noteBody.slice(0, 110)}</p>
                                     <p className='note-details note-author'>{note.author}</p>
+                                    {
+                                        // show all note tags
+                                        note.tags && note.tags.length > 0 ? note.tags.map(tag =>
+                                            <div id={tag._id} key={tag._id} className="sm-tag-container" style={{backgroundColor: tag.color}} onClick={this.deleteTag}>
+                                                <p id={tag._id}>{tag.title}</p>   
+                                            </div>
+                                        ) : null
+                                    }
                                 </Card>
                             </ContextMenuTrigger>
                             <ContextMenu id={note._id} className='context-menu-container'>
@@ -190,6 +214,14 @@ class NotesList extends React.Component{
                                     <h4 className='indiv-note-title'>{note.noteTitle}</h4>
                                     <p>{note.noteBody.slice(0, 110)}</p>
                                     <p className='note-details note-author'>{note.author}</p>
+                                    {
+                                        // show all note tags
+                                        note.tags && note.tags.length > 0 ? note.tags.map(tag =>
+                                            <div id={tag._id} key={tag._id} className="sm-tag-container" style={{backgroundColor: tag.color}} onClick={this.deleteTag}>
+                                                <p id={tag._id}>{tag.title}</p>   
+                                            </div>
+                                        ) : null
+                                    }
                                 </Card>
                             </ContextMenuTrigger>
                             <ContextMenu id={note._id} className='context-menu-container'>

@@ -46,7 +46,11 @@ const teamSchema = new Schema({
         author: {
             type: String,
             required: true,
-        }
+        },
+        tags:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Tag'
+        }]
     }],
     teamEvents: [{
         type: mongoose.Schema.Types.ObjectId,

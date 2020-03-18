@@ -159,11 +159,6 @@ class EditNote extends React.Component{
             currTeam.teamTags.map(tag => {
                 // return the dropdown item for that specific tag
                 return(
-                    /*
-                    <Dropdown.Item key={tag.title} onClick={this.selectTag}>
-                        <p>{tag.title}</p>
-                    </Dropdown.Item>
-                    */
                    <option value={tag.title} key={tag._id} className="tag-option">{tag.title}</option>
                 )
             }) : null;

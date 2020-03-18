@@ -24,10 +24,12 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
     const todoText = req.body.todoText;
     const author = req.body.author;
+    const tags = req.body.tags;
 
     const newTodo = new Todo({
         todoText,
         author,
+        tags,
     })
 
     // save the new todo into the db and send the new todo back
