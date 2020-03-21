@@ -70,6 +70,7 @@ class AllNotes extends React.Component{
                     <ArrowBackIosIcon fontSize='large' className='back-btn' 
                         onClick={() => this.props.history.goBack()} />
                     <h1 className="header-text">Notes</h1>
+                    <button className="add-btn" onClick={() => this.setState({modalOpen: true})}>Add</button>
                 </div>
                 
                 <h3 className="section-title">Tags</h3>

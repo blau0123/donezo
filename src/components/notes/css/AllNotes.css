@@ -43,6 +43,7 @@
 
 .untagged-notes{
     display: flex;
+    flex-wrap: wrap;
 }
 
 .note-card{
@@ -57,6 +58,22 @@
 .note-card:hover{
     transform: scale(1.02);
     cursor: pointer;
+}
+
+.add-btn{
+    padding: 10px 30px;
+    margin: 18px 20px;
+    height: 50px;
+    border: none;
+    background-color: #779ECB;
+    color: white;
+    border-radius: 10px;
+    transition: transform 0.3s ease-out;
+    outline: none;
+}
+
+.add-btn:hover{
+    transform: scale(1.05);
 }
 
 .exit-modal{
