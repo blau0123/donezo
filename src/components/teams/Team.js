@@ -92,6 +92,7 @@ class Team extends React.Component{
                             <React.Fragment>
                                 <div className="team-notes-list h-team-list">
                                     <Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>
+                                    <Link to={`/team/${currTeam._id}/notes`}>Test</Link>
                                     <div className='h-notes-list-container'>
                                         <HomeNotesList currTeam={currTeam} />
                                     </div>

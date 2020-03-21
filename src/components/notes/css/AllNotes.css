@@ -1,0 +1,48 @@
+.all-notes-container{
+    margin: 25px;
+}
+
+.section-title{
+    margin: 15px;
+}
+
+.folder{
+    display: flex;
+    flex-direction: row;
+}
+
+.tag-folder-item{
+    text-decoration: none;
+    border-bottom-style: none;
+    color: black;
+}
+
+.tag-folder-item{
+    margin: 15px;
+    padding: 10px 30px;
+    box-shadow: 1px 1px 5px #cccccc;
+    border-radius: 10px;
+    transition: transform 0.3s ease-out;
+}
+
+.tag-folder-item:hover{
+    transform: scale(1.05);
+}
+
+.untagged-notes{
+    display: flex;
+}
+
+.note-card{
+    margin: 10px;
+    padding: 10px 20px;
+    transition: transform 0.3s ease-out;
+    min-height: 280px;
+    position: relative;
+    width: 350px;
+}
+
+.note-card:hover{
+    transform: scale(1.02);
+    cursor: pointer;
+}

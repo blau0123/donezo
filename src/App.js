@@ -5,7 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from './components/home/Home';
 import NotesList from './components/notes/NotesList';
-import Note from './components/notes/Note';
+import AllNotes from "./components/notes/AllNotes";
+import TagNoteList from "./components/notes/TagNoteList";
+import Note from './components/notes/NoteView';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import CreateTeam from './components/teams/CreateTeam';
@@ -57,10 +59,15 @@ function App() {
       <Router>
         <PrivateRoute exact path="/" component = {Home} />
         <PrivateRoute exact path="/noteslist/:id" component = {NotesList} />
-        <PrivateRoute path="/team/:id" component = {Team} />
+        <PrivateRoute exact path="/team/:id" component = {Team} />
         <PrivateRoute path="/editteam" component={EditTeam} />
         <PrivateRoute path="/teamsearch" component = {TeamSearch} />
-        <PrivateRoute path="/note/:id" component = {Note} />
+
+        <PrivateRoute exact path="/team/:teamid/notes/tag/:tagid/:noteid" component = {Note} />
+        <PrivateRoute exact path="/team/:teamid/notes/:noteid" component = {Note} />
+        <PrivateRoute exact path="/team/:teamid/notes/tag/:tagid" component={TagNoteList} />
+        <PrivateRoute exact path="/team/:teamid/notes" component={AllNotes} />
+
         <PrivateRoute path="/eventslist/:id" component = {EventList} />
         <Route exact path="/login" component = {Login} />
         <Route exact path="/register" component = {Register} />
