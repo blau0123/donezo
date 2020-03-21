@@ -4,6 +4,7 @@ tag folder to view the notes with that specific tag
 */
 import React from "react";
 import NoteView from "./NoteView";
+import EditNote from "./EditNote";
 import {getTeamWithId} from '../../redux/actions/teamActions';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -14,12 +15,27 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 import "./css/AllNotes.css";
 
+// modal for editing and adding a note
+import ReactModal from 'react-modal';
+const modalStyles = {
+    content : {
+        top : '50%',
+        left : '50%',
+        right : 'auto',
+        bottom : 'auto',
+        marginRight : '-50%',
+        transform : 'translate(-50%, -50%)'
+    }
+};
+ReactModal.setAppElement('#root')
+
 class AllNotes extends React.Component{
     constructor(){
         super();
         this.state = {
             currNote:{},
             fromChat: false,
+            modalOpen: false
         }
     }
 
@@ -40,10 +56,16 @@ class AllNotes extends React.Component{
         const {teamNotes} = currTeam;
 
         // get the current note selected to show in edit modal
-        const {currNote} = this.state;
-
+        const {currNote, modalOpen} = this.state;
+        console.log(modalOpen);
         return(
-            <div className="all-notes-container">
+            <div className="all-notes-container" id="all-notes-container">
+                <ReactModal isOpen={modalOpen} onRequestClose={() => this.setState({modalOpen: false})}
+                    style={{modalStyles}}>
+                    <p className="exit-modal" onClick={() => this.setState({modalOpen: false})}>X</p>
+                    <EditNote currNote={currNote} currTeam={currTeam} fromChat={this.state.fromChat}/>
+                </ReactModal>
+
                 <div className="header-container">
                     <ArrowBackIosIcon fontSize='large' className='back-btn' 
                         onClick={() => this.props.history.goBack()} />
@@ -73,8 +95,10 @@ class AllNotes extends React.Component{
                     // render all untagged notes
                     teamNotes && teamNotes.length > 0 ? teamNotes.map(note => 
                         note.tags.length === 0 ? 
-                            <NoteView key={note._id} currTeam={currTeam} note={note} currNote={this.state.currNote} 
-                                setCurrNote={this.setCurrNote} />
+                            <div onClick={() => this.setState({modalOpen: true})}>
+                                <NoteView key={note._id} currTeam={currTeam} note={note} currNote={this.state.currNote} 
+                                    setCurrNote={this.setCurrNote}/>
+                            </div>
                             : null
                     ) : <p>No notes to show!</p>
                 }

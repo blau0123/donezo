@@ -5,17 +5,34 @@ Shows a list of all notes with a given tag
 */
 import React from "react";
 import NoteView from "./NoteView";
+import EditNote from "./EditNote";
 
 // material ui
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 import "./css/AllNotes.css";
 
+// modal for editing and adding a note
+import ReactModal from 'react-modal';
+const modalStyles = {
+    content : {
+        top : '50%',
+        left : '50%',
+        right : 'auto',
+        bottom : 'auto',
+        marginRight : '-50%',
+        transform : 'translate(-50%, -50%)'
+    }
+};
+ReactModal.setAppElement('#root');
+
 class TagNoteList extends React.Component{
     constructor(){
         super();
         this.state = {
-            currNote: {}
+            currNote: {},
+            modalOpen: false,
+            fromChat: false,
         }
     }
 
@@ -42,11 +59,18 @@ class TagNoteList extends React.Component{
         // get the current team from passed props and tag id
         const { currTeam, tag } = this.props.location.state;
         const { tagid } = this.props.match.params;
+        const { currNote, fromChat, modalOpen } = this.state;
         const notesWithTag = this.findNotesWithTag(currTeam.teamNotes, tagid); 
-        console.log(this.props.location.state);
+        console.log(modalOpen);
 
         return(
             <div className="all-notes-container">
+                <ReactModal isOpen={modalOpen} onRequestClose={() => this.setState({modalOpen: false})}
+                    style={{modalStyles}}>
+                    <p className="exit-modal" onClick={() => this.setState({modalOpen: false})}>X</p>
+                    <EditNote currNote={currNote} currTeam={currTeam} fromChat={fromChat}/>
+                </ReactModal>
+
                  <div className="header-container">
                     <ArrowBackIosIcon fontSize='large' className='back-btn' 
                         onClick={() => this.props.history.goBack()} />
@@ -57,8 +81,10 @@ class TagNoteList extends React.Component{
                 {
                     // render all notes with the passed in tag
                     notesWithTag && notesWithTag.length > 0 ? notesWithTag.map(note => 
-                        <NoteView key={note._id} currTeam={currTeam} note={note} currNote={this.state.currNote}
-                            setCurrNote={newCurr => this.setState({currNote: newCurr})} />
+                        <div onClick={() => this.setState({modalOpen: true})}>
+                            <NoteView key={note._id} currTeam={currTeam} note={note} currNote={this.state.currNote}
+                                setCurrNote={newCurr => this.setState({currNote: newCurr})} />
+                        </div>
                 ) : <p>No notes exist with this tag</p>
                 }
                 </div>

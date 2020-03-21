@@ -91,8 +91,8 @@ class Team extends React.Component{
                         this.state.search && this.state.search.trim().length > 0 ? <SearchResults search={this.state.search} currTeam={currTeam}/> :
                             <React.Fragment>
                                 <div className="team-notes-list h-team-list">
-                                    <Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>
-                                    <Link to={`/team/${currTeam._id}/notes`}>Test</Link>
+                                    {/*<Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>*/}
+                                    <Link className='list-title' to={`/team/${currTeam._id}/notes`}>Notes</Link>
                                     <div className='h-notes-list-container'>
                                         <HomeNotesList currTeam={currTeam} />
                                     </div>

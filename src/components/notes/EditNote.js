@@ -28,6 +28,21 @@ class EditNote extends React.Component{
         this.onDeleteNote = this.onDeleteNote.bind(this);
     }
 
+    componentDidMount(){
+        console.log(this.props);
+        // if there's a note that was sent, set it
+        const {currNote} = this.props;
+        if (currNote){
+            this.setState({
+                title: currNote.noteTitle, 
+                body: currNote.noteBody,
+                pinned: currNote.pinned,
+                tags: currNote.tags,
+                fromChat: this.props.fromChat,
+            })
+        }
+    }
+
     /*
     When travel to component, will receive props from NotesList (the current note object),
     so this lifecycle allows us to update the state with these incoming props
@@ -121,9 +136,9 @@ class EditNote extends React.Component{
         const {user} = this.props.auth;
 
         const noteData = {
+            noteId: this.props.currNote._id,
             noteTitle: this.state.title,
             noteBody: this.state.body,
-            noteId: this.props.currNote._id,
             author: user.firstName + ' ' + user.lastName,
             pinned: this.state.pinned,
             tags: this.state.tags,
@@ -138,6 +153,7 @@ class EditNote extends React.Component{
         
         // update the note in the db if selected a note
         this.props.updateNote(noteData);
+        window.location.reload();
     }
 
     onDeleteNote(evt){
