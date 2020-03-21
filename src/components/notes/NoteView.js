@@ -28,7 +28,7 @@ class NoteView extends React.Component{
     }
 
     render(){
-        const {note, currTeam, setCurrNote} = this.props;
+        const {note, currNote, setCurrNote} = this.props;
         const lastUpdated = new Date(note.updatedAt);
 
         return(
@@ -37,7 +37,7 @@ class NoteView extends React.Component{
                     <Card className='note-card' key={note._id} 
                         onClick={() => {
                             // if already selected, unselect
-                            if (this.state.currNote === note){
+                            if (currNote === note){
                                 //this.setState({currNote: null})
                                 setCurrNote(null);
                             }
@@ -58,7 +58,7 @@ class NoteView extends React.Component{
                         {
                             // show all note tags
                             note.tags && note.tags.length > 0 ? note.tags.map(tag =>
-                                <div id={tag._id} key={tag._id} className="sm-tag-container" style={{backgroundColor: tag.color}} onClick={this.deleteTag}>
+                                <div id={tag._id} key={tag._id} className="sm-tag-container" style={{backgroundColor: tag.color}}>
                                     <p id={tag._id}>{tag.title}</p>   
                                 </div>
                             ) : null

@@ -2,6 +2,14 @@
     margin: 25px;
 }
 
+.header-container{
+    display: flex;
+}
+
+.header-text{
+    margin-top: 18px;
+}
+
 .section-title{
     margin: 15px;
 }
@@ -9,6 +17,10 @@
 .folder{
     display: flex;
     flex-direction: row;
+}
+
+.folder-icon{
+    margin-right: 8px;
 }
 
 .tag-folder-item{
@@ -19,7 +31,7 @@
 
 .tag-folder-item{
     margin: 15px;
-    padding: 10px 30px;
+    padding: 10px 25px;
     box-shadow: 1px 1px 5px #cccccc;
     border-radius: 10px;
     transition: transform 0.3s ease-out;

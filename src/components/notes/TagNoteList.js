@@ -6,9 +6,19 @@ Shows a list of all notes with a given tag
 import React from "react";
 import NoteView from "./NoteView";
 
+// material ui
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+
 import "./css/AllNotes.css";
 
 class TagNoteList extends React.Component{
+    constructor(){
+        super();
+        this.state = {
+            currNote: {}
+        }
+    }
+
     /*
         Given a list of notes, find all notes with the given tag
     */
@@ -36,17 +46,23 @@ class TagNoteList extends React.Component{
         console.log(this.props.location.state);
 
         return(
-            <React.Fragment>
-                <h1 className="section-title">Tag {tag.title}</h1>
+            <div className="all-notes-container">
+                 <div className="header-container">
+                    <ArrowBackIosIcon fontSize='large' className='back-btn' 
+                        onClick={() => this.props.history.goBack()} />
+                    <h1 className="section-title">tags/{tag.title}</h1>
+                </div>
+
                 <div style={{display: "flex", flexWrap: "wrap"}}>
                 {
                     // render all notes with the passed in tag
                     notesWithTag && notesWithTag.length > 0 ? notesWithTag.map(note => 
-                        <NoteView key={note._id} currTeam={currTeam} note={note} setCurrNote={newCurr => this.setState({currNote: newCurr})} />
+                        <NoteView key={note._id} currTeam={currTeam} note={note} currNote={this.state.currNote}
+                            setCurrNote={newCurr => this.setState({currNote: newCurr})} />
                 ) : <p>No notes exist with this tag</p>
                 }
                 </div>
-            </React.Fragment>
+            </div>
         )
     }
 }

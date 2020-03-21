@@ -10,6 +10,7 @@ import {Link} from 'react-router-dom';
 
 // material design
 import FolderIcon from '@material-ui/icons/Folder';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 import "./css/AllNotes.css";
 
@@ -38,11 +39,17 @@ class AllNotes extends React.Component{
         const {teamTags} = currTeam;
         const {teamNotes} = currTeam;
 
-        // get the current note selected
+        // get the current note selected to show in edit modal
         const {currNote} = this.state;
 
         return(
             <div className="all-notes-container">
+                <div className="header-container">
+                    <ArrowBackIosIcon fontSize='large' className='back-btn' 
+                        onClick={() => this.props.history.goBack()} />
+                    <h1 className="header-text">Notes</h1>
+                </div>
+                
                 <h3 className="section-title">Tags</h3>
                 <div className="folder">
                 {
@@ -66,7 +73,8 @@ class AllNotes extends React.Component{
                     // render all untagged notes
                     teamNotes && teamNotes.length > 0 ? teamNotes.map(note => 
                         note.tags.length === 0 ? 
-                            <NoteView key={note._id} currTeam={currTeam} note={note} setCurrNote={this.setCurrNote} />
+                            <NoteView key={note._id} currTeam={currTeam} note={note} currNote={this.state.currNote} 
+                                setCurrNote={this.setCurrNote} />
                             : null
                     ) : <p>No notes to show!</p>
                 }
