@@ -18,6 +18,17 @@ const server = http.createServer(app);
 // process.env.PORT is the port that you use if you host your app somewhere, like heroku
 const port = process.env.PORT || 5000;
 
+/* tell express to serve the public folder
+const path = require("path");
+const publicPath = path.join(__dirname, '..', 'public');
+app.use(express.static(publicPath));
+
+// if the user requests a resource not in public folder, redirect to index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(publicPath, 'index.html'));
+ });
+ */
+
 // set express middleware
 app.use(cors());
 // allow us to parse json because server receive and send json
