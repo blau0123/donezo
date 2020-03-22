@@ -3,12 +3,12 @@ import {ADD_NOTE_TO_TEAM, UPDATE_NOTE, DELETE_NOTE} from './types';
 
 // add a note to the notes list for a given team
 export const addNoteToTeam = (teamData, noteData) => dispatch => {
-    axios.post('http://localhost:5000/notes/add', {teamData, noteData})
+    axios.post('/notes/add', {teamData, noteData})
         .then(res1 => {
             console.log(res1);
             // add note's objectid to team's notes
             const noteId = res1.data._id;
-            axios.post('http://localhost:5000/teams/addnote', {teamData, noteId})
+            axios.post('/teams/addnote', {teamData, noteId})
                 .then(res2 => {
                     console.log(res2);
                     
@@ -25,7 +25,7 @@ export const addNoteToTeam = (teamData, noteData) => dispatch => {
 
 // updates a given note
 export const updateNote = (noteData) => dispatch => {
-    axios.post('http://localhost:5000/notes/update', {noteData})
+    axios.post('/notes/update', {noteData})
         .then(res => {
             console.log(res);
 
@@ -40,10 +40,10 @@ export const updateNote = (noteData) => dispatch => {
 // delete a note
 export const deleteNote = (noteData, teamData) => dispatch => {
     // remove objectid of note from team and then delete note document
-    axios.post('http://localhost:5000/teams/deletenote', {noteData, teamData})
+    axios.post('/teams/deletenote', {noteData, teamData})
         .then(res => {
             // now delete the actual document
-            axios.post('http://localhost:5000/notes/delete', {noteData})
+            axios.post('/notes/delete', {noteData})
                 .then(res => {
                     console.log(res);
                     // updates state with null (newest note was deleted)

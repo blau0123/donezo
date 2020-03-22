@@ -13,7 +13,7 @@ import {GET_ERRORS, SET_CURRENT_USER, USER_LOADING} from './types';
 
 // action for registering the user
 export const registerUser = (userData, history) => dispatch => {
-    axios.post('http://localhost:5000/users/register', userData)
+    axios.post('/users/register', userData)
         .then(res => {
             // successfully registered, so let the user login
             console.log(res);
@@ -26,7 +26,7 @@ export const registerUser = (userData, history) => dispatch => {
 
 // action for login the user
 export const loginUser = userData => dispatch => {
-    axios.post('http://localhost:5000/users/login', userData)
+    axios.post('/users/login', userData)
         .then(res => {
             // save users token to local storage and set the current user
             const {token} = res.data;

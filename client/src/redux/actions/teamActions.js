@@ -8,7 +8,7 @@ import {JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, EDIT_
 // action for a given user joining a given team
 export const joinTeam = (userData, teamData) => dispatch => {
     const joinData = {userData, teamData}
-    axios.post('http://localhost:5000/teams/join', joinData)
+    axios.post('/teams/join', joinData)
         .then(res => {
             alert(res.data);
             dispatch({
@@ -25,7 +25,7 @@ TODO: DISPATCH
 */
 export const createTeam = (team, history) => dispatch => {
     // submit team into the database and go back to team page
-    axios.post('http://localhost:5000/teams/add', team)
+    axios.post('/teams/add', team)
         .then(res => {
             console.log(res.data)
             history.push('/');
@@ -36,7 +36,7 @@ export const createTeam = (team, history) => dispatch => {
 // action to get all teams given a search prompt
 export const searchTeamWithPrompt = (prompt) => dispatch => {
     // get all teams first
-    axios.get('http://localhost:5000/teams/')
+    axios.get('/teams/')
         .then(res => {
             let match = [];
             // go through all team names to check if matches the prompt
@@ -62,7 +62,7 @@ export const searchTeamWithPrompt = (prompt) => dispatch => {
 // get a team with the specific id
 export const getTeamWithId = (id) => dispatch => {
     // make get request to get a specific team
-    axios.get(`http://localhost:5000/teams/${id}`)
+    axios.get(`/teams/${id}`)
         .then(res => {
             // dispatch team to reducer to set the currteam state
             dispatch({
@@ -75,7 +75,7 @@ export const getTeamWithId = (id) => dispatch => {
 
 // get all teams
 export const getAllTeams = () => dispatch => {
-    axios.get('http://localhost:5000/teams/')
+    axios.get('/teams/')
         .then(res => {
             const listOfAllTeams = res.data;
             dispatch({
@@ -88,7 +88,7 @@ export const getAllTeams = () => dispatch => {
 
 // edit a specific team
 export const editTeam = (teamData) => dispatch => {
-    axios.post(`http://localhost:5000/teams/update/${teamData.teamId}`, teamData)
+    axios.post(`/teams/update/${teamData.teamId}`, teamData)
         .then(res => {
             console.log(res);
             dispatch({
@@ -101,7 +101,7 @@ export const editTeam = (teamData) => dispatch => {
 
 // add new todo to a given team
 export const addTodoToTeam = (teamData, todoData) => dispatch => {
-    axios.post('http://localhost:5000/teams/addtodo', {teamData, todoData})
+    axios.post('/teams/addtodo', {teamData, todoData})
         .then(res => {
             console.log(res);
             dispatch({
@@ -114,7 +114,7 @@ export const addTodoToTeam = (teamData, todoData) => dispatch => {
 
 // complete a given team's todo
 export const completeTeamTodo = (teamData, todoData) => dispatch => {
-    axios.post('http://localhost:5000/teams/completetodo', {teamData, todoData})
+    axios.post('/teams/completetodo', {teamData, todoData})
         .then(res => {
             console.log(res);
             dispatch({
@@ -127,7 +127,7 @@ export const completeTeamTodo = (teamData, todoData) => dispatch => {
 
 // delete a todo
 export const deleteTeamTodo = (teamData, todoData) => dispatch => {
-    axios.post('http://localhost:5000/teams/deletetodo', {teamData, todoData})
+    axios.post('/teams/deletetodo', {teamData, todoData})
         .then(res => {
             console.log(res);
             
@@ -141,7 +141,7 @@ export const deleteTeamTodo = (teamData, todoData) => dispatch => {
 // edit a todo
 export const updateTeamTodo = (teamData, todoData) => dispatch => {
     console.log(todoData);
-    axios.post('http://localhost:5000/teams/updatetodo', {teamData, todoData})
+    axios.post('/teams/updatetodo', {teamData, todoData})
         .then(res => {
             console.log(res);
             dispatch({
@@ -154,7 +154,7 @@ export const updateTeamTodo = (teamData, todoData) => dispatch => {
 
 // add a chat message
 export const addChatMsg = (teamData, chatData) => dispatch => {
-    axios.post('http://localhost:5000/teams/chat/add', {teamData, chatData})
+    axios.post('/teams/chat/add', {teamData, chatData})
         .then(res => {
             dispatch({
                 type: ADD_CHAT_MSG,
