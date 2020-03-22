@@ -148,13 +148,13 @@ class EditNote extends React.Component{
         if (Object.entries(this.props.currNote).length === 0 || this.state.fromChat){
             const teamData = this.props.currTeam;
             this.props.addNoteToTeam(teamData, noteData);   
-            window.location.reload();
+            //window.location.reload();
             return;
         }
         
         // update the note in the db if selected a note
         this.props.updateNote(noteData);
-        window.location.reload();
+        //window.location.reload();
     }
 
     onDeleteNote(evt){
