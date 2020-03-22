@@ -1,0 +1,46 @@
+.msgContainer{
+    display: flex;
+    margin: 20px;
+}
+
+.msgBox{
+    border-style: solid;
+    border-radius: 20px;
+    display: inline-block;
+    max-width: 40%;
+}
+
+.msgText{
+    word-wrap: break-word;
+}
+
+.justifyEnd{
+    justify-content: flex-end;
+}
+
+.justifyStart{
+    justify-content: flex-start;
+}
+
+.notMe{
+    flex-direction: column;
+}
+
+.currUser{
+    background-color: #779ECB;
+    color: white;
+    padding: 20px 10px 10px 10px;
+}
+
+.notCurrUser{
+    background-color: #F1F0F0;
+    border: none;
+    width: max-content;
+    padding: 20px 10px 10px 10px;
+}
+
+.add-msg-to-notes{
+    outline: none;
+    background-color: transparent;
+    border: none;
+}

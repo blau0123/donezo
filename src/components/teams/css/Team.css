@@ -1,0 +1,62 @@
+.team-container{
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+}
+
+.list-title{
+    color:#779ECB;
+    text-decoration: none;
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+.h-team-list{
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+.add-icon{
+    margin-top: 5px;
+    margin-left: 10px;
+    color: #779ECB;
+    transition: all .3s ease-in-out;
+}
+
+.add-icon:hover{
+    transform: scale(0.9);
+}
+
+.team-events-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.h-event-list{
+    margin-right: 30vw;
+}
+
+.event-add{
+    margin-left: 5vw;
+}
+
+.search{
+    margin: 10px 45px;
+    width: 90%;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px #cccccc;
+    padding: 10px 15px;
+}
+
+.search-result-container{
+    margin: 45px;
+    display: flex;
+    flex-direction: column;
+}
+
+.with-tag{
+    display: inline-block;
+}
+

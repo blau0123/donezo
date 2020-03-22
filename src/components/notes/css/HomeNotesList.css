@@ -1,0 +1,80 @@
+.list-title:hover{
+    color:#779ECB;
+    text-decoration: none;
+}
+
+.home-note-content{
+    position: relative;
+    padding-left: 20px;
+    padding-top: 20px;
+    margin: 10px;
+    width: 350px;
+    height: 300px;
+    transition: all .3s ease-in-out;
+}
+
+.sm-tag-container{
+    color: white;
+    display: inline-block;
+    font-size: 12px;
+    margin: 5px;
+    padding: 10px 10px 0 10px;
+    border-radius: 10px;
+    transition: all .2s ease-in-out;
+}
+
+.sm-tag-container:hover{
+    transform: scale(0.95);
+}
+
+.show-note{
+    color: black;
+}
+
+.show-note:hover{
+    text-decoration: none;
+    color: black;
+}
+
+.home-note-content:hover{
+    transform: scale(0.95);
+}
+
+.h-notes-list-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.home-note-title{
+    font-size: 25px;
+    color:#779ECB;
+}
+
+.note-details{
+    font-size: 12px;
+}
+
+.note-author{
+    position: absolute;
+    bottom: 0;
+}
+
+.context-menu-container{
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 1px;
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.context-menu-item{
+    padding: 5px;
+}
+
+.context-menu-item:hover{
+    cursor: pointer;
+    color:#779ECB;
+}
+

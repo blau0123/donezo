@@ -1,0 +1,37 @@
+.join-modal-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+.join-modal-main{
+    position:fixed;
+    /* moves modal left and down */
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 280px;  
+    width: 40%;
+}
+
+.input-secret{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.error-text{
+    color: red;
+    margin: 10px;
+}

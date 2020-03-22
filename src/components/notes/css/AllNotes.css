@@ -1,0 +1,87 @@
+.all-notes-container{
+    margin: 25px;
+}
+
+.header-container{
+    display: flex;
+}
+
+.header-text{
+    margin-top: 18px;
+}
+
+.section-title{
+    margin: 15px;
+}
+
+.folder{
+    display: flex;
+    flex-direction: row;
+}
+
+.folder-icon{
+    margin-right: 8px;
+}
+
+.tag-folder-item{
+    text-decoration: none;
+    border-bottom-style: none;
+    color: black;
+}
+
+.tag-folder-item{
+    margin: 15px;
+    padding: 10px 25px;
+    box-shadow: 1px 1px 5px #cccccc;
+    border-radius: 10px;
+    transition: transform 0.3s ease-out;
+}
+
+.tag-folder-item:hover{
+    transform: scale(1.05);
+}
+
+.untagged-notes{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.note-card{
+    margin: 10px;
+    padding: 10px 20px;
+    transition: transform 0.3s ease-out;
+    min-height: 280px;
+    position: relative;
+    width: 350px;
+}
+
+.note-card:hover{
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.add-btn{
+    padding: 10px 30px;
+    margin: 18px 20px;
+    height: 50px;
+    border: none;
+    background-color: #779ECB;
+    color: white;
+    border-radius: 10px;
+    transition: transform 0.3s ease-out;
+    outline: none;
+}
+
+.add-btn:hover{
+    transform: scale(1.05);
+}
+
+.exit-modal{
+    float: right;
+    font-size: 20px;
+    margin: 10px 20px;
+}
+
+.exit-modal:hover{
+    cursor: pointer;
+}
