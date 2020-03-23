@@ -22,11 +22,17 @@ const port = process.env.PORT || 5000;
 // serve static files from react frontend app
 app.use(express.static(path.join(__dirname, 'client/build')))
 
-/* if the user requests a resource not in public folder, redirect to index.html
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    
+    app.get('*', (req, res) => {
+      res.sendfile(path.join(__dirname = 'client/build/index.html'));
+    })
+}
+//build mode
 app.get('/', (req, res) => {
-    res.sendFile(path.join(publicPath, 'index.html'));
- });
- */
+    res.sendFile(path.join(__dirname, '/client/public/index.html'));
+})
 
 // set express middleware
 app.use(cors());
