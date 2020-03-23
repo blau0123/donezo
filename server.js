@@ -44,7 +44,7 @@ require('./config/passport')(passport);
 
 // database uri from mongodb atlas dashboard
 //const uri = process.env.ATLAS_URI;
-const uri = require('./config/devKeys.js').ATLAS_URI;
+const uri = require('./config/keys.js').ATLAS_URI;
 
 // start connection with mongodb database
 mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});

@@ -9,7 +9,7 @@ let User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 // used for hashing the user's password before storing for security
 const bcrypt = require('bcryptjs');
-const keys = require('../config/devKeys');
+const keys = require('../config/keys');
 
 /*
 handles incoming http get requests on /users/ URL path
