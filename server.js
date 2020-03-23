@@ -19,10 +19,8 @@ const server = http.createServer(app);
 // process.env.PORT is the port that you use if you host your app somewhere, like heroku
 const port = process.env.PORT || 5000;
 
-// tell express to serve the public folder
-//const path = require("path");
-//const publicPath = path.join(__dirname, '..', 'public');
-//app.use(express.static(publicPath));
+// serve static files from react frontend app
+app.use(express.static(path.join(__dirname, 'client/build')))
 
 // if the user requests a resource not in public folder, redirect to index.html
 app.get('/', (req, res) => {
@@ -62,7 +60,7 @@ app.use('/notes', notesRouter);
 app.use('/events', eventsRouter);
 app.use('/tags', tagsRouter);
 
-// serve static assets (the build folder) if in production
+/* serve static assets (the build folder) if in production
 if (process.env.NODE_ENV === "production"){
     // if production, set static folder
     app.use(express.static("client/build"));
@@ -70,7 +68,7 @@ if (process.env.NODE_ENV === "production"){
         // load index.html file for any requests not hitting the api
         res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
     });
-}
+}*/
 
 let numMsgsRead = 5;
 
