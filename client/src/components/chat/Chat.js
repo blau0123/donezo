@@ -17,13 +17,16 @@ const Chat = (props) => {
     const [team, setTeam] = useState({});
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
+    
     let ENDPOINT = "";
+    
     if (process.env.NODE_ENV === "production"){
         ENDPOINT = 'https://timelyy.herokuapp.com/';
     }
     else{
         ENDPOINT = "localhost:5000";
     }
+    
     const containerRef = useRef(null);
 
     /*

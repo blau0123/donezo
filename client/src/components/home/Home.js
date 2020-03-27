@@ -32,7 +32,7 @@ class Home extends React.Component{
     componentDidMount(){
         // show the list of teams in the database
         const userId = this.props.auth.user.id;
-        axios.get('http://localhost:5000/teams/', userId)
+        axios.get('/teams/', userId)
             .then(res => this.setState({teams: res.data}));
     }
 
