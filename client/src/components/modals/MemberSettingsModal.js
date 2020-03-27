@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Card from '@material-ui/core/Card';
 
 import './css/MembersModal.css';
@@ -53,8 +53,8 @@ class MemberSettingsModal extends React.Component{
             <div className={showModalClass} ref={this.setWrapperRef}>
                 <Card className='modal-main'>
                     {
-                        children && children.length > 0 ? children.map(child => 
-                            <p key='1' className='member-name admin'>
+                        children && children.length > 0 ? children.map((child, i) => 
+                            <p key={i} className='member-name admin'>
                                 {child}
                             </p> 
                         ) : null

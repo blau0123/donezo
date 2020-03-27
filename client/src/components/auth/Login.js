@@ -9,7 +9,7 @@ class Login extends React.Component{
     constructor(){
         super();
         this.state = {
-            username: '',
+            usernameOrEmail: '',
             password: '',
             errors: '',
         }
@@ -46,7 +46,7 @@ class Login extends React.Component{
         evt.preventDefault();
 
         const userData = {
-            username: this.state.username,
+            usernameOrEmail: this.state.usernameOrEmail,
             password: this.state.password,
         }
 
@@ -56,14 +56,14 @@ class Login extends React.Component{
 
     render(){
         const {errors} = this.state;
-        console.log(errors);
+
         return(
             <div className='center container'>
                 <h1 className='title-text'>Login here.</h1>
                 <form onSubmit={this.onSubmit} className='center form-width'>
-                    <label className='create-label input-label'>Username</label>
-                    <input className='search-input' type='text' name='username' 
-                        value={this.state.username} onChange={this.onChange}/>
+                    <label className='create-label input-label'>Username Or Email</label>
+                    <input className='search-input' type='text' name='usernameOrEmail' 
+                        value={this.state.usernameOrEmail} onChange={this.onChange}/>
                     <label className='create-label input-label'>Password</label>
                     <input className='search-input' type='password' name='password' 
                         value={this.state.password} onChange={this.onChange}/>

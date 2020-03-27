@@ -7,7 +7,6 @@ import {joinTeam} from '../../redux/actions/teamActions';
 import SettingsModal from '../modals/SettingsModal';
 
 import Card from '@material-ui/core/Card';
-import Grid from '@material-ui/core/Grid';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import './css/Home.css';
@@ -77,7 +76,7 @@ class Home extends React.Component{
                 const userIsInTeam = this.isUserInTeam(team);
                 // if the user is in the team, show it and if not don't show the team
                 return (userIsInTeam ? 
-                    <Link className='team-item-link' to={{
+                    <Link className='team-item-link' key={team._id} to={{
                         pathname: `/team/${team._id}`, 
                         state:{teamId: team._id}
                     }}>

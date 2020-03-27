@@ -67,14 +67,52 @@ router.route('/register').post((req, res) => {
 handles authenticating users at login given username and password at /users/login
 */
 router.route('/login').post((req, res) => {
-    const username = req.body.username;
+    const usernameOrEmail = req.body.usernameOrEmail;
     const password = req.body.password;
+    console.log(req.body)
 
     // find the user with the given username
-    User.findOne({"username": username})
+    User.findOne({"email": usernameOrEmail})
         .then(user => {
-            // if user doesn't exist, then return 404
-            if (!user) return res.status(404).json("user does not exist");
+            // if user email doesn't exist, try to find username
+            if (!user) {
+                User.findOne({"username": usernameOrEmail})
+                    .then(user => {
+                        // if can't find username or email, return 404
+                        if (!user) return res.status(404).json("user does not exist");
+                        // check if user entered correct password
+                        bcrypt.compare(password, user.password)
+                        .then(isMatch => {
+                            if (isMatch){
+                                // user matched, so log the user in
+                                const jwt_payload = {
+                                    id: user._id,
+                                    firstName: user.firstName,
+                                    lastName: user.lastName,
+                                }
+
+                                // create a signin token
+                                jwt.sign(
+                                    jwt_payload,
+                                    keys.secretOrKey,
+                                    {
+                                        // the user's signin token will expire in 1 year
+                                        expiresIn:31556926
+                                    },
+                                    (err, token) => {
+                                        res.json({
+                                            success: true,
+                                            token: "Bearer " + token,
+                                        });
+                                    }
+                                );
+                            }
+                            else{
+                                return res.status(400).json("password is incorrect");
+                            }
+                        })
+                    })
+            }
             // check if user entered correct password
             bcrypt.compare(password, user.password)
                 .then(isMatch => {

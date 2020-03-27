@@ -14,7 +14,7 @@ const middlware = [thunk];
 const store = createStore(
     rootReducer,
     initState,
-    compose(applyMiddleware(... middlware))
+    compose(applyMiddleware(...middlware))
 );
 
 export default store;

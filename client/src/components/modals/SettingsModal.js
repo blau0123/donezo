@@ -54,8 +54,8 @@ class SettingsModal extends React.Component{
             <div className={showModalClass} ref={this.setWrapperRef}>
                 <Card className='settings-modal-main'>
                     {
-                        children && children.length > 0 ? children.map(child => 
-                            <p onClick={handleLogout} className='member-name child-name'>
+                        children && children.length > 0 ? children.map((child, i) => 
+                            <p key={i} onClick={handleLogout} className='member-name child-name'>
                                 {child}
                             </p>
                         ) : null

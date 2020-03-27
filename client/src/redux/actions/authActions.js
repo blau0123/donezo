@@ -26,6 +26,7 @@ export const registerUser = (userData, history) => dispatch => {
 
 // action for login the user
 export const loginUser = userData => dispatch => {
+    console.log(userData);
     axios.post('/users/login', userData)
         .then(res => {
             // save users token to local storage and set the current user
