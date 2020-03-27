@@ -49,7 +49,12 @@ class NoteView extends React.Component{
                                 <p className='note-details'>Last updated: {lastUpdated.toLocaleString()}</p>
                             </Grid>
                             <Grid item xs={2}>
-                                <OfflinePinOutlinedIcon className='pinned-btn'/>
+                                {
+                                    // if pinned or unpinned, show correct icon
+                                    note.pinned ? 
+                                        <OfflinePinIcon className='pinned-btn'/> :
+                                        <OfflinePinOutlinedIcon className='pinned-btn'/>
+                                }
                             </Grid>
                         </Grid>
                         <h4 className='indiv-note-title'>{note.noteTitle}</h4>

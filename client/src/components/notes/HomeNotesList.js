@@ -63,32 +63,28 @@ class HomeNotesList extends React.Component{
                             <EditNote currNote={note} currTeam={currTeam}/>
                         </ReactModal>
                         <ContextMenuTrigger id={note._id}>
-                            { /*
-                            <Link to={{pathname:`/noteslist/${currTeam._id}`, state:{currNote: note}}}
-                            className='show-note'> */}
-                                <Card className='home-note-content' onContextMenu={this.rightClickNote} 
-                                    onClick={() => this.setState({modalOpen: true})}>
-                                    <Grid container spacing={1}>
-                                        <Grid item xs={10}>
-                                            <p className='note-details'>Last updated: {lastUpdated.toLocaleString()}</p>
-                                        </Grid>
-                                        <Grid item xs={2}>
-                                            <OfflinePinIcon className='pinned-btn'/>
-                                        </Grid>
+                            <Card className='home-note-content' onContextMenu={this.rightClickNote} 
+                                onClick={() => this.setState({modalOpen: true})}>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={10}>
+                                        <p className='note-details'>Last updated: {lastUpdated.toLocaleString()}</p>
                                     </Grid>
-                                    <h6 className='home-note-title'>{note.noteTitle}</h6>
-                                    <p>{note.noteBody.slice(0, 110)}</p>
-                                    <p className='note-details note-author'>By, {note.author}</p>
-                                    {
-                                        // show all note tags
-                                        note.tags && note.tags.length > 0 ? note.tags.map(tag =>
-                                            <div id={tag._id} key={tag._id} className="sm-tag-container" style={{backgroundColor: tag.color}} onClick={this.deleteTag}>
-                                                <p id={tag._id}>{tag.title}</p>   
-                                            </div>
-                                        ) : null
-                                    }
-                                </Card>
-                            {/*</Link>*/}
+                                    <Grid item xs={2}>
+                                        <OfflinePinIcon className='pinned-btn'/>
+                                    </Grid>
+                                </Grid>
+                                <h6 className='home-note-title'>{note.noteTitle}</h6>
+                                <p>{note.noteBody.slice(0, 110)}</p>
+                                <p className='note-details note-author'>By, {note.author}</p>
+                                {
+                                    // show all note tags
+                                    note.tags && note.tags.length > 0 ? note.tags.map(tag =>
+                                        <div id={tag._id} key={tag._id} className="sm-tag-container" style={{backgroundColor: tag.color}} onClick={this.deleteTag}>
+                                            <p id={tag._id}>{tag.title}</p>   
+                                        </div>
+                                    ) : null
+                                }
+                            </Card>
                         </ContextMenuTrigger>
 
                         <ContextMenu id={note._id} className='context-menu-container'>

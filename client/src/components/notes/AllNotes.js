@@ -35,18 +35,35 @@ class AllNotes extends React.Component{
         this.state = {
             currNote:{},
             fromChat: false,
-            modalOpen: false
+            modalOpen: false,
+            loading: false
         }
     }
 
     componentDidMount(){
+        this.setState({loading: true})
         // get the current team with the passed in id, put into props using redux
         const {teamid} = this.props.match.params;
+        console.log(teamid);
         // get the team that the user is viewing
         this.props.getTeamWithId(teamid);
+        this.setState({loading: false})
     }
 
     setCurrNote = newCurr => this.setState({currNote: newCurr})
+
+    separatePinnedUnpinned = notesList => {
+        let pinnedNotes = [];
+        let unpinnedNotes = [];
+        for (let i = 0; i < notesList.length; i++){
+            // only do this for untagged notes
+            if (notesList[i].tags.length === 0){
+                if (notesList[i].pinned) pinnedNotes.push(notesList[i]);
+                else unpinnedNotes.push(notesList[i]);
+            }
+        }
+        return [pinnedNotes, unpinnedNotes];
+    }
 
     render(){
         // get the curr team from props (put into props in componentDidMount)
@@ -54,6 +71,11 @@ class AllNotes extends React.Component{
         // get a list of all tags (will be folders)
         const {teamTags} = currTeam;
         const {teamNotes} = currTeam;
+
+        let pinnedNotes = [];
+        let unpinnedNotes = [];
+        // get list of all pinned and unpinned notes (wait for t4eamNotes to be populated by api call)
+        if (teamNotes) [pinnedNotes, unpinnedNotes] = this.separatePinnedUnpinned(teamNotes);
 
         // get the current note selected to show in edit modal
         const {currNote, modalOpen} = this.state;
@@ -93,15 +115,22 @@ class AllNotes extends React.Component{
                 <h3 className="section-title">Untagged notes</h3>
                 <div className="untagged-notes">
                 {
-                    // render all untagged notes
-                    teamNotes && teamNotes.length > 0 ? teamNotes.map(note => 
-                        note.tags.length === 0 ? 
-                            <div onClick={() => this.setState({modalOpen: true})}>
-                                <NoteView key={note._id} currTeam={currTeam} note={note} currNote={this.state.currNote} 
-                                    setCurrNote={this.setCurrNote}/>
-                            </div>
-                            : null
-                    ) : <p>No notes to show!</p>
+                   // render pinned notes first
+                   pinnedNotes && pinnedNotes.length > 0 ? pinnedNotes.map(note =>
+                    <div key={note._id} onClick={() => this.setState({modalOpen: true})}>
+                        <NoteView key={note._id} currTeam={currTeam} note={note} currNote={this.state.currNote} 
+                            setCurrNote={this.setCurrNote}/>
+                    </div>
+                    ) : null
+                }
+                {
+                    // render unpinned notes after pinned notes
+                   unpinnedNotes && unpinnedNotes.length > 0 ? unpinnedNotes.map(note =>
+                    <div onClick={() => this.setState({modalOpen: true})}>
+                        <NoteView key={note._id} currTeam={currTeam} note={note} currNote={this.state.currNote} 
+                            setCurrNote={this.setCurrNote}/>
+                    </div>
+                    ) : null
                 }
                 </div>
             </div>
