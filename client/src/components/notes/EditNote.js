@@ -131,6 +131,10 @@ class EditNote extends React.Component{
         })
     }
 
+    callback(){
+        window.location.reload();
+    }
+
     onSubmit(evt){
         evt.preventDefault();
         const {user} = this.props.auth;
@@ -147,14 +151,12 @@ class EditNote extends React.Component{
         // if have not chosen a note to edit or its a note created from chat, create a new note
         if (Object.entries(this.props.currNote).length === 0 || this.state.fromChat){
             const teamData = this.props.currTeam;
-            this.props.addNoteToTeam(teamData, noteData);   
-            //window.location.reload();
+            this.props.addNoteToTeam(teamData, noteData, this.callback);   
             return;
         }
         
         // update the note in the db if selected a note
-        this.props.updateNote(noteData);
-        //window.location.reload();
+        this.props.updateNote(noteData, this.callback);
     }
 
     onDeleteNote(evt){

@@ -2,7 +2,7 @@ import axios from 'axios';
 import {ADD_NOTE_TO_TEAM, UPDATE_NOTE, DELETE_NOTE} from './types';
 
 // add a note to the notes list for a given team
-export const addNoteToTeam = (teamData, noteData) => dispatch => {
+export const addNoteToTeam = (teamData, noteData, callback) => dispatch => {
     axios.post('/notes/add', {teamData, noteData})
         .then(res1 => {
             console.log(res1);
@@ -16,7 +16,10 @@ export const addNoteToTeam = (teamData, noteData) => dispatch => {
                     dispatch({
                         type: ADD_NOTE_TO_TEAM,
                         payload: res1.data,
-                    })
+                    });
+
+                    // call callback to refresh the page after done adding note
+                    callback();
                 })
                 
         })
@@ -24,7 +27,7 @@ export const addNoteToTeam = (teamData, noteData) => dispatch => {
 }
 
 // updates a given note
-export const updateNote = (noteData) => dispatch => {
+export const updateNote = (noteData, callback) => dispatch => {
     axios.post('/notes/update', {noteData})
         .then(res => {
             console.log(res);
@@ -33,7 +36,10 @@ export const updateNote = (noteData) => dispatch => {
             dispatch({
                 type: UPDATE_NOTE,
                 payload: res.data,
-            })
+            });
+
+            // call callback to refresh the page after done adding note
+            callback();
         })
 }
 
