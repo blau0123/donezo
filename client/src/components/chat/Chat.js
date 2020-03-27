@@ -78,7 +78,7 @@ const Chat = (props) => {
         }
     }
 
-    return (
+    return(
         <div ref={containerRef} className='tot-chat-container'>
             <Grid container spacing={2}>
                 <Grid item xs={1}>

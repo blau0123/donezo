@@ -88,7 +88,7 @@ class HomeEventsList extends React.Component{
                      }
                 }) : <p>No events yet!</p>
         
-        return (
+        return(
             <div className='home-events'>
                 <div className='all-events-container center-cards'>
                     {eventsList}

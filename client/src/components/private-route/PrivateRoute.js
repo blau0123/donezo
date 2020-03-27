@@ -7,9 +7,9 @@ If unauth, then the user will be sent to the login screen
 import React, { Component } from 'react';
 import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-
+    
+// if the user is auth'd, then show this component and if not, show the login
 const PrivateRoute = ({component: Component, auth, ...rest}) => (
-    // if the user is auth'd, then show this component and if not, show the login
     <Route {...rest}
         render={props => 
             auth.isAuthenticated ? <Component {...props} /> :

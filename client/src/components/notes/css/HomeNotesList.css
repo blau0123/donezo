@@ -37,7 +37,8 @@
 }
 
 .home-note-content:hover{
-    transform: scale(0.95);
+    transform: scale(1.05);
+    cursor: pointer;
 }
 
 .h-notes-list-container{

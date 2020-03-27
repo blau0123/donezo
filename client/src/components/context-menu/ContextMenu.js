@@ -5,7 +5,7 @@ to creating my own context menu
 */
 class ContextMenu extends React.Component{
     render(){
-        return(<h1></h1>)
+        return null;
     }
 }
 

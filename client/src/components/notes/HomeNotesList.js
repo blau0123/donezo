@@ -7,14 +7,32 @@ import {Link} from 'react-router-dom';
 import './css/HomeNotesList.css';
 
 import {deleteNote} from '../../redux/actions/noteActions';
+import EditNote from "./EditNote";
 
 // for right click context menu to delete
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import { connect } from 'react-redux';
 
+// modal for editing and adding a note
+import ReactModal from 'react-modal';
+const modalStyles = {
+    content : {
+        top : '50%',
+        left : '50%',
+        right : 'auto',
+        bottom : 'auto',
+        marginRight : '-50%',
+        transform : 'translate(-50%, -50%)'
+    }
+};
+ReactModal.setAppElement('#root')
+
 class HomeNotesList extends React.Component{
     constructor(){
         super();
+        this.state = {
+            modalOpen: false
+        }
         this.onContextItemClick = this.onContextItemClick.bind(this);
     }
 
@@ -29,6 +47,8 @@ class HomeNotesList extends React.Component{
 
     render(){
         const currTeam = this.props.currTeam;
+        // get the current note selected to show in edit modal
+        const {modalOpen} = this.state;
 
         // get all of the pinned notes for this curr team and make a component
         const notesList = currTeam.teamNotes && currTeam.teamNotes.length > 0 ?
@@ -37,10 +57,17 @@ class HomeNotesList extends React.Component{
                 const lastUpdated = new Date(note.updatedAt);
                 return note.pinned ? 
                     <div key={note._id}>
+                        <ReactModal isOpen={modalOpen} onRequestClose={() => this.setState({modalOpen: false})}
+                            style={{modalStyles}}>
+                            <p className="exit-modal" onClick={() => this.setState({modalOpen: false})}>X</p>
+                            <EditNote currNote={note} currTeam={currTeam}/>
+                        </ReactModal>
                         <ContextMenuTrigger id={note._id}>
+                            { /*
                             <Link to={{pathname:`/noteslist/${currTeam._id}`, state:{currNote: note}}}
-                                className='show-note'>
-                                <Card className='home-note-content' onContextMenu={this.rightClickNote}>
+                            className='show-note'> */}
+                                <Card className='home-note-content' onContextMenu={this.rightClickNote} 
+                                    onClick={() => this.setState({modalOpen: true})}>
                                     <Grid container spacing={1}>
                                         <Grid item xs={10}>
                                             <p className='note-details'>Last updated: {lastUpdated.toLocaleString()}</p>
@@ -61,7 +88,7 @@ class HomeNotesList extends React.Component{
                                         ) : null
                                     }
                                 </Card>
-                            </Link>
+                            {/*</Link>*/}
                         </ContextMenuTrigger>
 
                         <ContextMenu id={note._id} className='context-menu-container'>
@@ -74,7 +101,7 @@ class HomeNotesList extends React.Component{
                 : null
             }) : <p>No notes yet!</p>;
 
-            return notesList;
+        return notesList;
     }
 }
 

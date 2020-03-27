@@ -8,6 +8,7 @@ import {JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, EDIT_
 // action for a given user joining a given team
 export const joinTeam = (userData, teamData) => dispatch => {
     const joinData = {userData, teamData}
+    console.log(joinData);
     axios.post('/teams/join', joinData)
         .then(res => {
             alert(res.data);

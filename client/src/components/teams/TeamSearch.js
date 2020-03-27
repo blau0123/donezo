@@ -43,6 +43,7 @@ class TeamSearch extends React.Component{
         }
 
         // call the team action that joins a given user to a given team
+        console.log(teamData);
         this.props.joinTeam(userData, teamData);
     }
 

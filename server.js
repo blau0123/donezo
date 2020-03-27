@@ -19,21 +19,6 @@ const server = http.createServer(app);
 // process.env.PORT is the port that you use if you host your app somewhere, like heroku
 const port = process.env.PORT || 5000;
 
-// serve static files from react frontend app
-app.use(express.static(path.join(__dirname, 'client/build')))
-
-if(process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/build')));
-    
-    app.get('*', (req, res) => {
-      res.sendfile(path.join(__dirname = 'client/build/index.html'));
-    })
-}
-//build mode
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/client/public/index.html'));
-})
-
 // set express middleware
 app.use(cors());
 // allow us to parse json because server receive and send json
@@ -66,15 +51,12 @@ app.use('/notes', notesRouter);
 app.use('/events', eventsRouter);
 app.use('/tags', tagsRouter);
 
-/* serve static assets (the build folder) if in production
-if (process.env.NODE_ENV === "production"){
-    // if production, set static folder
-    app.use(express.static("client/build"));
-    app.get("*", (req, res) => {
-        // load index.html file for any requests not hitting the api
-        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-    });
-}*/
+// serve static files from react frontend app
+app.use(express.static(path.join(__dirname, "client", "build")))
+//build mode
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+})
 
 let numMsgsRead = 5;
 

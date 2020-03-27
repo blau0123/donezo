@@ -114,8 +114,6 @@ class Home extends React.Component{
     }
 }
 
-//<TeamsList teams={this.state.teams} user={user} />
-
 // puts the state from the store into the props of this component
 const mapStateToProps = state => ({
     auth: state.auth,
