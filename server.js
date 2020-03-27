@@ -5,7 +5,7 @@ const path = require("path");
 const mongoose = require('mongoose');
 
 const http = require('http');
-//const socketio = require('socket.io');
+const socketio = require('socket.io');
 
 // passport is middleware for authentication
 const passport = require('passport');
@@ -14,11 +14,11 @@ const {addUser, removeUser, getUser, getUsersInTeam} = require('./routes/chatUse
 let Team = require('./models/team.model');
 
 const app = express();
-//const server = http.createServer(app);
+const server = http.createServer(app);
 
 // process.env.PORT is the port that you use if you host your app somewhere, like heroku
 const port = process.env.PORT || 5000;
-const server = app.listen(port)
+//const server = app.listen(port)
 
 // set express middleware
 app.use(cors());
@@ -62,8 +62,8 @@ app.get('*', (req, res) => {
 let numMsgsRead = 5;
 
 // web sockets for chatting
-//const io = socketio(server);
-const io = require("socket.io").listen(server);
+const io = socketio(server);
+//const io = require("socket.io").listen(server);
 io.on('connection', socket => {
     // each socket instance represents a user
     console.log('new connection');
@@ -156,8 +156,7 @@ io.on('connection', socket => {
     });
 })
 
-/* starts the server (listens on certain port)
+// starts the server (listens on certain port)
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 })
-*/

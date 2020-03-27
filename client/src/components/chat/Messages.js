@@ -13,8 +13,17 @@ class Messages extends React.Component{
             currTeam: {},
         }
         this.onScroll = this.onScroll.bind(this);
-        this.ENDPOINT = 'localhost:5000';
-        this.socket = io('localhost:5000');
+        this.ENDPOINT = "";
+        this.socket = null;
+        
+        if (process.env.NODE_ENV === "production"){
+            this.ENDPOINT = 'https://timelyy.herokuapp.com/';
+            this.socket = io('https://timelyy.herokuapp.com/');
+        }
+        else{
+            this.ENDPOINT = 'localhost:5000';
+            this.socket = io('localhost:5000');
+        }
     }
 
     static getDerivedStateFromProps(nextProps, prevState){
