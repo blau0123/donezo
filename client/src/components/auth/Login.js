@@ -58,24 +58,26 @@ class Login extends React.Component{
         const {errors} = this.state;
 
         return(
-            <div className='center container'>
-                <h1 className='title-text'>Login here.</h1>
-                <form onSubmit={this.onSubmit} className='center form-width'>
-                    <label className='create-label input-label'>Username Or Email</label>
-                    <input className='search-input' type='text' name='usernameOrEmail' 
-                        value={this.state.usernameOrEmail} onChange={this.onChange}/>
-                    <label className='create-label input-label'>Password</label>
-                    <input className='search-input' type='password' name='password' 
-                        value={this.state.password} onChange={this.onChange}/>
-                    <span className='error-text'>
-                        {errors}
-                    </span>
+            <div className='center login-container'>
+                <div className="center inner-container">
+                    <h1 className='title-text'>Login here.</h1>
+                    <form onSubmit={this.onSubmit} className='center form-width'>
+                        <label className='create-label input-label'>Username Or Email</label>
+                        <input className='search-input' type='text' name='usernameOrEmail' 
+                            value={this.state.usernameOrEmail} onChange={this.onChange}/>
+                        <label className='create-label input-label'>Password</label>
+                        <input className='search-input' type='password' name='password' 
+                            value={this.state.password} onChange={this.onChange}/>
+                        <span className='error-text'>
+                            {errors}
+                        </span>
 
-                    <input className='btn' type='submit' value='Login' />
-                    <p className='m-20'>
-                        Don't have an account? Register <Link className='blue-link' to='/register'>here</Link>
-                    </p>
-                </form>
+                        <input className='btn' type='submit' value='Login' />
+                        <p className='m-20'>
+                            Don't have an account? Register <Link className='blue-link' to='/register'>here</Link>
+                        </p>
+                    </form>
+                </div>
             </div>
         )
     }

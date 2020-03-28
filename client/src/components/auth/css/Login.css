@@ -1,15 +1,26 @@
-.container{
+.login-container{
     font-family: 'Roboto', sans-serif;
+    background-color: #779ECB;
     width: 100%;
-    margin-top: 50px;
+    height: 100vh;
+}
+
+.inner-container{
+    width: 50%;
+    padding: 20px 50px;
+    border-radius: 10px;
+    margin-bottom: 100px;
+    background-color: white;
 }
 
 .form-width{
     width: 100%;
+    margin: 10px;
 }
 
 .title-text{
     margin: 20px;
+    text-align: center;
 }
 
 .m-20{

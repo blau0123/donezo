@@ -57,30 +57,32 @@ class Register extends React.Component{
     render(){
         const {errors} = this.state;
         return(
-            <div className='center'>
-                <h1 className='title-text'>Register here.</h1>
-                <form className='center form-width' onSubmit={this.onSubmit}>
-                    <label className='create-label input-label'>Email</label>
-                    <input className='search-input' name='email' type='text' value={this.state.email} 
-                        onChange={this.onChange} />
-                    <label className='create-label input-label'>Username</label>
-                    <input className='search-input' name='username' type='text' value={this.state.username} 
-                        onChange={this.onChange} />
-                    <label className='create-label input-label'>First Name</label>
-                    <input className='search-input' name='firstName' type='text' value={this.state.firstName} 
-                        onChange={this.onChange} />
-                    <label className='create-label input-label'>Last Name</label>
-                    <input className='search-input' name='lastName' type='text' value={this.state.lastName} 
-                        onChange={this.onChange} />
-                    <label className='create-label input-label'>Password</label>
-                    <input className='search-input' name='password' type='password' value={this.state.password} 
-                        onChange={this.onChange} />
-                    <span className='error-text'>
-                        {errors}
-                    </span>         
-                    <input className='btn' type='submit' value='Register' />
-                    <p className='m-20'>Have an account already? Login <Link className='blue-link' to='/login'>here</Link></p>
-                </form>
+            <div className='center register-container'>
+                <div className="reg-inner-container">
+                    <h1 className='title-text'>Register here.</h1>
+                    <form className='center form-width' onSubmit={this.onSubmit}>
+                        <label className='create-label input-label'>Email</label>
+                        <input className='search-input' name='email' type='text' value={this.state.email} 
+                            onChange={this.onChange} />
+                        <label className='create-label input-label'>Username</label>
+                        <input className='search-input' name='username' type='text' value={this.state.username} 
+                            onChange={this.onChange} />
+                        <label className='create-label input-label'>First Name</label>
+                        <input className='search-input' name='firstName' type='text' value={this.state.firstName} 
+                            onChange={this.onChange} />
+                        <label className='create-label input-label'>Last Name</label>
+                        <input className='search-input' name='lastName' type='text' value={this.state.lastName} 
+                            onChange={this.onChange} />
+                        <label className='create-label input-label'>Password</label>
+                        <input className='search-input' name='password' type='password' value={this.state.password} 
+                            onChange={this.onChange} />
+                        <span className='error-text'>
+                            {errors}
+                        </span>         
+                        <input className='btn' type='submit' value='Register' />
+                        <p className='m-20'>Have an account already? Login <Link className='blue-link' to='/login'>here</Link></p>
+                    </form>
+                </div>
             </div>
         )
     }

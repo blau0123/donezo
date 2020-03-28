@@ -1,0 +1,13 @@
+.register-container{
+    font-family: 'Roboto', sans-serif;
+    background-color: #779ECB;
+    width: 100%;
+    height: 100vh;
+}
+
+.reg-inner-container{
+    width: 50%;
+    padding: 20px 50px;
+    border-radius: 10px;
+    background-color: white;
+}
