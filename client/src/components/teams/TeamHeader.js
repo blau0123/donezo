@@ -10,6 +10,7 @@ import MembersModal from '../modals/MembersModal';
 import TeamSettingsModal from '../modals/TeamSettingsModal';
 
 import './css/TeamHeader.css';
+import logo from "../../images/logo.png";
 import { connect } from 'react-redux';
 
 class TeamHeader extends React.Component{
@@ -91,21 +92,28 @@ class TeamHeader extends React.Component{
 
         return(
             <div className='team-header-container'>
-                <Link to='/' className='home-btn'>Home</Link>
                 <Grid container spacing={2}>
                     <Grid item xs={10}>
-                        <Dropdown className="dropdown">
-                            <Dropdown.Toggle variant='primary' id='team-selector' className='team-name-title'>
-                                {
-                                    // decide if the user is on a team or if the user hasn't selected a team yet
-                                    this.props.team.teamsList.length > 0 ? this.props.team.currTeam.teamName : "Select Team"
-                                }
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                {teamDropdownItems}
-                            </Dropdown.Menu>
-                        </Dropdown>
-                        <h4 className='team-desc'>{currTeam.teamDescription}</h4>
+                        <div className="home-dropdown-container">
+                            <Link to='/' className='home-btn'>
+                                <img src={logo} width="60px"/>
+                            </Link>
+
+                            <div className="team-select-container">
+                                <Dropdown className="dropdown">
+                                    <Dropdown.Toggle variant='primary' id='team-selector' className='team-name-title'>
+                                        {
+                                            // decide if the user is on a team or if the user hasn't selected a team yet
+                                            this.props.team.teamsList.length > 0 ? this.props.team.currTeam.teamName : "Select Team"
+                                        }
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        {teamDropdownItems}
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                                <h4 className='team-desc'>{currTeam.teamDescription}</h4>
+                            </div>
+                        </div>
                     </Grid>
                     <Grid item xs={2}>
                         <div className='members-chat'>

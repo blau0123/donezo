@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {createTeam} from '../../redux/actions/teamActions';
+import { Link } from 'react-router-dom';
 
 import './css/CreateTeam.css';
+import logo from "../../images/logo.png";
 
 class CreateTeam extends React.Component{
     constructor(props){
@@ -71,30 +73,34 @@ class CreateTeam extends React.Component{
     }
 
     render(){
-        console.log(this.props.auth);
         return(
-            <div className='create-team-container center'>
-                <h1 className='create-team-title'>Create your own team.</h1>
-                <form onSubmit={this.onSubmit} className='form-body'>
-                    <div className='form-body center'>
-                        <label className='create-label input-label'>What's your team's name?</label>
-                        <input className='search-input' name='teamName' type='text' 
-                            value={this.state.teamName} onChange={this.onChange} />
-                        <label className='create-label input-label'>
-                            How would you describe your team? Provide a description.
-                        </label>
-                        <input className='search-input' name='teamDescription' type='text' 
-                            value={this.state.teamDescription} onChange={this.onChange} />
-                        {
-                            // show any errors
-                            this.state.currErrors !== -1 ?
-                                <p className='error'>{this.possibErrors[this.state.currErrors]}</p>
-                                 : null
-                        }
-                        <input className='btn' type='submit' value='Create your team' />
-                    </div>
-                </form>
-            </div>
+            <React.Fragment>
+                <Link to='/' className='home-btn'>
+                    <img src={logo} width="60px"/>
+                </Link>
+                <div className='create-team-container center'>
+                    <h1 className='create-team-title'>Create your own team.</h1>
+                    <form onSubmit={this.onSubmit} className='form-body'>
+                        <div className='form-body center'>
+                            <label className='create-label input-label'>What's your team's name?</label>
+                            <input className='search-input' name='teamName' type='text' 
+                                value={this.state.teamName} onChange={this.onChange} />
+                            <label className='create-label input-label'>
+                                How would you describe your team? Provide a description.
+                            </label>
+                            <input className='search-input' name='teamDescription' type='text' 
+                                value={this.state.teamDescription} onChange={this.onChange} />
+                            {
+                                // show any errors
+                                this.state.currErrors !== -1 ?
+                                    <p className='error'>{this.possibErrors[this.state.currErrors]}</p>
+                                    : null
+                            }
+                            <input className='btn' type='submit' value='Create your team' />
+                        </div>
+                    </form>
+                </div>
+            </React.Fragment>
         );
     }
 }

@@ -2,6 +2,16 @@
     margin: 10px 40px;
 }
 
+.home-dropdown-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.team-select-container{
+    margin-top: 5px;
+}
+
 .team-name-title{
     font-size: 35px;
     margin-bottom: 10px;
@@ -58,5 +68,10 @@
 
 .home-btn{
     margin-left: 10px;
+    transition: transform 0.3s ease-out;
+}
+
+.home-btn:hover{
+    transform: scale(1.05);
 }
 

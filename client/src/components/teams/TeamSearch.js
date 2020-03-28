@@ -7,6 +7,7 @@ import Card from '@material-ui/core/Card';
 import JoinTeamModal from '../modals/JoinTeamModal';
 
 import './css/TeamSearch.css';
+import logo from "../../images/logo.png";
 
 class TeamSearch extends React.Component{
     constructor(){
@@ -109,7 +110,9 @@ class TeamSearch extends React.Component{
 
         return(
             <div className='search-container'>
-                <Link to='/'>Home</Link>
+                <Link to='/' className='home-btn'>
+                    <img src={logo} width="60px"/>
+                </Link>
                 <div className='search-bar'>
                     <form onSubmit={this.searchForTeamWithPrompt} className='search-bar'>
                         <h1 className='search-prompt'>Type in a team name.</h1>
