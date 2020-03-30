@@ -9,6 +9,10 @@ import HomeTodoList from '../todos/HomeTodoList';
 import HomeEventsList from '../events/HomeEventsList';
 import TeamHeader from './TeamHeader';
 import SearchResults from "./SearchResults";
+import Header from "./Header";
+import TeamSidebar from "./TeamSidebar";
+import Chat from "../chat/Chat";
+import AllNotes from "../notes/AllNotes";
 
 import './css/Team.css';
 
@@ -22,7 +26,9 @@ class Team extends React.Component{
         super(props);
 
         this.state = {
-            search:""
+            search:"",
+            // 0: chat, 1: notes, 2: todos, 3: events
+            currView: 0,
         }
     }
 
@@ -67,20 +73,39 @@ class Team extends React.Component{
         this.setState({search: evt.target.value})
     }
 
+    onChangeView = evt => {
+        this.setState({currView: evt.target.id});
+    }
+
     render(){
         // get the curr team from props that was obtained from store state after getTeamWithId called
         const {currTeam} = this.props.team;
         // get the curr user of the app
-        const {user} = this.props.auth;        
+        const {user} = this.props.auth;  
+        const {currView, search} = this.state;      
 
-        // the search bar
+        /* the search bar
         const search = 
         <div>
             <input className="search" onChange={this.onChange} value={this.state.search} placeholder="Search for something..."></input>
         </div>
-
+*/
         return(
             <div className="team-container">
+                <Header onChange={this.onChange} search={search}/>
+                <div className="sidebar-view-container">
+                    <TeamSidebar currTeam={currTeam} onChangeView={this.onChangeView} currView={currView}/>
+                    <div className="view">
+                        {
+                            parseInt(currView, 10) === 0 ?
+                                <Chat currTeam={currTeam}/> : 
+                            parseInt(currView, 10) === 1 ?
+                                <AllNotes teamid={currTeam._id}/> : <p>Loading...</p>
+                        }
+                    </div>
+                </div>
+
+                {/*
                 <div className="teamNames" key={currTeam._id}>
                     <TeamHeader currTeam={currTeam} currUser={user}/>
 
@@ -91,7 +116,6 @@ class Team extends React.Component{
                         this.state.search && this.state.search.trim().length > 0 ? <SearchResults search={this.state.search} currTeam={currTeam}/> :
                             <React.Fragment>
                                 <div className="team-notes-list h-team-list">
-                                    {/*<Link className='list-title' to={`/noteslist/${currTeam._id}`}>Notes</Link>*/}
                                     <Link className='list-title' to={`/team/${currTeam._id}/notes`}>Notes</Link>
                                     <div className='h-notes-list-container'>
                                         <HomeNotesList currTeam={currTeam} />
@@ -141,6 +165,7 @@ class Team extends React.Component{
                             </React.Fragment>
                     }
                 </div>
+                */}
             </div>
         )
         

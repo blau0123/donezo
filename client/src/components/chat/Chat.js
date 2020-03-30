@@ -34,7 +34,8 @@ const Chat = (props) => {
     */
     useEffect(() => {
         // get the user that's on the chat and the team that this chat is for
-        const {currTeam} = props.location.state;
+        //const {currTeam} = props.location.state;
+        const {currTeam} = props;
         const {user} = props.auth;
 
         socket = io(ENDPOINT);
@@ -44,7 +45,7 @@ const Chat = (props) => {
         setTeam(currTeam);
 
         // emit a join event to let the user join the team chat
-        socket.emit('join', {user, currTeam}, () => console.log('yeet'));
+        socket.emit('join', {user, currTeam}, () => console.log('User joined'));
 
         // get the chat history for this chat (obtained in backend and event is sent to frontend)
         socket.on('old msgs', msgs => {
@@ -56,7 +57,7 @@ const Chat = (props) => {
             socket.emit('disconnect');
             socket.off();
         }
-    }, [props.location.state, ENDPOINT])
+    }, [/*props.location.state*/, props, ENDPOINT])
 
     /*
     handles sending messages
@@ -89,56 +90,75 @@ const Chat = (props) => {
 
     return(
         <div ref={containerRef} className='tot-chat-container'>
-            <Grid container spacing={2}>
-                <Grid item xs={1}>
-                    <ArrowBackIosIcon fontSize='large' className='back-btn' 
-                        onClick={() => props.history.goBack()} />
-                </Grid>
-                <Grid item xs={11}>
-                    <h1 className='chat-title'>{team.teamName} Chat</h1>
-                </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={9}>
-                    <Messages msgs={messages} userName={userName} team={team}/>
-                    <input className='send-msg' value={message} onChange={evt => setMessage(evt.target.value)} 
-                        onKeyPress={evt => {
-                            return evt.key === 'Enter' ? sendMessage(evt) : null
-                        }}
-                        placeholder="Start typing here"/>
-                </Grid>
-                <Grid item xs={12} sm={3}>
-                    <h3 className='chat-member-list color-blue'>Team Members</h3>
+            {
+                team ? 
+                <React.Fragment>
                     {
-                        // show all team members in this team
-                        team.teamMembers ? team.teamMembers.map(member => {
-                            const name = member.user.firstName + ' ' + member.user.lastName;
-                            // checks if the user in the list is curr user and if the user in the list is admin
-                            return currUserId === member.user._id ?
-                                member.isAdmin ? 
-                                    <div className='admin-container'>
-                                        <GradeIcon className='admin-icon' fontSize='small' />
-                                        <p key={member._id}className='bold'>
-                                            {member.user.firstName} {member.user.lastName} (You)
-                                        </p>
-                                    </div> :
-                                    <p key={member._id}className='bold'>
-                                        {member.user.firstName} {member.user.lastName} (You)
-                                    </p> 
-                                :  member.isAdmin ? 
-                                    <div className='admin-container'>
-                                        <GradeIcon className='admin-icon' fontSize='small' />
-                                        <p key={member._id}>
-                                            {member.user.firstName} {member.user.lastName} 
-                                        </p>
-                                    </div> :
-                                    <p key={member._id}>
-                                        {member.user.firstName} {member.user.lastName}
-                                    </p>   
-                        }) : null
-                    }
-                </Grid>
-            </Grid>
+                        /*
+                    <Grid container spacing={2}>
+                        <Grid item xs={1}>
+                            <ArrowBackIosIcon fontSize='large' className='back-btn' 
+                                onClick={() => props.history.goBack()} />
+                        </Grid>
+                        <Grid item xs={11}>
+                            <h1 className='chat-title'>{team.teamName} Chat</h1>
+                        </Grid>
+                    </Grid>
+                    
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={9}>
+                            <Messages msgs={messages} userName={userName} team={team}/>
+                            <input className='send-msg' value={message} onChange={evt => setMessage(evt.target.value)} 
+                                onKeyPress={evt => {
+                                    return evt.key === 'Enter' ? sendMessage(evt) : null
+                                }}
+                                placeholder="Start typing here"/>
+                        </Grid>
+                        
+                            
+                        <Grid item xs={12} sm={3}>
+                            <h3 className='chat-member-list color-blue'>Team Members</h3>
+                            {
+                                // show all team members in this team
+                                team.teamMembers ? team.teamMembers.map(member => {
+                                    const name = member.user.firstName + ' ' + member.user.lastName;
+                                    // checks if the user in the list is curr user and if the user in the list is admin
+                                    return currUserId === member.user._id ?
+                                        member.isAdmin ? 
+                                            <div className='admin-container'>
+                                                <GradeIcon className='admin-icon' fontSize='small' />
+                                                <p key={member._id}className='bold'>
+                                                    {member.user.firstName} {member.user.lastName} (You)
+                                                </p>
+                                            </div> :
+                                            <p key={member._id}className='bold'>
+                                                {member.user.firstName} {member.user.lastName} (You)
+                                            </p> 
+                                        :  member.isAdmin ? 
+                                            <div className='admin-container'>
+                                                <GradeIcon className='admin-icon' fontSize='small' />
+                                                <p key={member._id}>
+                                                    {member.user.firstName} {member.user.lastName} 
+                                                </p>
+                                            </div> :
+                                            <p key={member._id}>
+                                                {member.user.firstName} {member.user.lastName}
+                                            </p>   
+                                }) : null
+                            }
+                        </Grid>
+                    </Grid>
+                   */}
+                    <div>
+                        <Messages msgs={messages} userName={userName} team={team}/>
+                        <input className='send-msg' value={message} onChange={evt => setMessage(evt.target.value)} 
+                            onKeyPress={evt => {
+                                return evt.key === 'Enter' ? sendMessage(evt) : null
+                            }}
+                            placeholder="Start typing here"/>
+                    </div>
+                </React.Fragment> : <p>Loading...</p>
+            }
         </div>
     )
 }

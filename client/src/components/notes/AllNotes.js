@@ -43,7 +43,8 @@ class AllNotes extends React.Component{
     componentDidMount(){
         this.setState({loading: true})
         // get the current team with the passed in id, put into props using redux
-        const {teamid} = this.props.match.params;
+        //const {teamid} = this.props.match.params;
+        const {teamid} = this.props;
         console.log(teamid);
         // get the team that the user is viewing
         this.props.getTeamWithId(teamid);
@@ -79,7 +80,6 @@ class AllNotes extends React.Component{
 
         // get the current note selected to show in edit modal
         const {currNote, modalOpen} = this.state;
-        console.log(modalOpen);
         return(
             <div className="all-notes-container" id="all-notes-container">
                 <ReactModal isOpen={modalOpen} onRequestClose={() => this.setState({modalOpen: false})}
@@ -87,14 +87,9 @@ class AllNotes extends React.Component{
                     <p className="exit-modal" onClick={() => this.setState({modalOpen: false})}>X</p>
                     <EditNote currNote={currNote} currTeam={currTeam} fromChat={this.state.fromChat}/>
                 </ReactModal>
-
-                <div className="header-container">
-                    <ArrowBackIosIcon fontSize='large' className='back-btn' 
-                        onClick={() => this.props.history.goBack()} />
-                    <h1 className="header-text">Notes</h1>
-                    <button className="add-btn" onClick={() => this.setState({modalOpen: true})}>Add</button>
-                </div>
                 
+                <button className="add-btn" onClick={() => this.setState({modalOpen: true})}>Add</button>
+
                 <h3 className="section-title">Tags</h3>
                 <div className="folder">
                 {

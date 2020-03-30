@@ -60,3 +60,10 @@
     display: inline-block;
 }
 
+.sidebar-view-container{
+    display: flex;
+}
+
+.view{
+    width: 100%;
+}

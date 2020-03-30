@@ -1,8 +1,10 @@
 .all-notes-container{
-    margin: 25px;
+    margin-left: 25px;
+    height: 100vh;
+    overflow: auto;
 }
 
-.header-container{
+.tag-header-container{
     display: flex;
 }
 

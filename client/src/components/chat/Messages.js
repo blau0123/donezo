@@ -73,7 +73,7 @@ class Messages extends React.Component{
     render(){
         const {userName, team} = this.props;
         return(
-            <div ref='containerRef' id='msgsContainer' onScroll={this.onScroll} style={{height:'70vh', overflow:'auto'}} >
+            <div ref='containerRef' id='msgsContainer' onScroll={this.onScroll} style={{height:'90vh', overflow:'auto'}} >
                 { 
                     this.state.msgs ? this.state.msgs.map((msg, i) =>
                         <div key={i}>

@@ -1,0 +1,35 @@
+.header-container{
+    width: 100%;
+    height: 50px;
+    background-color: #373F51;
+    display: flex;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.logo-name{
+    color: white;
+    margin-top: 8px;
+    margin-left: 5px;
+    font-size: 25px;
+}
+
+.search-bar-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 20px;
+    width: 100%;
+}
+
+.search-bar{
+    width: 50vw;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    padding: 1px 15px;
+}

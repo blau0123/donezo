@@ -71,7 +71,7 @@ class TagNoteList extends React.Component{
                     <EditNote currNote={currNote} currTeam={currTeam} fromChat={fromChat}/>
                 </ReactModal>
 
-                 <div className="header-container">
+                 <div className="tag-header-container">
                     <ArrowBackIosIcon fontSize='large' className='back-btn' 
                         onClick={() => this.props.history.goBack()} />
                     <h1 className="section-title">tags/{tag.title}</h1>

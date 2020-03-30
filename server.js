@@ -70,8 +70,11 @@ io.on('connection', socket => {
 
     // when a user joins a chat
     socket.on('join', ({user, currTeam}, callback) => {
+        // if the team hasn't been loaded yet, just return
+        if (!currTeam || !currTeam._id) return;
+
         const teams = connection.db.collection('teams');
-    
+
         teams.find().toArray((err, res) => {    
             console.log(res);
             const desired = res.filter(team => team._id.toHexString() === currTeam._id)[0];
