@@ -13,6 +13,7 @@ import Header from "./Header";
 import TeamSidebar from "./TeamSidebar";
 import Chat from "../chat/Chat";
 import AllNotes from "../notes/AllNotes";
+import EventList from "../events/EventList";
 
 import './css/Team.css';
 
@@ -101,7 +102,14 @@ class Team extends React.Component{
                             parseInt(currView, 10) === 0 ?
                                 <Chat currTeam={currTeam}/> : 
                             parseInt(currView, 10) === 1 ?
-                                <AllNotes teamid={currTeam._id} currView={currView}/> : <p>Loading...</p>
+                                <AllNotes teamid={currTeam._id} currView={currView}/> : 
+                            parseInt(currView, 10) === 2 ? 
+                                <div className='h-todos-container'>
+                                    <HomeTodoList currTeam={currTeam} history={this.props.history}/>
+                                </div> : 
+                            parseInt(currView, 10) === 3 ?
+                                <EventList id={currTeam._id}/>
+                            : <p>Loading...</p>
                         }
                     </div>
                 </div>

@@ -24,7 +24,8 @@ class EventList extends React.Component{
 
     componentDidMount(){
         // get the current team and store in state
-        const {id} = this.props.match.params;
+        //const {id} = this.props.match.params;
+        const {id} = this.props;
         // get the team that the user is viewing
         this.props.getTeamWithId(id);
     }
@@ -174,6 +175,7 @@ class EventList extends React.Component{
 
         return(
             <div className='event-list-container'>
+                {/*
                 <Grid container spacing={1}>
                     <Grid item xs={1}>
                         <ArrowBackIosIcon fontSize='large' className='back-btn' 
@@ -183,6 +185,7 @@ class EventList extends React.Component{
                         <h1 className='event-list-header'>Events for {currTeam.teamName}</h1>
                     </Grid>
                 </Grid>
+                */}
                 <h1 className='event-list-title'>Upcoming Events</h1>
                 <div className='all-events-container'>
                     {futureEventsCompon}

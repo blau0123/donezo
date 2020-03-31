@@ -1,5 +1,7 @@
 .event-list-container{
     font-family: 'Roboto', sans-serif;
+    margin-left: 20px;
+    margin-top: 20px;
 }
 
 .event-list-title{

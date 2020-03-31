@@ -95,7 +95,12 @@ class HomeTodoList extends React.Component{
                     </ContextMenu>
                 </div>
             ) : <p>No todos yet!</p>;
-        return todosList;
+        return(
+            <div>
+                <h3 className="todos-title">Todos</h3>
+                {todosList}
+            </div>
+        );
     }
 }
 

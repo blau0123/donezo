@@ -1,7 +1,7 @@
 .todo-container{
     padding-left: 20px;
     padding-top: 20px;
-    margin: 10px;
+    margin: 20px 60px;
     transition: all .3s ease-in-out;
     width: 85%;
 }
@@ -26,4 +26,8 @@
 
 .todo-tag{
     margin-bottom: 15px;
+}
+
+.todos-title{
+    margin: 30px 60px;
 }
