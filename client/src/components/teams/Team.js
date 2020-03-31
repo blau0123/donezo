@@ -16,7 +16,8 @@ import AllNotes from "../notes/AllNotes";
 
 import './css/Team.css';
 
-import {getTeamWithId, getAllTeams, completeTeamTodo, deleteTeamTodo} from '../../redux/actions/teamActions';
+import {getTeamWithId, getAllTeams, completeTeamTodo, deleteTeamTodo,
+    changeCurrView} from '../../redux/actions/teamActions';
 
 /*
 Depends on the id of the team passed in, shows the team with that id
@@ -27,8 +28,6 @@ class Team extends React.Component{
 
         this.state = {
             search:"",
-            // 0: chat, 1: notes, 2: todos, 3: events
-            currView: 0,
         }
     }
 
@@ -74,15 +73,16 @@ class Team extends React.Component{
     }
 
     onChangeView = evt => {
-        this.setState({currView: evt.target.id});
+        // change the currView state in the redux store
+        this.props.changeCurrView(evt.target.id);
     }
 
     render(){
         // get the curr team from props that was obtained from store state after getTeamWithId called
-        const {currTeam} = this.props.team;
+        const {currTeam, currView} = this.props.team;
         // get the curr user of the app
         const {user} = this.props.auth;  
-        const {currView, search} = this.state;      
+        const {search} = this.state;      
 
         /* the search bar
         const search = 
@@ -97,10 +97,11 @@ class Team extends React.Component{
                     <TeamSidebar currTeam={currTeam} onChangeView={this.onChangeView} currView={currView}/>
                     <div className="view">
                         {
+                            // 0: chat, 1: notes, 2: todos, 3: events
                             parseInt(currView, 10) === 0 ?
                                 <Chat currTeam={currTeam}/> : 
                             parseInt(currView, 10) === 1 ?
-                                <AllNotes teamid={currTeam._id}/> : <p>Loading...</p>
+                                <AllNotes teamid={currTeam._id} currView={currView}/> : <p>Loading...</p>
                         }
                     </div>
                 </div>
@@ -180,4 +181,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {getTeamWithId, getAllTeams, completeTeamTodo,
-        deleteTeamTodo})(Team);
+        deleteTeamTodo, changeCurrView})(Team);

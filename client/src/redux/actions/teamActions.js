@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {JOIN_TEAM, GET_TEAMS_WITH_PROMPT, GET_TEAM_WITH_ID, GET_ALL_TEAMS, EDIT_TEAM,
             ADD_TODO_TO_TEAM, COMPLETE_TODO, DELETE_TODO, EDIT_TODO,
-            ADD_CHAT_MSG,
+            ADD_CHAT_MSG, CHANGE_VIEWS,
             GET_CHAT_HISTORY} from './types';
 
 // action for a given user joining a given team
@@ -174,4 +174,11 @@ export const getChatHistory = (teamData) => dispatch => {
                 payload: res.data,
             })
         })
+}
+
+export const changeCurrView = newView => dispatch => {
+    dispatch({
+        type: CHANGE_VIEWS,
+        payload: newView,
+    })
 }

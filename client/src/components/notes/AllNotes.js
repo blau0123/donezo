@@ -67,8 +67,8 @@ class AllNotes extends React.Component{
     }
 
     render(){
-        // get the curr team from props (put into props in componentDidMount)
-        const {currTeam} = this.props.team;
+        // get the curr team from props (put into props in componentDidMount) and current view for the sidebar
+        const {currTeam, currView} = this.props.team;
         // get a list of all tags (will be folders)
         const {teamTags} = currTeam;
         const {teamNotes} = currTeam;
@@ -87,7 +87,7 @@ class AllNotes extends React.Component{
                     <p className="exit-modal" onClick={() => this.setState({modalOpen: false})}>X</p>
                     <EditNote currNote={currNote} currTeam={currTeam} fromChat={this.state.fromChat}/>
                 </ReactModal>
-                
+
                 <button className="add-btn" onClick={() => this.setState({modalOpen: true})}>Add</button>
 
                 <h3 className="section-title">Tags</h3>
@@ -121,7 +121,7 @@ class AllNotes extends React.Component{
                 {
                     // render unpinned notes after pinned notes
                    unpinnedNotes && unpinnedNotes.length > 0 ? unpinnedNotes.map(note =>
-                    <div onClick={() => this.setState({modalOpen: true})}>
+                    <div key={note._id} onClick={() => this.setState({modalOpen: true})}>
                         <NoteView key={note._id} currTeam={currTeam} note={note} currNote={this.state.currNote} 
                             setCurrNote={this.setCurrNote}/>
                     </div>

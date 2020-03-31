@@ -12,7 +12,7 @@ class TeamSidebar extends React.Component{
             : "";
         return(
             <div className="sidebar-container">
-                <h3 className="sidebar-text team-name">{teamName}</h3>
+                <h3 className="sidebar-text side-team-name">{teamName}</h3>
                 <h3 id={0} className="sidebar-text view-option" onClick={onChangeView}
                     style={{backgroundColor: parseInt(currView, 10) === 0 ? "#373F51" : "#A9BCD0"}}>Chat</h3>
                 <h3 id={1} className="sidebar-text view-option" onClick={onChangeView}
