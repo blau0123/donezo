@@ -3,6 +3,16 @@
     overflow: hidden;
 }
 
+.loading-container{
+    display: flex;
+    margin-top: 30vh;
+    justify-content: center;
+}
+
+.loading-text{
+    font-size: 55px;
+}
+
 .list-title{
     color:#779ECB;
     text-decoration: none;

@@ -91,28 +91,40 @@ class Team extends React.Component{
             <input className="search" onChange={this.onChange} value={this.state.search} placeholder="Search for something..."></input>
         </div>
 */
+
+        const loadingBuffer = 
+        <div className="loading-container">
+            <h3 className="loading-text">Loading...</h3>
+        </div>
+
         return(
             <div className="team-container">
-                <Header onChange={this.onChange} search={search}/>
-                <div className="sidebar-view-container">
-                    <TeamSidebar currTeam={currTeam} onChangeView={this.onChangeView} currView={currView}/>
-                    <div className="view">
-                        {
-                            // 0: chat, 1: notes, 2: todos, 3: events
-                            parseInt(currView, 10) === 0 ?
-                                <Chat currTeam={currTeam}/> : 
-                            parseInt(currView, 10) === 1 ?
-                                <AllNotes teamid={currTeam._id} currView={currView}/> : 
-                            parseInt(currView, 10) === 2 ? 
-                                <div className='h-todos-container'>
-                                    <HomeTodoList currTeam={currTeam} history={this.props.history}/>
-                                </div> : 
-                            parseInt(currView, 10) === 3 ?
-                                <EventList id={currTeam._id}/>
-                            : <p>Loading...</p>
-                        }
-                    </div>
-                </div>
+                {
+                    // wait for the team to load first before showing anything
+                    currTeam._id ? 
+                        <React.Fragment>
+                            <Header onChange={this.onChange} search={search}/>
+                            <div className="sidebar-view-container">
+                                <TeamSidebar currTeam={currTeam} onChangeView={this.onChangeView} currView={currView}/>
+                                <div className="view">
+                                    {
+                                        // 0: chat, 1: notes, 2: todos, 3: events
+                                        parseInt(currView, 10) === 0 ?
+                                            <Chat currTeam={currTeam}/> : 
+                                        parseInt(currView, 10) === 1 ?
+                                            <AllNotes teamid={currTeam._id} currView={currView}/> : 
+                                        parseInt(currView, 10) === 2 ? 
+                                            <div className='h-todos-container'>
+                                                <HomeTodoList currTeam={currTeam} history={this.props.history}/>
+                                            </div> : 
+                                        parseInt(currView, 10) === 3 ?
+                                            <EventList id={currTeam._id}/>
+                                        : <p>Loading...</p>
+                                    }
+                                </div>
+                            </div>
+                        </React.Fragment> : loadingBuffer
+                }
 
                 {/*
                 <div className="teamNames" key={currTeam._id}>
