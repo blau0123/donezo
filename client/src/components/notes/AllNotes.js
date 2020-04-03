@@ -88,25 +88,31 @@ class AllNotes extends React.Component{
                     <EditNote currNote={currNote} currTeam={currTeam} fromChat={this.state.fromChat}/>
                 </ReactModal>
 
-                <button className="add-btn" onClick={() => this.setState({modalOpen: true})}>Add</button>
-
-                <h3 className="section-title">Tags</h3>
-                <div className="folder">
-                {
-                    // render all team tags as a folder
-                    teamTags && teamTags.length > 0 ? teamTags.map(tag => 
-                        <Link to={{
-                                pathname: `/team/${currTeam._id}/notes/tag/${tag._id}`,
-                                state: { currTeam, tag }
-                            }} key={tag._id} className="tag-folder-link">
-                            <p className="tag-folder-item">
-                                <FolderIcon className="folder-icon"/>
-                                {tag.title}
-                            </p>
-                        </Link>
-                    ) : null
-                }
+                <div className="tags-add-container">
+                    <div className="tags-container">
+                        <h3 className="section-title">Tags</h3>
+                        <div className="folder">
+                        {
+                            // render all team tags as a folder
+                            teamTags && teamTags.length > 0 ? teamTags.map(tag => 
+                                <Link to={{
+                                        pathname: `/team/${currTeam._id}/notes/tag/${tag._id}`,
+                                        state: { currTeam, tag }
+                                    }} key={tag._id} className="tag-folder-link">
+                                    <p className="tag-folder-item">
+                                        <FolderIcon className="folder-icon"/>
+                                        {tag.title}
+                                    </p>
+                                </Link>
+                            ) : null
+                        }
+                        </div>
+                    </div>
+                    <div className="add-btn-container">
+                        <button className="add-btn" onClick={() => this.setState({modalOpen: true})}>New</button>
+                    </div>
                 </div>
+               
                 <h3 className="section-title">Untagged notes</h3>
                 <div className="untagged-notes">
                 {
