@@ -44,3 +44,8 @@
     color: #888888;
     transform: scale(1.05);
 }
+
+.team-name-title:focus{
+    background-color: white;
+    color: #888888;
+}

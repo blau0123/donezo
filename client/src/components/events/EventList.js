@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {Link} from 'react-router-dom';
+import AddEvent from "./AddEvent";
 
 // for right click context menu to delete
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
@@ -13,10 +14,30 @@ import {deleteEvent} from '../../redux/actions/eventActions';
 import {connect} from 'react-redux';
 
 import './css/EventList.css';
+import "../../css/main.css";
+
+// modal for editing and adding an event
+import ReactModal from 'react-modal';
+const modalStyles = {
+    content : {
+        top : '50%',
+        left : '50%',
+        right : 'auto',
+        bottom : 'auto',
+        marginRight : '-50%',
+        transform : 'translate(-50%, -50%)'
+    }
+};
+ReactModal.setAppElement('#root')
 
 class EventList extends React.Component{
     constructor(){
         super();
+
+        this.state = {
+            modalOpen: false
+        }
+
         this.sortEvents = this.sortEvents.bind(this);
         this.sortFutureEvents = this.sortFutureEvents.bind(this);
         this.onContextItemClick = this.onContextItemClick.bind(this);
@@ -69,6 +90,7 @@ class EventList extends React.Component{
 
     render(){
         const {currTeam} = this.props.team;
+        const {modalOpen} = this.state;
 
         const eventsList = currTeam.teamEvents;
         // sort events by date
@@ -175,22 +197,23 @@ class EventList extends React.Component{
 
         return(
             <div className='event-list-container'>
-                {/*
-                <Grid container spacing={1}>
-                    <Grid item xs={1}>
-                        <ArrowBackIosIcon fontSize='large' className='back-btn' 
-                            onClick={() => this.props.history.goBack()} />
-                    </Grid>
-                    <Grid item xs={10}>
-                        <h1 className='event-list-header'>Events for {currTeam.teamName}</h1>
-                    </Grid>
-                </Grid>
-                */}
-                <h1 className='event-list-title'>Upcoming Events</h1>
-                <div className='all-events-container'>
-                    {futureEventsCompon}
+                <ReactModal isOpen={modalOpen} onRequestClose={() => this.setState({modalOpen: false})}
+                    style={{modalStyles}}>
+                    <p className="exit-modal" onClick={() => this.setState({modalOpen: false})}>X</p>
+                    <AddEvent currTeam={currTeam} />
+                </ReactModal>
+                <div className="add-event-side">
+                    <div className="future-evts">
+                        <h1 className='event-list-title title'>Upcoming Events</h1>
+                        <div className='all-events-container'>
+                            {futureEventsCompon}
+                        </div>
+                    </div>
+                    <div className="add-evt-container">
+                        <button className="white-btn" onClick={() => this.setState({modalOpen: true})}>New</button>
+                    </div>
                 </div>
-                <h1 className='event-list-title'>Past Events</h1>
+                <h1 className='event-list-title title'>Past Events</h1>
                 <div className='all-events-container'>
                     {pastEventsCompon}
                 </div>

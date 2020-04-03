@@ -12,3 +12,32 @@
     color: white;
     transform: scale(1.05);
 }
+
+.btn:focus{
+    outline: none;
+}
+
+.white-btn{
+    padding: 10px 30px;
+    height: 50px;
+    border: none;
+    color: #888888;
+    background-color: white;
+    box-shadow: 1px 1px 5px #ccc;
+    border-radius: 10px;
+    transition: transform 0.3s ease-out;
+    outline: none;
+}
+
+.white-btn:focus{
+    outline: none;
+}
+
+.white-btn:hover{
+    transform: scale(1.05);
+}
+
+.title{
+    color: #888888;
+    font-size: 20px;
+}

@@ -2,7 +2,7 @@ import axios from 'axios';
 import {ADD_EVENT_TO_TEAM, DELETE_EVENT, UPDATE_EVENT} from './types';
 
 // add a note to the notes list for a given team
-export const addEventToTeam = (teamData, eventData) => dispatch => {
+export const addEventToTeam = (teamData, eventData, callback) => dispatch => {
     axios.post('/events/add', {teamData, eventData})
         .then(res1 => {
             console.log(res1);
@@ -18,6 +18,8 @@ export const addEventToTeam = (teamData, eventData) => dispatch => {
                         type: ADD_EVENT_TO_TEAM,
                         payload: res1.data,
                     })
+
+                    callback();
                 })
                 
         })

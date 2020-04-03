@@ -5,8 +5,7 @@
 }
 
 .event-list-title{
-    margin: 15px 20px;
-    font-size: 30px;
+    margin: 10px 20px;
 }
 
 .event-list-header{
@@ -48,4 +47,18 @@
 
 .no-event-text{
     margin: 15px 20px;
+}
+
+.add-event-side{
+    display: flex;
+}
+
+.add-evt-container{
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.future-evts{
+    width: 60%;
 }

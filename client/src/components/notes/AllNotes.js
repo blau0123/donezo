@@ -14,6 +14,7 @@ import FolderIcon from '@material-ui/icons/Folder';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 import "./css/AllNotes.css";
+import "../../css/main.css";
 
 // modal for editing and adding a note
 import ReactModal from 'react-modal';
@@ -109,7 +110,7 @@ class AllNotes extends React.Component{
                         </div>
                     </div>
                     <div className="add-btn-container">
-                        <button className="add-btn" onClick={() => this.setState({modalOpen: true})}>New</button>
+                        <button className="add-btn white-btn" onClick={() => this.setState({modalOpen: true})}>New</button>
                     </div>
                 </div>
                

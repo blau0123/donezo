@@ -53,7 +53,8 @@ class AddEvent extends React.Component{
         evt.preventDefault();
         const {user} = this.props.auth;
         // get team data passed in by state from team.js
-        const {teamData} = this.props.location.state;
+        //const {teamData} = this.props.location.state;
+        const teamData = this.props.currTeam;
 
         if (this.state.startTime > this.state.endTime){
             alert('Your start time must be earlier than your end time');
@@ -69,8 +70,8 @@ class AddEvent extends React.Component{
             author: user.firstName + ' ' + user.lastName,
         }
 
-        this.props.addEventToTeam(teamData, newEvent);
-        this.props.history.push(`/team/${teamData._id}`);
+        this.props.addEventToTeam(teamData, newEvent, () => window.location.reload());
+        //this.props.history.push(`/team/${teamData._id}`);
     }
 
     render(){
