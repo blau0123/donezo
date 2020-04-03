@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import AddTag from "../tags/AddTag";
 
 import './css/AddTodo.css';
+import "../../css/main.css";
 
 class AddTodo extends React.Component{
     constructor(){
@@ -20,12 +21,12 @@ class AddTodo extends React.Component{
     }
 
     componentDidMount(){
-        // if came from a message, then set the body to the message
+        /* if came from a message, then set the body to the message
         if (this.props.location.state){
             this.setState({
                 todoText: this.props.location.state.todoText
             })
-        }
+        }*/
     }
 
     onChange(evt){
@@ -54,7 +55,8 @@ class AddTodo extends React.Component{
     onSubmitTodo(evt){
         evt.preventDefault();
 
-        const {teamData} = this.props.location.state;
+        //const {teamData} = this.props.location.state;
+        const {teamData} = this.props;
         const {user} = this.props.auth;
         const todoData = {
             todoText: this.state.todoText,
@@ -66,7 +68,7 @@ class AddTodo extends React.Component{
 
         // add todo to team and redirect back to the team home
         this.props.addTodoToTeam(teamData, todoData);
-        this.props.history.goBack();
+        //this.props.history.goBack();
     }
 
     addTag = evt => {
@@ -89,7 +91,8 @@ class AddTodo extends React.Component{
         }
 
         // get current team
-        const currTeam = this.props.location.state.teamData;
+        //const currTeam = this.props.location.state.teamData;
+        const currTeam = this.props.teamData;
         const {teamTags} = currTeam;
         let selTag = {}
         for (let i = 0; i < teamTags.length; i++){
@@ -108,7 +111,8 @@ class AddTodo extends React.Component{
 
     render(){
         // get current team
-        const {teamData} = this.props.location.state;
+        //const {teamData} = this.props.location.state;
+        const {teamData} = this.props;
         const membersList = teamData.teamMembers;
         const {tags} = this.state;
         console.log(teamData);
@@ -124,13 +128,12 @@ class AddTodo extends React.Component{
 
         return(
             <div className='edit-todo-container'>
-                <h1 className='edit-todo-title'>What do you want to accomplish?</h1>
-                <form className='edit-todo-form'>
+                <form className='edit-todo-form todo-form'>
                     <input className='todo-input' name='todoText' type='text' 
                         onChange={this.onChange} value={this.state.todoText} />
 
                     <Dropdown className='assign-dropdown'>
-                        <Dropdown.Toggle id='team-selector'>
+                        <Dropdown.Toggle id='team-selector user-selector-toggle'>
                             {
                                 // decide if the user is on a team or if the user hasn't selected a team yet
                                 this.state.assignee.length > 0 ? this.state.assignee : "None"
@@ -143,9 +146,8 @@ class AddTodo extends React.Component{
                             {memberDropdownItems}
                         </Dropdown.Menu>
                     </Dropdown>
-
-                    <AddTag tags={tags} addTag={this.addTag} deleteTag={this.deleteTag} currTeam={teamData}/>
                 </form>
+                <AddTag tags={tags} addTag={this.addTag} deleteTag={this.deleteTag} currTeam={teamData}/>
                 <button className='submit-btn btn' onClick={this.onSubmitTodo}>Submit</button>
             </div>
         )

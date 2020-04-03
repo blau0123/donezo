@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import {Link} from 'react-router-dom';
 import Card from '@material-ui/core/Card'
 import {completeTeamTodo, deleteTeamTodo} from '../../redux/actions/teamActions';
+import AddTodo from "./AddTodo";
 
 // for right click context menu to delete
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
@@ -97,7 +98,7 @@ class HomeTodoList extends React.Component{
             ) : <p>No todos yet!</p>;
         return(
             <div>
-                <h3 className="todos-title">Todos</h3>
+                <AddTodo teamData={currTeam}/>
                 {todosList}
             </div>
         );

@@ -21,18 +21,18 @@
 
 .todo-input{
     margin: 20px 10px 20px 40px;
-    font-size: 20px;
+    font-size: 15px;
     padding: 5px 15px;
-    width: 60%;
-    border-radius: 10px;
-    border-width: 1px;
-}
-
-.todo-input:focus{
-    border-color: #779ECB;
+    width: 80%;
+    border-radius: 15px;
+    outline: none;
 }
 
 .assign-dropdown{
     margin: 20px 40px 20px 10px;
+}
+
+.user-selector-title:hover{
+    background-color: #A9BCD0;
 }
 
