@@ -78,9 +78,27 @@ class Team extends React.Component{
         this.props.changeCurrView(evt.target.id);
     }
 
+    /*
+        checks if the user is in the teamMember list of this team
+        Used when creating the dropdown menu of teams the user is in
+    */
+    isUserInTeam = team => {
+        // check if user is in the team
+        const {user} = this.props.auth;
+        const teamMembers = team.teamMembers;
+        let isInTeam = false;
+        for (let i = 0; i < teamMembers.length; i++){
+            if (teamMembers[i].user._id === user.id){
+                isInTeam = true;
+                break;
+            }
+        }
+        return isInTeam;
+    }
+
     render(){
         // get the curr team from props that was obtained from store state after getTeamWithId called
-        const {currTeam, currView} = this.props.team;
+        const {currTeam, currView, teamsList} = this.props.team;
         // get the curr user of the app
         const {user} = this.props.auth;  
         const {search} = this.state;      
@@ -105,7 +123,8 @@ class Team extends React.Component{
                         <React.Fragment>
                             <Header onChange={this.onChange} search={search}/>
                             <div className="sidebar-view-container">
-                                <TeamSidebar currTeam={currTeam} onChangeView={this.onChangeView} currView={currView}/>
+                                <TeamSidebar currTeam={currTeam} onChangeView={this.onChangeView} currView={currView} 
+                                   isUserInTeam={this.isUserInTeam} teamsList={teamsList} />
                                 <div className="view">
                                     {
                                         // 0: chat, 1: notes, 2: todos, 3: events

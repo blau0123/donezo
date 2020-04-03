@@ -7,7 +7,6 @@
 .sidebar-container{
     min-height: 95vh;
     width: 18vw;
-    background-color: #A9BCD0;
     display: flex;
     flex-direction: column;
 }
@@ -19,11 +18,29 @@
 }
 
 .view-option{
-    font-size: 20px;
+    font-size: 15px;
     padding: 15px 25px;
     margin: 0;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 
 .view-option:hover{
     cursor: pointer;
+}
+
+.team-name-title{
+    font-size: 18px;
+    max-width: 15vw;
+    margin: 20px 10px;
+    background-color: white;
+    box-shadow: 1px 1px 5px #ccc;
+    color: #888888;
+    transition: transform 0.3s ease-out;
+}
+
+.team-name-title:hover{
+    background-color: white;
+    color: #888888;
+    transform: scale(1.05);
 }
